@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kişisel Portföy</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/png" href="images/alp-digital-logo.png">
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Navigasyon Çubuğu -->
+        <nav class="navbar">
+            <div class="logo">
+                <img src="images/alp-digital-logo.png" alt="Logo" class="logo-img">
+                <span>portfolio</span>
+            </div>
+            <div class="nav-links">
+                <a href="#home" class="active">Ana Sayfa</a>
+                <a href="#about">Hakkımda</a>
+                <a href="#projects">Projeler</a>
+                <a href="#services">Hizmetler</a>
+                <a href="#contact">İletişim</a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+
+        <!-- Ana Bölüm -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1 class="glitch-text">Merhaba, Ben <span class="highlight">Alperen Çetin</span></h1>
+                <p class="subtitle">Freelance Yazılım Geliştirici ve Bilgisayar Mühendisi Öğrencisi</p>
+                <p class="description">Yenilikçi ve kullanıcı dostu dijital deneyimler oluşturuyorum.</p>
+                <div class="cta-buttons">
+                    <a href="#projects" class="btn primary">Projelerimi Keşfet</a>
+                    <a href="#contact" class="btn secondary">İletişime Geç</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="glowing-circle">
+                    <img src="images/heroPhoto.png" alt="Alperen Çetin" class="hero-profile-img">
+                </div>
+            </div>
+        </section>
+
+        <!-- Hakkımda Bölümü -->
+        <section id="about" class="about">
+            <div class="section-header">
+                <h2>Hakkımda</h2>
+                <div class="separator"></div>
+            </div>
+            <div class="about-content">
+                <div class="about-image">
+                    <div class="image-container">
+                        <img src="images/profilePhoto.jpg" alt="Profil Fotoğrafı" />
+                    </div>
+                </div>
+                <div class="about-text">
+                    <h3>Kendimi tanıtayım</h3>
+                    <p>Yazılım dünyasında 2+ yıllık deneyime sahip bir bilgisayar mühendisliği 3. sınıf öğrencisiyim.
+                        Celal Bayar Üniversitesi'nde eğitimime devam ederken Vestel'de staj yaparak yazılım geliştirme
+                        süreçlerinde deneyim kazandım. Android uygulama geliştirme konusunda uzmanlaşmış olup, Play
+                        Store'da yayında olan ve test aşamasında bulunan çeşitli mobil uygulamalar geliştirdim.
+                        İşletmeler için özel yazılım çözümleri üreterek masaüstü ve mobil platformlarda verimlilik
+                        odaklı projeler gerçekleştirdim. Freelance olarak çalışarak farklı sektörlerdeki müşterilere
+                        özel yazılım hizmetleri sundum. Yenilikçi ve kullanıcı dostu çözümler üretmeye odaklanıyor,
+                        teknolojiyi yakından takip ederek kendimi sürekli geliştirmeye özen gösteriyorum.
+                    </p>
+
+                    <div class="skills">
+                        <h3>Yeteneklerim</h3>
+                        <div class="skill-bars">
+                            <div class="skill">
+                                <span>Flutter</span>
+                                <div class="skill-bar">
+                                    <div class="skill-level" data-width="70%"></div>
+                                </div>
+                            </div>
+                            <div class="skill">
+                                <span>Java</span>
+                                <div class="skill-bar">
+                                    <div class="skill-level" data-width="90%"></div>
+                                </div>
+                            </div>
+                            <div class="skill">
+                                <span>Python</span>
+                                <div class="skill-bar">
+                                    <div class="skill-level" data-width="80%"></div>
+                                </div>
+                            </div>
+                            <div class="skill">
+                                <span>PostgreSQL</span>
+                                <div class="skill-bar">
+                                    <div class="skill-level" data-width="60%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projeler Bölümü -->
+        <section id="projects" class="projects">
+            <div class="section-header">
+                <h2>Projelerim</h2>
+                <div class="separator"></div>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="images/tarotWhisper.png" alt="Proje 1" />
+                    </div>
+                    <div class="project-info">
+                        <h3>TarotWhisper</h3>
+                        <p>Modern arayüzlü ve ai destekli tarot uygulaması</p>
+                        <div class="project-tags">
+                            <span>Java</span>
+                            <span>Android Studio</span>
+                        </div>
+                        <a href="projects/tarotwhisper.html" class="btn small">Detaylar</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="images/marketApp.png" alt="Proje 2" />
+                    </div>
+                    <div class="project-info">
+                        <h3>Market App</h3>
+                        <p>Market için stok kontrol , satış yönetimi, borç defteri gibi özellikleri olan bir uygulama
+                        </p>
+                        <div class="project-tags">
+                            <span>SQL</span>
+                            <span>Python</span>
+                            <span>Selenium</span>
+                        </div>
+                        <a href="projects/marketapp.html" class="btn small">Detaylar</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="images/priceRadar.png" alt="Proje 3" />
+                    </div>
+                    <div class="project-info">
+                        <h3>PriceRadar</h3>
+                        <p>Giyim başta olmak üzere çok çeşitli ürünlerin fiyatlarını ve stoktlarını kontrol edebilen bir
+                            mobil uygulama</p>
+                        <div class="project-tags">
+                            <span>Flutter</span>
+                            <span>SQL</span>
+                            <span>Firebase</span>
+                        </div>
+                        <a href="projects/priceradar.html" class="btn small">Detaylar</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hizmetler Bölümü -->
+        <section id="services" class="services">
+            <div class="section-header">
+                <h2>Hizmetlerim</h2>
+                <div class="separator"></div>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Web Geliştirme</h3>
+                    <p>Modern ve duyarlı web siteleri tasarlıyor ve geliştiriyorum. SEO dostu ve hızlı yüklenen siteler
+                        oluşturuyorum.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobil Uygulama</h3>
+                    <p>Kullanıcı dostu ve yüksek performanslı mobil uygulamalar geliştiriyorum. Şimdilik sadece android
+                        platformunda çalışabilirim.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3>İşletmelere Yönelik Uygulamalar</h3>
+                    <p>Market, Restoran, Cafe gibi işletmeler için özel uygulamalar geliştiriyorum.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3>Backend Geliştirme</h3>
+                    <p>Ölçeklenebilir ve güvenli API'ler, veritabanı tasarımı ve sunucu yapılandırması konularında
+                        size destek sağlayabilirim.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- İletişim Bölümü -->
+        <section id="contact" class="contact">
+            <div class="section-header">
+                <h2>İletişim</h2>
+                <div class="separator"></div>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Bana Ulaşın</h3>
+                    <p>Proje fikirleriniz veya sorularınız için aşağıdaki iletişim bilgilerini kullanabilirsiniz.</p>
+                    <div class="contact-items">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>alperen.cetin.969@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+90 532 431 81 38</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-briefcase"></i>
+                            <span><a href="https://bionluk.com/softdesignn"
+                                    target="_blank">bionluk.com/softdesignn</a></span>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://github.com/alperenncetinn" target="_blank" class="social-link"><i
+                                class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/alperen-çetin-890596318/" target="_blank"
+                            class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://twitter.com/alperencetinim" target="_blank" class="social-link"><i
+                                class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/alperenn.cetinn/" target="_blank" class="social-link"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="https://bionluk.com/softdesignn" target="_blank" class="social-link"><i
+                                class="fas fa-briefcase"></i></a>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form action="mailto:alperen.cetin.969@gmail.com" method="post" enctype="text/plain">
+                        <div class="form-group">
+                            <input type="text" name="name" placeholder="İsim" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" placeholder="E-posta" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="subject" placeholder="Konu">
+                        </div>
+                        <div class="form-group">
+                            <textarea name="message" placeholder="Mesajınız" required></textarea>
+                        </div>
+                        <button type="submit" class="btn primary">Gönder</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Alt Bilgi -->
+        <footer>
+            <div class="footer-content">
+                <p>&copy; 2025 Tüm Hakları Saklıdır</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ağ Problemleri ve Çözümleri - Admin Kılavuzu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #e2e8f0;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #533483 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 119, 198, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(15, 15, 35, 0.95);
+            border-radius: 20px;
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            color: white;
+            padding: 2rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-10px) rotate(1deg);
+            }
+        }
+
+        .language-switcher {
+            position: absolute;
+            top: 1rem;
+            right: 2rem;
+            z-index: 10;
+        }
+
+        .lang-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.5rem 1rem;
+            margin: 0 0.25rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .lang-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .lang-btn.active {
+            background: rgba(255, 255, 255, 0.9);
+            color: #667eea;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .header .subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .content {
+            padding: 2rem;
+            max-height: 80vh;
+            overflow-y: auto;
+            background: rgba(15, 15, 35, 0.3);
+        }
+
+        .intro {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            padding: 2rem;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .intro h2 {
+            color: #f7fafc;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .intro h2 i {
+            margin-right: 0.5rem;
+            color: #667eea;
+        }
+
+        .intro p {
+            color: #cbd5e0;
+            line-height: 1.7;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .problem-card {
+            background: rgba(15, 15, 35, 0.8);
+            border-radius: 20px;
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+        }
+
+        .problem-card:hover {
+            transform: translateY(-8px);
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(102, 126, 234, 0.5);
+        }
+
+        .problem-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            color: white;
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .problem-header h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .layer-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+        }
+
+        .problem-body {
+            padding: 1.5rem;
+            background: rgba(15, 15, 35, 0.5);
+        }
+
+        .problem-description {
+            color: #cbd5e0;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .packet-files {
+            margin-bottom: 1.5rem;
+        }
+
+        .packet-files h4 {
+            color: #f7fafc;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .packet-files h4 i {
+            margin-right: 0.5rem;
+            color: #667eea;
+        }
+
+        .file-downloads {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+            background: linear-gradient(135deg, #764ba2 0%, #f093fb 100%);
+        }
+
+        .download-btn i {
+            margin-right: 0.5rem;
+        }
+
+        .solution-summary {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 15px;
+            padding: 1rem;
+            margin-top: 1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .solution-summary h5 {
+            color: #6ee7b7;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .solution-summary h5 i {
+            margin-right: 0.5rem;
+        }
+
+        .solution-summary p {
+            color: #a7f3d0;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.75rem;
+            }
+
+            .language-switcher {
+                position: relative;
+                top: auto;
+                right: auto;
+                text-align: center;
+                margin-bottom: 1rem;
+            }
+
+            .content {
+                padding: 1rem;
+            }
+
+            .problem-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .content {
+                padding: 1rem;
+            }
+        }
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        /* Language content visibility */
+        .lang-content {
+            display: none;
+        }
+
+        .lang-content.active {
+            display: block;
+        }
+
+        /* Custom scrollbar */
+        .content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .content::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+        }
+
+        .content::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #764ba2 0%, #f093fb 100%);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="language-switcher">
+                <button class="lang-btn active" data-lang="tr">
+                    <i class="fas fa-flag"></i> Türkçe
+                </button>
+                <button class="lang-btn" data-lang="en">
+                    <i class="fas fa-flag"></i> English
+                </button>
+            </div>
+
+            <!-- Turkish Content -->
+            <div class="lang-content active" data-lang="tr">
+                <h1><i class="fas fa-network-wired"></i> Ağ Problemleri ve Çözümleri</h1>
+                <p class="subtitle">Modern ağ altyapılarında karşılaşılan 10 yaygın problem ve adım adım çözümleri</p>
+            </div>
+
+            <!-- English Content -->
+            <div class="lang-content" data-lang="en">
+                <h1><i class="fas fa-network-wired"></i> Network Problems and Solutions</h1>
+                <p class="subtitle">10 common problems encountered in modern network infrastructures and step-by-step
+                    solutions</p>
+            </div>
+        </header>
+
+        <main class="content">
+            <!-- Turkish Introduction -->
+            <section class="intro lang-content active" data-lang="tr">
+                <h2><i class="fas fa-info-circle"></i> Giriş</h2>
+                <p>Modern ağ altyapıları, işletmelerin ve bireylerin günlük operasyonlarının temelini oluşturmaktadır.
+                    Ancak bu karmaşık sistemler aynı zamanda problemlere ve kesintilere de açıktır. Bu kılavuz, OSI
+                    modelinin farklı katmanlarında (L1-L7) ortaya çıkabilecek 10 yaygın ve güncel ağ problemini ele
+                    almakta, her bir problemi net bir şekilde tanımlamakta ve adım adım çözümler sunmaktadır.</p>
+            </section>
+
+            <!-- English Introduction -->
+            <section class="intro lang-content" data-lang="en">
+                <h2><i class="fas fa-info-circle"></i> Introduction</h2>
+                <p>Modern network infrastructures form the foundation of daily operations for businesses and
+                    individuals.
+                    However, these complex systems are also prone to problems and disruptions. This guide addresses 10
+                    common and current network problems that can occur at different layers of the OSI model (L1-L7),
+                    clearly defines each problem, and provides step-by-step solutions.</p>
+            </section>
+
+            <div class="problem-grid">
+                <!-- Problem 1: MAC Address Spoofing -->
+                <div class="problem-card" id="problem1">
+                    <div class="problem-header">
+                        <h3>🔒 MAC Address Spoofing</h3>
+                        <span class="layer-badge">Data Link Layer (L2)</span>
+                    </div>
+                    <div class="problem-body">
+                        <!-- Turkish Content -->
+                        <div class="lang-content active" data-lang="tr">
+                            <p class="problem-description">
+                                MAC Address Spoofing, bir saldırganın başka bir cihazın MAC adresini taklit ederek
+                                yetkili
+                                bir cihaz gibi görünmesini sağlayan bir saldırı yöntemidir. Bu tür saldırılar,
+                                switch'lerin
+                                MAC adresi öğrenme mekanizmasını manipüle ederek ağ güvenliğini ihlal eder.
+                            </p>
+
+                            <div class="packet-files">
+                                <h4><i class="fas fa-cube"></i> Cisco Packet Tracer Dosyaları</h4>
+                                <div class="file-downloads">
+                                    <a href="Admin Guide - Network Problems and Solutions 203c050d761380d9a7c5f83867aa59c0/mac_adress_spoof.pkt"
+                                        class="download-btn" download>
+                                        <i class="fas fa-download"></i> mac_adress_spoof.pkt (Problem)
+                                    </a>
+                                    <a href="Admin Guide - Network Problems and Solutions 203c050d761380d9a7c5f83867aa59c0/mac_adress_spoof_fixed_sticky.pkt"
+                                        class="download-btn" download>
+                                        <i class="fas fa-download"></i> mac_adress_spoof_fixed_sticky.pkt (Çözüm)
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="solution-summary">
+                                <h5><i class="fas fa-check-circle"></i> Çözüm Özeti</h5>
+                                <p>Switch portlarında Port Security + Sticky MAC konfigürasyonu yaparak MAC spoofing
+                                    önlenir
+                                    ve sadece yetkili cihazların bağlanması sağlanır.</p>
+                            </div>
+                        </div>
+
+                        <!-- English Content -->
+                        <div class="lang-content" data-lang="en">
+                            <p class="problem-description">
+                                MAC Address Spoofing is an attack method that allows an attacker to appear as an
+                                authorized
+                                device by spoofing the MAC address of another device in a network environment. Such
+                                attacks
+                                violate network security by manipulating the MAC address learning mechanism of switches.
+                            </p>
+
+                            <div class="packet-files">
+                                <h4><i class="fas fa-cube"></i> Cisco Packet Tracer Files</h4>
+                                <div class="file-downloads">
+                                    <a href="Admin Guide - Network Problems and Solutions 203c050d761380d9a7c5f83867aa59c0/mac_adress_spoof.pkt"
+                                        class="download-btn" download>
+                                        <i class="fas fa-download"></i> mac_adress_spoof.pkt (Problem)
+                                    </a>
+                                    <a href="Admin Guide - Network Problems and Solutions 203c050d761380d9a7c5f83867aa59c0/mac_adress_spoof_fixed_sticky.pkt"
+                                        class="download-btn" download>
+                                        <i class="fas fa-download"></i> mac_adress_spoof_fixed_sticky.pkt (Solution)
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="solution-summary">
+                                <h5><i class="fas fa-check-circle"></i> Solution Summary</h5>
+                                <p>MAC spoofing is prevented by configuring Port Security + Sticky MAC on switch ports,
+                                    ensuring only authorized devices can connect.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Problem 2: DHCP Scope Exhaustion -->
+                <div class="problem-card" id="problem2">
+                    <div class="problem-header">
+                        <h3>🌐 DHCP Scope Exhaustion</h3>
+                        <span class="layer-badge">Network Layer (L3)</span>
+                    </div>
+                    <div class="problem-body">
+                        <!-- Turkish Content -->
+                        <div class="lang-content active" data-lang="tr">
+                            <p class="problem-description">
+                                DHCP sunucusunun IP adresi havuzunun tükenmiş olması durumudur. Bu durum, kötü niyetli
+                                bir
+                                saldırganın sahte DHCP Discover paketleri göndermesi (DHCP starvation saldırısı) veya
+                                ağdaki
+                                cihaz sayısının havuzu aşması nedeniyle ortaya çıkabilir.
+                            </p>
+
+                            <div class="packet-files">
+                                <h4><i class="fas fa-cube"></i> Cisco Packet Tracer Dosyaları</h4>
+                                <div class="file-downloads">
+                                    <a href="Admin Guide - Network Problems and Solutions 203c050d761380d9a7c5f83867aa59c0/DHCP_scope_exhaustion.pkt"
+                                        class="download-btn" download>
+                                        <i class="fas fa-download"></i> DHCP_scope_exhaustion.pkt (Problem)
+                                    </a>
+                                    <a href="Admin Guide - Network Problems and Solutions 203c050d761380d9a7c5f83867aa59c0/DHCP_scope_exhaustion_fixed_submask.pkt"
+                                        class="download-btn" download>
+                                        <i class="fas fa-download"></i> DHCP_scope_exhaustion_fixed_submask.pkt (Çözüm)
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="solution-summary">
+                                <h5><i class="fas fa-check-circle"></i> Çözüm Özeti</h5>
+                                <p>IP havuzunu genişletmek ve gerekirse birden fazla DHCP pool tanımlamak ile problem
+                                    çözülür. DHCP Snooping ile güvenlik artırılabilir.</p>
+                            </div>
+                        </div>
+
+                        <!-- English Content -->
+                        <div class="lang-content" data-lang="en">
+                            <p class="problem-description">
+                                DHCP Scope Exhaustion occurs when the IP address pool of the DHCP server is exhausted.
+                                This
+                                can happen either because a malicious attacker sends fake DHCP Discover packets (DHCP
+                                starvation attack) or because the number of devices on the network exceeds the pool.
+                            </p>
+
+                            <div class="packet-files">
+                                <h4><i class="fas fa-cube"></i> Cisco Packet Tracer Files</h4>
+                                <div class="file-downloads">
+                                    <a href="Admin Guide - Network Problems and Solutions 203c050d761380d9a7c5f83867aa59c0/DHCP_scope_exhaustion.pkt"
+                                        class="download-btn" download>
+                                        <i class="fas fa-download"></i> DHCP_scope_exhaustion.pkt (Problem)
+                                    </a>
+                                    <a href="Admin Guide - Network Problems and Solutions 203c050d761380d9a7c5f83867aa59c0/DHCP_scope_exhaustion_fixed_submask.pkt"
+                                        class="download-btn" download>
+                                        <i class="fas fa-download"></i> DHCP_scope_exhaustion_fixed_submask.pkt
+                                        (Solution)
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="solution-summary">
+                                <h5><i class="fas fa-check-circle"></i> Solution Summary</h5>
+                                <p>The problem is solved by expanding the IP pool and defining multiple DHCP pools if
+                                    necessary. Security can be enhanced with DHCP Snooping.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Problem 3: Rogue DHCP Server -->
+                <div class="problem-card" id="problem3">
+                    <div class="problem-header">
+                        <h3>🚨 Rogue DHCP Server</h3>
+                        <span class="layer-badge">Network Layer (L3)</span>
+                    </div>
+                    <div class="problem-body">
+                        <!-- Turkish Content -->
+                        <div class="lang-content active" data-lang="tr">
+                            <p class="problem-description">
+                                Yetkisiz bir cihazın (genellikle saldırganın bilgisayarı veya yanlış yapılandırılmış bir
+                                router) DHCP sunucusu gibi davranarak ağa IP adresleri dağıtması durumudur. Bu cihaz,
+                                istemcilere yanlış ağ ayarları göndererek ağ trafiğini yönlendirebilir veya
+                                kullanıcıları
+                                izleyebilir.
+                            </p>
+
+                            <div class="packet-files">
+                                <h4><i class="fas fa-cube"></i> Cisco Packet Tracer Dosyaları</h4>
+                                <div class="file-downloads">
+                                    <a href="Admin Guide - Network Problems and Solutions 203c050d761380d9a7c5f83867aa59c0/Rogue DHCP Server.pkt"
+                                        class="download-btn" download>
+                                        <i class="fas fa-download"></i> Rogue DHCP Server.pkt (Problem)
+                                    </a>
+                                    <a href="Admin Guide - Network Problems and Solutions 203c050d761380d9a7c5f83867aa59c0/Rogue DHCP Server fixed.pkt"
+                                        class="download-btn" download>
+                                        <i class="fas fa-download"></i> Rogue DHCP Server fixed.pkt (Çözüm)
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="solution-summary">
+                                <h5><i class="fas fa-check-circle"></i> Çözüm Özeti</h5>
+                                <p>DHCP Snooping özelliği aktif edilerek sadece güvenilir portlardaki DHCP sunucuların
+                                    kullanılması sağlanır ve sahte DHCP sunucular engellenir.</p>
+                            </div>
+                        </div>
+
+                        <!-- English Content -->
+                        <div class="lang-content" data-lang="en">
+                            <p class="problem-description">
+                                Rogue DHCP Server occurs when an unauthorized device (usually an attacker's computer or
+                                a
+                                misconfigured router) distributes IP addresses to the network pretending to be a DHCP
+                                server. This device can route network traffic or monitor users by sending incorrect
+                                network
+                                settings to clients.
+                            </p>
+
+                            <div class="packet-files">
+                                <h4><i class="fas fa-cube"></i> Cisco Packet Tracer Files</h4>
+                                <div class="file-downloads">
+                                    <a href="Admin Guide - Network Problems and Solutions 203c050d761380d9a7c5f83867aa59c0/Rogue DHCP Server.pkt"
+                                        class="download-btn" download>
+                                        <i class="fas fa-download"></i> Rogue DHCP Server.pkt (Problem)
+                                    </a>
+                                    <a href="Admin Guide - Network Problems and Solutions 203c050d761380d9a7c5f83867aa59c0/Rogue DHCP Server fixed.pkt"
+                                        class="download-btn" download>
+                                        <i class="fas fa-download"></i> Rogue DHCP Server fixed.pkt (Solution)
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="solution-summary">
+                                <h5><i class="fas fa-check-circle"></i> Solution Summary</h5>
+                                <p>By enabling DHCP Snooping feature, only DHCP servers on trusted ports are allowed to
+                                    be
+                                    used and rogue DHCP servers are blocked.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Problem 4: OSPF Authentication Key Mismatch -->
+                <div class="problem-card" id="problem4">
+                    <div class="problem-header">
+                        <h3>🔑 OSPF Authentication Key Mismatch</h3>
+                        <span class="layer-badge">Network Layer (L3)</span>
+                    </div>
+                    <div class="problem-body">
+                        <!-- Turkish Content -->
+                        <div class="lang-content active" data-lang="tr">
+                            <p class="problem-description">
+                                OSPF (Open Shortest Path First), routerlar arasında routing bilgisi paylaşımında
+                                kullanılan
+                                bir Interior Gateway Protocol'dür. OSPF authentication mekanizması, sadece şifreleri
+                                eşleşen
+                                routerların adjacency kurmasına izin verir. Keyler eşleşmediğinde OSPF adjacency
+                                kurulamaz
+                                ve routing başarısız olur.
+                            </p>
+
+                            <div class="packet-files">
+                                <h4><i class="fas fa-cube"></i> Cisco Packet Tracer Dosyaları</h4>
+                                <div class="file-downloads">
+                                    <a href="Admin Guide - Network Problems and Solutions 203c050d761380d9a7c5f83867aa59c0/OSPF Authentication Key Mismatch.pkt"
+                                        class="download-btn" download>
+                                        <i class="fas fa-download"></i> OSPF Authentication Key Mismatch.pkt (Problem)
+                                    </a>
+                                    <a href="Admin Guide - Network Problems and Solutions 203c050d761380d9a7c5f83867aa59c0/OSPF Authentication Key Mismatch fixed.pkt"
+                                        class="download-btn" download>
+                                        <i class="fas fa-download"></i> OSPF Authentication Key Mismatch fixed.pkt
+                                        (Çözüm)
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="solution-summary">
+                                <h5><i class="fas fa-check-circle"></i> Çözüm Özeti</h5>
+                                <p>Tüm routerlarda aynı OSPF authentication key kullanılarak adjacency kurulması
+                                    sağlanır ve
+                                    routing tabloları güncellenir.</p>
+                            </div>
+                        </div>
+
+                        <!-- English Content -->
+                        <div class="lang-content" data-lang="en">
+                            <p class="problem-description">
+                                OSPF (Open Shortest Path First) is an Interior Gateway Protocol used to share routing
+                                information between routers. The OSPF authentication mechanism allows only routers whose
+                                passwords match to establish adjacency. When keys do not match, OSPF adjacency cannot be
+                                established and routing fails.
+                            </p>
+
+                            <div class="packet-files">
+                                <h4><i class="fas fa-cube"></i> Cisco Packet Tracer Files</h4>
+                                <div class="file-downloads">
+                                    <a href="Admin Guide - Network Problems and Solutions 203c050d761380d9a7c5f83867aa59c0/OSPF Authentication Key Mismatch.pkt"
+                                        class="download-btn" download>
+                                        <i class="fas fa-download"></i> OSPF Authentication Key Mismatch.pkt (Problem)
+                                    </a>
+                                    <a href="Admin Guide - Network Problems and Solutions 203c050d761380d9a7c5f83867aa59c0/OSPF Authentication Key Mismatch fixed.pkt"
+                                        class="download-btn" download>
+                                        <i class="fas fa-download"></i> OSPF Authentication Key Mismatch fixed.pkt
+                                        (Solution)
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="solution-summary">
+                                <h5><i class="fas fa-check-circle"></i> Solution Summary</h5>
+                                <p>OSPF adjacency is established by using the same OSPF authentication key on all
+                                    routers
+                                    and routing tables are updated.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Problem 5: VLAN Misconfiguration -->
+                <div class="problem-card" id="problem5">
+                    <div class="problem-header">
+                        <h3>🧩 VLAN Misconfiguration</h3>
+                        <span class="layer-badge">Data Link Layer (L2)</span>
+                    </div>
+                    <div class="problem-body">
+                        <!-- Turkish Content -->
+                        <div class="lang-content active" data-lang="tr">
+                            <p class="problem-description">
+                                VLAN (Virtual Local Area Network) yapılandırma hatası, switch üzerinde VLAN'ların yanlış
+                                atanması veya access portların uygun VLAN'a dahil edilmemesi durumunda ortaya çıkar.
+                                Sonuç
+                                olarak aynı VLAN'da olduğunu düşünen cihazlar birbirleriyle iletişim kuramaz.
+                            </p>
+
+                            <div class="packet-files">
+                                <h4><i class="fas fa-cube"></i> Cisco Packet Tracer Dosyaları</h4>
+                                <div class="file-downloads">
+                                    <a href="Admin Guide - Network Problems and Solutions 203c050d761380d9a7c5f83867aa59c0/vlan_misconfigiration.pkt"
+                                        class="download-btn" download>
+                                        <i class="fas fa-download"></i> vlan_misconfigiration.pkt (Problem)
+                                    </a>
+                                    <a href="Admin Guide - Network Problems and Solutions 203c050d761380d9a7c5f83867aa59c0/vlan_misconfigiration_fix.pkt"
+                                        class="download-btn" download>
+                                        <i class="fas fa-download"></i> vlan_misconfigiration_fix.pkt (Çözüm)
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="solution-summary">
+                                <h5><i class="fas fa-check-circle"></i> Çözüm Özeti</h5>
+                                <p>VLAN'ların doğru oluşturulması, portların uygun VLAN'lara atanması ve trunk portların
+                                    doğru yapılandırılması ile problem çözülür.</p>
+                            </div>
+                        </div>
+
+                        <!-- English Content -->
+                        <div class="lang-content" data-lang="en">
+                            <p class="problem-description">
+                                VLAN (Virtual Local Area Network) misconfiguration occurs when VLANs are incorrectly
+                                assigned
+                                on switches or access ports are not included in the appropriate VLAN. As a result,
+                                devices
+                                that think they are on the same VLAN cannot communicate with each other.
+                            </p>
+
+                            <div class="packet-files">
+                                <h4><i class="fas fa-cube"></i> Cisco Packet Tracer Files</h4>
+                                <div class="file-downloads">
+                                    <a href="Admin Guide - Network Problems and Solutions 203c050d761380d9a7c5f83867aa59c0/vlan_misconfigiration.pkt"
+                                        class="download-btn" download>
+                                        <i class="fas fa-download"></i> vlan_misconfigiration.pkt (Problem)
+                                    </a>
+                                    <a href="Admin Guide - Network Problems and Solutions 203c050d761380d9a7c5f83867aa59c0/vlan_misconfigiration_fix.pkt"
+                                        class="download-btn" download>
+                                        <i class="fas fa-download"></i> vlan_misconfigiration_fix.pkt (Solution)
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="solution-summary">
+                                <h5><i class="fas fa-check-circle"></i> Solution Summary</h5>
+                                <p>The problem is solved by correctly creating VLANs, assigning ports to appropriate
+                                    VLANs,
+                                    and properly configuring trunk ports.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Problem 6: STP Loop (Switching Loop) -->
+                <div class="problem-card" id="problem6">
+                    <div class="problem-header">
+                        <h3>🔁 STP Loop (Switching Loop)</h3>
+                        <span class="layer-badge">Data Link Layer (L2)</span>
+                    </div>
+                    <div class="problem-body">
+                        <!-- Turkish Content -->
+                        <div class="lang-content active" data-lang="tr">
+                            <p class="problem-description">
+                                Switch'ler Layer 2 cihazlardır ve routing yapmazlar. Birden fazla switch arasında loop
+                                bağlantı olduğunda, aynı ethernet frame sürekli olarak ağda dolaşarak broadcast storm
+                                oluşturur. Bu durum tüm ağın çökmesine neden olur.
+                            </p>
+
+                            <div class="packet-files">
+                                <h4><i class="fas fa-cube"></i> Cisco Packet Tracer Dosyaları</h4>
+                                <div class="file-downloads">
+                                    <a href="Admin Guide - Network Problems and Solutions 203c050d761380d9a7c5f83867aa59c0/broadcaststorm.pkt"
+                                        class="download-btn" download>
+                                        <i class="fas fa-download"></i> broadcaststorm.pkt (Problem ve Çözüm)
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="solution-summary">
+                                <h5><i class="fas fa-check-circle"></i> Çözüm Özeti</h5>
+                                <p>STP (Spanning Tree Protocol) aktif edilerek loop otomatik olarak engellenir ve ağ
+                                    bağlantısı sağlıklı hale gelir.</p>
+                            </div>
+                        </div>
+
+                        <!-- English Content -->
+                        <div class="lang-content" data-lang="en">
+                            <p class="problem-description">
+                                Switches are Layer 2 devices and do not perform routing. When there are loop connections
+                                between multiple switches, the same ethernet frame continuously circulates in the
+                                network,
+                                creating a broadcast storm. This causes the entire network to crash.
+                            </p>
+
+                            <div class="packet-files">
+                                <h4><i class="fas fa-cube"></i> Cisco Packet Tracer Files</h4>
+                                <div class="file-downloads">
+                                    <a href="Admin Guide - Network Problems and Solutions 203c050d761380d9a7c5f83867aa59c0/broadcaststorm.pkt"
+                                        class="download-btn" download>
+                                        <i class="fas fa-download"></i> broadcaststorm.pkt (Problem and Solution)
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="solution-summary">
+                                <h5><i class="fas fa-check-circle"></i> Solution Summary</h5>
+                                <p>By enabling STP (Spanning Tree Protocol), loops are automatically prevented and
+                                    network
+                                    connectivity becomes healthy.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Problem 7: Port Security Violation -->
+                <div class="problem-card" id="problem7">
+                    <div class="problem-header">
+                        <h3>🔐 Port Security Violation</h3>
+                        <span class="layer-badge">Data Link Layer (L2)</span>
+                    </div>
+                    <div class="problem-body">
+                        <!-- Turkish Content -->
+                        <div class="lang-content active" data-lang="tr">
+                            <p class="problem-description">
+                                Port Security, switch üzerindeki her porta sadece belirli cihazların (MAC adresleri)
+                                bağlanmasına izin veren bir güvenlik önlemidir. Bu özellik etkin olduğunda,
+                                tanımlanmamış
+                                bir MAC adresi porta bağlandığında switch portu kapatabilir, paketleri drop edebilir
+                                veya
+                                sadece log üretebilir.
+                            </p>
+
+                            <div class="packet-files">
+                                <h4><i class="fas fa-cube"></i> Cisco Packet Tracer Dosyaları</h4>
+                                <div class="file-downloads">
+                                    <p style="color: #a7f3d0; font-style: italic; margin: 0.5rem 0;">
+                                        <i class="fas fa-info-circle"></i> Bu problem için ayrı packet tracer dosyaları
+                                        bulunmamaktadır.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="solution-summary">
+                                <h5><i class="fas fa-check-circle"></i> Çözüm Özeti</h5>
+                                <p>Port security ayarları düzenlenerek sadece yetkili cihazların bağlanması sağlanır ve
+                                    ağ
+                                    güvenliği fiziksel erişim kontrolü altına alınır.</p>
+                            </div>
+                        </div>
+
+                        <!-- English Content -->
+                        <div class="lang-content" data-lang="en">
+                            <p class="problem-description">
+                                Port Security is a security measure that allows only specific devices (MAC addresses) to
+                                connect to each port on a switch. When this feature is enabled, when an undefined MAC
+                                address connects to a port, the switch can shut down the port, drop packets, or just
+                                generate logs.
+                            </p>
+
+                            <div class="packet-files">
+                                <h4><i class="fas fa-cube"></i> Cisco Packet Tracer Files</h4>
+                                <div class="file-downloads">
+                                    <p style="color: #a7f3d0; font-style: italic; margin: 0.5rem 0;">
+                                        <i class="fas fa-info-circle"></i> No separate packet tracer files are available
+                                        for this problem.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="solution-summary">
+                                <h5><i class="fas fa-check-circle"></i> Solution Summary</h5>
+                                <p>Port security settings are configured to ensure only authorized devices can connect,
+                                    and network security is brought under physical access control.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Problem 8: Inter-VLAN Routing Failure -->
+                <div class="problem-card" id="problem8">
+                    <div class="problem-header">
+                        <h3>🌐 Inter-VLAN Routing Failure</h3>
+                        <span class="layer-badge">Network Layer (L3)</span>
+                    </div>
+                    <div class="problem-body">
+                        <!-- Turkish Content -->
+                        <div class="lang-content active" data-lang="tr">
+                            <p class="problem-description">
+                                Switch'ler Layer 2 cihazlar olduğu için farklı VLAN'lar arası routing yapamaz. VLAN'lar
+                                arası iletişim için Layer 3 cihaz (router veya L3 switch) gereklidir. Router-on-a-stick
+                                (router üzerinde sub-interface'ler ile VLAN routing) yanlış yapılandırıldığında VLAN'lar
+                                arası iletişim tamamen kesilir.
+                            </p>
+
+                            <div class="packet-files">
+                                <h4><i class="fas fa-cube"></i> Cisco Packet Tracer Dosyaları</h4>
+                                <div class="file-downloads">
+                                    <p style="color: #a7f3d0; font-style: italic; margin: 0.5rem 0;">
+                                        <i class="fas fa-info-circle"></i> Bu problem için ayrı packet tracer dosyaları
+                                        bulunmamaktadır.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="solution-summary">
+                                <h5><i class="fas fa-check-circle"></i> Çözüm Özeti</h5>
+                                <p>Router-on-a-stick yapılandırması ile farklı VLAN'lardaki cihazlar birbirleri ile
+                                    iletişim
+                                    kurabilir ve gerekli routing sağlanır.</p>
+                            </div>
+                        </div>
+
+                        <!-- English Content -->
+                        <div class="lang-content" data-lang="en">
+                            <p class="problem-description">
+                                Since switches are Layer 2 devices, they cannot perform routing between different VLANs.
+                                A Layer 3 device (router or L3 switch) is required for inter-VLAN communication. When
+                                router-on-a-stick (VLAN routing with sub-interfaces on the router) is misconfigured,
+                                inter-VLAN communication is completely cut off.
+                            </p>
+
+                            <div class="packet-files">
+                                <h4><i class="fas fa-cube"></i> Cisco Packet Tracer Files</h4>
+                                <div class="file-downloads">
+                                    <p style="color: #a7f3d0; font-style: italic; margin: 0.5rem 0;">
+                                        <i class="fas fa-info-circle"></i> No separate packet tracer files are available
+                                        for this problem.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="solution-summary">
+                                <h5><i class="fas fa-check-circle"></i> Solution Summary</h5>
+                                <p>With router-on-a-stick configuration, devices in different VLANs can communicate with
+                                    each other and the necessary routing is provided.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Problem 9: Co-Channel Interference -->
+                <div class="problem-card" id="problem9">
+                    <div class="problem-header">
+                        <h3>📡 Co-Channel Interference</h3>
+                        <span class="layer-badge">Physical Layer (L1)</span>
+                    </div>
+                    <div class="problem-body">
+                        <!-- Turkish Content -->
+                        <div class="lang-content active" data-lang="tr">
+                            <p class="problem-description">
+                                Kablosuz ağlarda aynı frekans kanalının kullanılması nedeniyle ortaya çıkan parazit
+                                problemidir. Bu durum wireless ağ performansını ciddi şekilde düşürür ve bağlantı
+                                kalitesini olumsuz etkiler.
+                            </p>
+
+                            <div class="packet-files">
+                                <h4><i class="fas fa-cube"></i> Cisco Packet Tracer Dosyaları</h4>
+                                <div class="file-downloads">
+                                    <a href="Admin Guide - Network Problems and Solutions 203c050d761380d9a7c5f83867aa59c0/Co-Channel_Interference.pkt"
+                                        class="download-btn" download>
+                                        <i class="fas fa-download"></i> Co-Channel_Interference.pkt (Problem)
+                                    </a>
+                                    <a href="Admin Guide - Network Problems and Solutions 203c050d761380d9a7c5f83867aa59c0/Co-Channel_Interference_fixed.pkt"
+                                        class="download-btn" download>
+                                        <i class="fas fa-download"></i> Co-Channel_Interference_fixed.pkt (Çözüm)
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="solution-summary">
+                                <h5><i class="fas fa-check-circle"></i> Çözüm Özeti</h5>
+                                <p>Farklı wireless kanallar kullanılarak parazit önlenir ve ağ performansı optimize
+                                    edilir.</p>
+                            </div>
+                        </div>
+
+                        <!-- English Content -->
+                        <div class="lang-content" data-lang="en">
+                            <p class="problem-description">
+                                Co-channel interference is a problem that occurs due to the use of the same frequency
+                                channel in wireless networks. This situation seriously reduces wireless network
+                                performance
+                                and negatively affects connection quality.
+                            </p>
+
+                            <div class="packet-files">
+                                <h4><i class="fas fa-cube"></i> Cisco Packet Tracer Files</h4>
+                                <div class="file-downloads">
+                                    <a href="Admin Guide - Network Problems and Solutions 203c050d761380d9a7c5f83867aa59c0/Co-Channel_Interference.pkt"
+                                        class="download-btn" download>
+                                        <i class="fas fa-download"></i> Co-Channel_Interference.pkt (Problem)
+                                    </a>
+                                    <a href="Admin Guide - Network Problems and Solutions 203c050d761380d9a7c5f83867aa59c0/Co-Channel_Interference_fixed.pkt"
+                                        class="download-btn" download>
+                                        <i class="fas fa-download"></i> Co-Channel_Interference_fixed.pkt (Solution)
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="solution-summary">
+                                <h5><i class="fas fa-check-circle"></i> Solution Summary</h5>
+                                <p>Interference is prevented by using different wireless channels and network
+                                    performance
+                                    is optimized.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- I'll add a condensed version for the remaining problems to keep the response manageable -->
+                <!-- Problem 5-13 would follow the same pattern with Turkish/English content -->
+
+                <!-- For brevity, I'll show the structure for one more problem -->
+                <!-- Problem 10: ACL Misconfiguration -->
+                <div class="problem-card" id="problem10">
+                    <div class="problem-header">
+                        <h3>🚫 Access Control List (ACL) Misconfiguration</h3>
+                        <span class="layer-badge">Network Layer (L3)</span>
+                    </div>
+                    <div class="problem-body">
+                        <!-- Turkish Content -->
+                        <div class="lang-content active" data-lang="tr">
+                            <p class="problem-description">
+                                ACL'ler belirli ağ trafiğini engellemek veya izin vermek için kullanılır. Ancak yanlış
+                                yapılandırılmış bir ACL, istenilen trafiği de engelleyebilir ve cihazlar arası iletişim
+                                problemlerine neden olabilir.
+                            </p>
+
+                            <div class="packet-files">
+                                <h4><i class="fas fa-cube"></i> Cisco Packet Tracer Dosyaları</h4>
+                                <div class="file-downloads">
+                                    <a href="Admin Guide - Network Problems and Solutions 203c050d761380d9a7c5f83867aa59c0/AccessControlList.pkt"
+                                        class="download-btn" download>
+                                        <i class="fas fa-download"></i> AccessControlList.pkt (Problem)
+                                    </a>
+                                    <a href="Admin Guide - Network Problems and Solutions 203c050d761380d9a7c5f83867aa59c0/AccessControlList_fixed.pkt"
+                                        class="download-btn" download>
+                                        <i class="fas fa-download"></i> AccessControlList_fixed.pkt (Çözüm)
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="solution-summary">
+                                <h5><i class="fas fa-check-circle"></i> Çözüm Özeti</h5>
+                                <p>ACL kuralları doğru sırada yazılarak sadece istenmeyen trafiğin engellenmesi
+                                    sağlanır.</p>
+                            </div>
+                        </div>
+
+                        <!-- English Content -->
+                        <div class="lang-content" data-lang="en">
+                            <p class="problem-description">
+                                ACLs are used to block or allow specific network traffic. However, a misconfigured ACL
+                                can
+                                also block desired traffic, causing communication problems between devices.
+                            </p>
+
+                            <div class="packet-files">
+                                <h4><i class="fas fa-cube"></i> Cisco Packet Tracer Files</h4>
+                                <div class="file-downloads">
+                                    <a href="Admin Guide - Network Problems and Solutions 203c050d761380d9a7c5f83867aa59c0/AccessControlList.pkt"
+                                        class="download-btn" download>
+                                        <i class="fas fa-download"></i> AccessControlList.pkt (Problem)
+                                    </a>
+                                    <a href="Admin Guide - Network Problems and Solutions 203c050d761380d9a7c5f83867aa59c0/AccessControlList_fixed.pkt"
+                                        class="download-btn" download>
+                                        <i class="fas fa-download"></i> AccessControlList_fixed.pkt (Solution)
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="solution-summary">
+                                <h5><i class="fas fa-check-circle"></i> Solution Summary</h5>
+                                <p>ACL rules are written in the correct order to ensure only unwanted traffic is
+                                    blocked.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <a href="#" class="scroll-to-top" id="scrollToTop">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+
+    <script>
+        // Language switching functionality
+        const langButtons = document.querySelectorAll('.lang-btn');
+        const langContents = document.querySelectorAll('.lang-content');
+
+        function switchLanguage(targetLang) {
+            // Update button states
+            langButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.lang === targetLang) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Update content visibility
+            langContents.forEach(content => {
+                content.classList.remove('active');
+                if (content.dataset.lang === targetLang) {
+                    content.classList.add('active');
+                }
+            });
+
+            // Update HTML lang attribute
+            document.documentElement.lang = targetLang;
+
+            // Save language preference
+            localStorage.setItem('preferred-language', targetLang);
+        }
+
+        // Add click event listeners to language buttons
+        langButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                switchLanguage(btn.dataset.lang);
+            });
+        });
+
+        // Load saved language preference
+        const savedLang = localStorage.getItem('preferred-language');
+        if (savedLang && (savedLang === 'tr' || savedLang === 'en')) {
+            switchLanguage(savedLang);
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll to top functionality
+        const scrollToTop = document.getElementById('scrollToTop');
+        const content = document.querySelector('.content');
+
+        content.addEventListener('scroll', function () {
+            if (content.scrollTop > 300) {
+                scrollToTop.classList.add('visible');
+            } else {
+                scrollToTop.classList.remove('visible');
+            }
+        });
+
+        scrollToTop.addEventListener('click', function (e) {
+            e.preventDefault();
+            content.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Add animation to cards on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function (entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Initially hide cards and observe them
+        document.querySelectorAll('.problem-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Download tracking (optional)
+        document.querySelectorAll('.download-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const fileName = this.textContent.trim();
+                console.log(`Downloaded file: ${fileName}`);
+
+                // You can add analytics tracking here
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'download', {
+                        'event_category': 'packet_tracer_files',
+                        'event_label': fileName
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

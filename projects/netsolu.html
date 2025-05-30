@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NetSolu - Ağ Problemleri ve Çözümleri</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        .project-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .project-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-card i {
+            font-size: 2.5rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .tech-tag {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .demo-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .demo-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .demo-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .demo-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 1rem;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 1000;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(-5px);
+        }
+    </style>
+</head>
+
+<body>
+    <a href="../index.html" class="back-btn">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <div class="project-hero">
+        <h1>NetSolutionOnCisco</h1>
+        <p>Ağ Problemleri ve Çözümleri - Kapsamlı Admin Kılavuzu</p>
+    </div>
+
+    <div class="project-content">
+        <section class="project-overview">
+            <h2>Proje Hakkında</h2>
+            <p>Bu proje cisco router ve switch için modern kılavuz ve admin pdf kılavuzudur.</p>
+
+            <div class="tech-stack">
+                <span class="tech-tag">Cisco CLI</span>
+                <span class="tech-tag">Computer Network</span>
+                <span class="tech-tag">HTTP</span>
+                <span class="tech-tag">ICMP</span>
+                <span class="tech-tag">NAT</span>
+                <span class="tech-tag">ACL</span>
+                <span class="tech-tag">Layered OSI Model</span>
+                <span class="tech-tag">DHCP</span>
+            </div>
+        </section>
+
+
+        <section class="demo-section">
+            <h2>Kılavuzlar</h2>
+            <p>Modern Kılavuzu ve Admin PDF Kılavuzunu inceleyebilirsiniz.(If you want to see english version, click the
+                button this page)</p>
+            <div class="demo-buttons">
+                <a href="netsol/modern-network-guide.html" class="demo-btn" target="_blank">
+                    <i class="fas fa-external-link-alt"></i>
+                    Modern Kılavuz
+                </a>
+                <a href="netsol/Admin Guide - Network Problems and Solutions 203c050d761380d9a7c5f83867aa59c0.html"
+                    class="demo-btn" target="_blank">
+                    <i class="fas fa-book"></i>
+                    Admin PDF Kılavuzu
+                </a>
+            </div>
+        </section>
+
+    </div>
+</body>
+
+</html>

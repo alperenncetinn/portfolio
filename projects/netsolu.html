@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NetSolu - Ağ Problemleri ve Çözümleri</title>
+    <title>NetSolu - Modern Ağ Problemleri ve Çözümleri</title>
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link
@@ -17,6 +17,45 @@
             padding: 4rem 2rem;
             text-align: center;
             margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-10px) rotate(1deg);
+            }
+        }
+
+        .project-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
         }
 
         .project-content {
@@ -27,29 +66,43 @@
 
         .feature-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
-            margin: 2rem 0;
+            margin: 3rem 0;
         }
 
         .feature-card {
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 2rem;
+            border-radius: 20px;
+            padding: 2.5rem;
             border: 1px solid rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             transition: all 0.3s ease;
+            text-align: center;
         }
 
         .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(102, 126, 234, 0.5);
         }
 
         .feature-card i {
-            font-size: 2.5rem;
+            font-size: 3rem;
             color: #667eea;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .feature-card h3 {
+            color: #f7fafc;
             margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .feature-card p {
+            color: #cbd5e0;
+            line-height: 1.6;
         }
 
         .tech-stack {
@@ -57,50 +110,129 @@
             flex-wrap: wrap;
             gap: 1rem;
             margin: 2rem 0;
+            justify-content: center;
         }
 
         .tech-tag {
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
-            padding: 0.5rem 1rem;
+            padding: 0.75rem 1.5rem;
             border-radius: 25px;
             font-size: 0.9rem;
             font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .tech-tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
         }
 
         .demo-section {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 20px;
-            padding: 2rem;
-            margin: 2rem 0;
+            padding: 3rem;
+            margin: 3rem 0;
             text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .demo-section h2 {
+            color: #f7fafc;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        .demo-section p {
+            color: #cbd5e0;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
         }
 
         .demo-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
         }
 
         .demo-btn {
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
-            padding: 1rem 2rem;
+            padding: 1.5rem 2rem;
             border: none;
-            border-radius: 50px;
+            border-radius: 15px;
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s ease;
-            display: inline-flex;
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .demo-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .demo-btn:hover::before {
+            left: 100%;
         }
 
         .demo-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+        }
+
+        .demo-btn i {
+            font-size: 2rem;
+        }
+
+        .demo-btn .btn-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .demo-btn .btn-desc {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            text-align: center;
+        }
+
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #cbd5e0;
+            font-size: 1rem;
         }
 
         .back-btn {
@@ -122,6 +254,41 @@
             background: rgba(255, 255, 255, 0.2);
             transform: translateX(-5px);
         }
+
+        .overview-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .overview-section h2 {
+            color: #f7fafc;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .overview-section p {
+            color: #cbd5e0;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .project-hero h1 {
+                font-size: 2rem;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .demo-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 
@@ -131,45 +298,109 @@
     </a>
 
     <div class="project-hero">
-        <h1>NetSolutionOnCisco</h1>
-        <p>Ağ Problemleri ve Çözümleri - Kapsamlı Admin Kılavuzu</p>
+        <h1><i class="fas fa-network-wired"></i> NetSolution</h1>
+        <p>Modern Ağ Problemleri ve Çözümleri - Cisco Packet Tracer Rehberi</p>
     </div>
 
     <div class="project-content">
-        <section class="project-overview">
-            <h2>Proje Hakkında</h2>
-            <p>Bu proje cisco router ve switch için modern kılavuz ve admin pdf kılavuzudur.</p>
+        <section class="overview-section">
+            <h2><i class="fas fa-info-circle"></i> Proje Hakkında</h2>
+            <p>NetSolution, modern ağ altyapılarında karşılaşılan en yaygın problemleri ve çözümlerini Cisco Packet
+                Tracer simülasyonları ile açıklayan kapsamlı bir rehberdir. Bu proje, ağ yöneticileri ve bilgisayar
+                ağları öğrencileri için pratik bir öğrenme kaynağı sunmaktadır.</p>
+
+            <p>Rehber, OSI modelinin farklı katmanlarında (L1-L7) oluşan problemleri kapsamakta ve her problem için hem
+                teorik bilgi hem de adım adım çözüm rehberleri sunmaktadır. Cisco komut örnekleri ve gerçek dünya
+                senaryoları ile desteklenen bu rehber, ağ problemlerini anlama ve çözme konusunda pratik deneyim
+                kazandırmayı amaçlamaktadır.</p>
 
             <div class="tech-stack">
                 <span class="tech-tag">Cisco CLI</span>
-                <span class="tech-tag">Computer Network</span>
-                <span class="tech-tag">HTTP</span>
-                <span class="tech-tag">ICMP</span>
-                <span class="tech-tag">NAT</span>
-                <span class="tech-tag">ACL</span>
-                <span class="tech-tag">Layered OSI Model</span>
+                <span class="tech-tag">Packet Tracer</span>
+                <span class="tech-tag">OSI Model</span>
                 <span class="tech-tag">DHCP</span>
+                <span class="tech-tag">OSPF</span>
+                <span class="tech-tag">VLAN</span>
+                <span class="tech-tag">ACL</span>
+                <span class="tech-tag">STP</span>
+                <span class="tech-tag">Port Security</span>
+                <span class="tech-tag">Routing</span>
             </div>
         </section>
 
+        <section class="stats-section">
+            <div class="stat-card">
+                <div class="stat-number">10</div>
+                <div class="stat-label">Farklı Problem Türü</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">19</div>
+                <div class="stat-label">Packet Tracer Dosyası</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">4</div>
+                <div class="stat-label">OSI Katmanı sorunu</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">2</div>
+                <div class="stat-label">Farklı Dilde</div>
+            </div>
+        </section>
+
+        <section class="feature-grid">
+            <div class="feature-card">
+                <i class="fas fa-layer-group"></i>
+                <h3>Layer 2 Problemleri</h3>
+                <p>MAC Address Spoofing, VLAN Misconfiguration, Broadcast Storm ve Duplex/Speed Mismatch gibi veri
+                    bağlantı katmanı problemleri</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-route"></i>
+                <h3>Layer 3 Problemleri</h3>
+                <p>DHCP Scope Exhaustion, Rogue DHCP Server, OSPF Authentication ve Wrong Routing gibi ağ katmanı
+                    problemleri</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Güvenlik Problemleri</h3>
+                <p>Access Control List (ACL) yanlış yapılandırmaları ve ağ güvenliği ile ilgili problemler</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-wifi"></i>
+                <h3>Kablosuz Problemler</h3>
+                <p>Co-Channel Interference ve kablosuz ağ performans problemleri</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-file-archive"></i>
+                <h3>Packet Tracer Dosyaları</h3>
+                <p>Her problem için hem problematik hem de çözülmüş Packet Tracer simülasyon dosyaları</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-code"></i>
+                <h3>Cisco Komutları</h3>
+                <p>Adım adım çözüm rehberleri ve gerçek Cisco CLI komut örnekleri</p>
+            </div>
+        </section>
 
         <section class="demo-section">
-            <h2>Kılavuzlar</h2>
-            <p>Modern Kılavuzu ve Admin PDF Kılavuzunu inceleyebilirsiniz.(If you want to see english version, click the
-                button this page)</p>
+            <h2><i class="fas fa-book-open"></i> Rehberleri İnceleyin</h2>
+            <p>Modern interaktif rehber ve kapsamlı PDF kılavuzunu inceleyerek ağ problemleri hakkında detaylı bilgi
+                edinin.</p>
             <div class="demo-buttons">
-                <a href="netsol/modern-network-guide.html" class="demo-btn" target="_blank">
-                    <i class="fas fa-external-link-alt"></i>
-                    Modern Kılavuz
+                <a href="netsol/modern-network-guide-updated.html" class="demo-btn" target="_blank">
+                    <i class="fas fa-laptop-code"></i>
+                    <span class="btn-title">Modern İnteraktif Rehber</span>
+                    <span class="btn-desc">Tab-based navigasyon, responsive tasarım ve modern arayüz ile güncellenmiş
+                        rehber</span>
                 </a>
                 <a href="netsol/Admin Guide - Network Problems and Solutions 203c050d761380d9a7c5f83867aa59c0.html"
                     class="demo-btn" target="_blank">
-                    <i class="fas fa-book"></i>
-                    Admin PDF Kılavuzu
+                    <i class="fas fa-file-pdf"></i>
+                    <span class="btn-title">Admin PDF Kılavuzu</span>
+                    <span class="btn-desc">Detaylı teknik dokümantasyon ve kapsamlı problem çözüm kılavuzu</span>
                 </a>
             </div>
         </section>
-
     </div>
 </body>
 

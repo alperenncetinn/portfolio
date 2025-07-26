@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediatR ve FluentValidation ile Clean Architecture - Alperen Çetin</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="blog.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/png" href="../images/alp-digital-logo.png">
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Navigasyon Çubuğu -->
+        <nav class="navbar">
+            <div class="logo">
+                <img src="../images/alp-digital-logo.png" alt="Logo" class="logo-img">
+                <span>portfolio</span>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html#home">Ana Sayfa</a>
+                <a href="../index.html#about">Hakkımda</a>
+                <a href="../index.html#projects">Projeler</a>
+                <a href="../index.html#blog" class="active">Blog</a>
+                <a href="../index.html#services">Hizmetler</a>
+                <a href="../index.html#contact">İletişim</a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+
+        <!-- Blog Post Content -->
+        <main class="blog-post">
+            <div class="blog-header">
+                <div class="breadcrumb">
+                    <a href="../index.html">Ana Sayfa</a>
+                    <span>/</span>
+                    <a href="../index.html#blog">Blog</a>
+                    <span>/</span>
+                    <span>MediatR ve FluentValidation</span>
+                </div>
+                
+                <div class="post-meta">
+                    <span class="category">.NET</span>
+                    <span class="date">26 Temmuz 2025</span>
+                    <span class="read-time"><i class="fas fa-clock"></i> 8 dk okuma</span>
+                </div>
+                
+                <h1>MediatR ve FluentValidation ile Clean Architecture</h1>
+                
+                <div class="post-tags">
+                    <span class="tag">.NET</span>
+                    <span class="tag">MediatR</span>
+                    <span class="tag">FluentValidation</span>
+                    <span class="tag">Clean Architecture</span>
+                    <span class="tag">CQRS</span>
+                </div>
+            </div>
+
+            <article class="post-content">
+                <section class="intro">
+                    <p class="lead">Modern .NET uygulamalarında temiz mimari oluştururken en çok kullanılan iki kütüphane olan MediatR ve FluentValidation'ın gücünü keşfedin. Bu yazıda, bu iki aracın nasıl birlikte çalıştığını ve projelerinizde nasıl implement edebileceğinizi öğreneceksiniz.</p>
+                </section>
+
+                <section id="mediatr-nedir">
+                    <h2><i class="fas fa-exchange-alt"></i> MediatR Nedir ve Ne İşe Yarar?</h2>
+                    
+                    <p>MediatR, yazılım tasarım desenlerinden biri olan <strong>Mediator deseninin</strong> .NET implementasyonudur. Temel olarak, uygulamanızdaki farklı bileşenler arasındaki doğrudan bağımlılıkları azaltarak, bu bileşenlerin bir aracı (mediator) üzerinden iletişim kurmasını sağlar.</p>
+
+                    <div class="highlight-box">
+                        <h3><i class="fas fa-lightbulb"></i> Ne İşe Yarar?</h3>
+                        <ul>
+                            <li><strong>Gevşek Bağlılık (Loose Coupling):</strong> Uygulamanızdaki sınıfların birbirlerini doğrudan çağırmak yerine MediatR aracılığıyla iletişim kurmasını sağlar. Bu sayede bir bileşendeki değişiklikler diğer bileşenleri daha az etkiler, kodu daha modüler ve yönetilebilir hale getirir.</li>
+                            
+                            <li><strong>İşlem Ayrımı (Separation of Concerns):</strong> Genellikle CQRS (Command Query Responsibility Segregation) deseni ile birlikte kullanılır. Bu desende, veri yazma (Command) ve veri okuma (Query) işlemleri birbirinden ayrılır. MediatR, Command ve Query nesnelerini ilgili Handler'larına yönlendirerek bu ayrımı kolaylaştırır.</li>
+                            
+                            <li><strong>Pipeline Davranışları (Pipeline Behaviors):</strong> MediatR, bir isteğin (request) işlenmeden önce veya sonra çalışacak ek mantıklar (örneğin, loglama, doğrulama, yetkilendirme, hata yönetimi) eklemenizi sağlayan pipeline davranışlarını destekler. Bu, ortak işlevsellikleri merkezi bir yerde tutmanıza olanak tanır.</li>
+                            
+                            <li><strong>Basitleştirilmiş İstek-Yanıt Mekanizması:</strong> Uygulamanızdaki bir işlemi (bir kullanıcının oluşturulması gibi) bir "istek" (örneğin CreateUserCommand) olarak tanımlar ve bu isteği işleyecek ayrı bir "işleyici" (handler) oluşturursunuz. MediatR, isteği uygun işleyiciye yönlendirir ve işleyiciden dönen yanıtı geri verir.</li>
+                            
+                            <li><strong>Bildirimler (Notifications):</strong> Bir olayın birden fazla alıcı tarafından işlenmesi gerektiği durumlarda (örneğin, bir ürün oluşturulduğunda hem stok servisine hem de bildirim servisine haber vermek) MediatR'ın bildirim mekanizması kullanılabilir. Bir olayı yayınlarsınız ve bu olaya abone olan tüm işleyiciler eş zamanlı olarak çalışır.</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-box">
+                        <h4><i class="fas fa-code"></i> Kullanım Senaryoları:</h4>
+                        <ul>
+                            <li><strong>API'lerde İş Akış Yönetimi:</strong> Bir API isteğinin alınmasından veritabanına kaydedilmesine kadar olan tüm adımları (validasyon, iş mantığı, veritabanı işlemleri) MediatR aracılığıyla yönetmek.</li>
+                            
+                            <li><strong>CQRS Mimarileri:</strong> Okuma ve yazma işlemlerini ayrı ayrı ele alarak uygulamanın performansını ve ölçeklenebilirliğini artırmak.</li>
+                            
+                            <li><strong>Etki Alanı Olayları (Domain Events):</strong> Bir iş kuralı tetiklendiğinde birden fazla bağımsız işlemin gerçekleşmesi gerektiğinde (örneğin, sipariş oluşturulduğunda envanteri güncelleme ve müşteriye e-posta gönderme).</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section id="fluentvalidation-nedir">
+                    <h2><i class="fas fa-check-circle"></i> FluentValidation Nedir ve Ne İşe Yarar?</h2>
+                    
+                    <p>FluentValidation, .NET için güçlü ve tip güvenli bir doğrulama kütüphanesidir. Veri doğrulama kurallarını açık ve okunabilir bir şekilde tanımlamanızı sağlar. Geleneksel Data Annotations'lara kıyasla daha esnek ve güçlü bir yapı sunar.</p>
+
+                    <div class="highlight-box">
+                        <h3><i class="fas fa-shield-alt"></i> Ne İşe Yarar?</h3>
+                        <ul>
+                            <li><strong>Okunabilir ve Bakımı Kolay Doğrulama Kuralları:</strong> Doğrulama kurallarını "Fluent Interface" deseni kullanarak tanımlamanıza olanak tanır. Bu sayede kurallar zincirleme metot çağrılarıyla yazılır ve okunması kolay bir yapı oluşturur.</li>
+                            
+                            <li><strong>Tip Güvenli Doğrulama:</strong> Doğrulama kuralları belirli bir model veya nesne tipi için tanımlanır, bu da derleme zamanı hatalarını azaltır ve güvenliği artırır.</li>
+                            
+                            <li><strong>Esneklik:</strong> Yerleşik birçok doğrulama kuralının yanı sıra, kendi özel doğrulama kurallarınızı da kolayca yazmanıza imkan tanır. Karmaşık iş kurallarını doğrulamak için idealdir.</li>
+                            
+                            <li><strong>Otomatik ve Manuel Doğrulama:</strong> ASP.NET Core gibi framework'lerle entegre olarak modellerin otomatik olarak doğrulanmasını sağlayabildiği gibi, validator'ları manuel olarak çağırıp doğrulamayı istediğiniz yerde de yapabilirsiniz.</li>
+                            
+                            <li><strong>Ayrı Doğrulama Mantığı:</strong> Doğrulama mantığını iş mantığından ayırmayı teşvik eder. Her model için ayrı bir AbstractValidator sınıfı oluşturarak kodunuzu daha düzenli hale getirirsiniz.</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-box">
+                        <h4><i class="fas fa-tasks"></i> Kullanım Senaryoları:</h4>
+                        <ul>
+                            <li><strong>API Giriş Verilerini Doğrulama:</strong> Bir API'ye gelen istek gövdelerinin (request body) veya sorgu parametrelerinin (query parameters) belirli kurallara uygun olup olmadığını kontrol etmek (örneğin, zorunlu alanlar, e-posta formatı, sayısal aralıklar).</li>
+                            
+                            <li><strong>Form Doğrulama:</strong> Kullanıcıdan alınan form verilerinin sunucu tarafında doğrulanması.</li>
+                            
+                            <li><strong>İş Kuralı Doğrulaması:</strong> Bir işlem başlamadan önce belirli iş kurallarının (örneğin, bir ürünün fiyatının pozitif olması, sipariş miktarının stok miktarından fazla olmaması) karşılandığını doğrulamak.</li>
+                            
+                            <li><strong>Model Dışı Veri Doğrulama:</strong> Veritabanından gelen veya üçüncü taraf bir servisten alınan verilerin belirli formatlara uygunluğunu kontrol etmek.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section id="birlikte-kullanim">
+                    <h2><i class="fas fa-handshake"></i> MediatR ve FluentValidation Birlikte Nasıl Kullanılır?</h2>
+                    
+                    <p>Bu iki kütüphane, genellikle MediatR'ın <strong>pipeline davranışları</strong> özelliği sayesinde birlikte kullanılır. İşleyiş şöyledir:</p>
+
+                    <div class="process-steps">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Command/Query Oluşturma</h4>
+                                <p>Bir MediatR Command veya Query'si oluşturulur (örneğin <code>CreateProductCommand</code>).</p>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Validator Tanımlama</h4>
+                                <p>Bu Command veya Query için FluentValidation kullanarak bir Validator (örneğin <code>CreateProductCommandValidator</code>) yazılır ve doğrulama kuralları tanımlanır.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Pipeline Behavior Ekleme</h4>
+                                <p>MediatR pipeline'ına bir Validation Behavior (doğrulama davranışı) eklenir. Bu davranış, herhangi bir Command veya Query ilgili Handler'ına ulaşmadan önce otomatik olarak FluentValidation tarafından tanımlanmış doğrulama kurallarını çalıştırır.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h4>Otomatik Doğrulama</h4>
+                                <p>Eğer doğrulama başarısız olursa, istek işleyiciye ulaşmadan durdurulur ve doğrulama hataları döndürülür. Bu sayede iş mantığı yalnızca geçerli verilerle çalışır.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="success-box">
+                        <h4><i class="fas fa-trophy"></i> Sonuç</h4>
+                        <p>Bu kombinasyon, uygulamanızda <strong>temiz, düzenli, kolay test edilebilir ve esnek</strong> bir mimari oluşturmanıza yardımcı olur. MediatR iş akışını yönetirken, FluentValidation bu akışa giren verilerin kalitesini ve doğruluğunu garanti eder.</p>
+                    </div>
+                </section>
+
+                <section class="conclusion">
+                    <h2><i class="fas fa-rocket"></i> Sonuç</h2>
+                    <p>MediatR ve FluentValidation, modern .NET uygulamalarında clean architecture prensiplerine uygun, sürdürülebilir ve test edilebilir kod yazmak için vazgeçilmez araçlardır. Bu iki kütüphaneyi birlikte kullanarak, hem kod kalitesini artırabilir hem de geliştirme sürecinizi hızlandırabilirsiniz.</p>
+                    
+                    <p>Gelecek yazılarımda, bu kütüphanelerin pratik implementasyonlarını kod örnekleriyle detaylandıracağım. Takipte kalın!</p>
+                </section>
+            </article>
+
+            <div class="post-footer">
+                <div class="author-info">
+                    <img src="../images/profilePhoto.jpg" alt="Alperen Çetin" class="author-avatar">
+                    <div class="author-details">
+                        <h4>Alperen Çetin</h4>
+                        <p>Freelance Yazılım Geliştirici ve Bilgisayar Mühendisi Öğrencisi</p>
+                        <div class="social-links">
+                            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="post-navigation">
+                    <a href="../index.html#blog" class="btn secondary">
+                        <i class="fas fa-arrow-left"></i> Blog'a Dön
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <img src="../images/alp-digital-logo.png" alt="Logo" class="logo-img">
+                        <span>portfolio</span>
+                    </div>
+                    <p>Yenilikçi ve kullanıcı dostu dijital deneyimler oluşturuyorum.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Hızlı Bağlantılar</h4>
+                    <ul>
+                        <li><a href="../index.html#home">Ana Sayfa</a></li>
+                        <li><a href="../index.html#about">Hakkımda</a></li>
+                        <li><a href="../index.html#projects">Projeler</a></li>
+                        <li><a href="../index.html#blog">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>İletişim</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> info@alperendigital.com</li>
+                        <li><i class="fas fa-phone"></i> +90 XXX XXX XX XX</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Alperen Çetin. Tüm hakları saklıdır.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="../script.js"></script>
+</body>
+
+</html>

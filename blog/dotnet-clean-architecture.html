@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>.NET Clean Architecture: Temiz Mimari Rehberi - Alperen Çetin</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="blog.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="blog-post">
+        <div class="container">
+            <!-- Blog Header -->
+            <div class="blog-header">
+                <div class="breadcrumb">
+                    <a href="../index.html"><i class="fas fa-home"></i> Ana Sayfa</a>
+                    <span>/</span>
+                    <a href="../index.html#blog">Blog</a>
+                    <span>/</span>
+                    <span>.NET Clean Architecture</span>
+                </div>
+                
+                <div class="post-meta">
+                    <div class="category">.NET</div>
+                    <div class="date">26 Temmuz 2025</div>
+                    <div class="read-time"><i class="fas fa-clock"></i> 12 dk okuma</div>
+                </div>
+                
+                <h1>.NET Clean Architecture: Temiz Mimari Rehberi</h1>
+                
+                <div class="post-tags">
+                    <span class="tag">.NET</span>
+                    <span class="tag">Clean Architecture</span>
+                    <span class="tag">DDD</span>
+                    <span class="tag">SOLID</span>
+                    <span class="tag">Design Patterns</span>
+                </div>
+            </div>
+
+            <!-- Blog Content -->
+            <div class="post-content">
+                <div class="intro">
+                    <p class="lead">Clean Architecture, <strong>Robert C. Martin (Uncle Bob)</strong> tarafından önerilen, yazılım mimarisinde <strong>bağımlılıkları yönetme</strong> ve <strong>sürdürülebilir kod</strong> yazma prensiplerini içeren bir yaklaşımdır. Bu rehberde .NET projelerinde Clean Architecture'ın nasıl uygulanacağını kapsamlı bir şekilde öğreneceksiniz.</p>
+                </div>
+
+                <h2><i class="fas fa-lightbulb"></i> Clean Architecture Nedir?</h2>
+
+                <div class="clean-architecture-intro">
+                    <div class="architecture-visual">
+                        <div class="architecture-circle">
+                            <div class="layer external">
+                                <span>Frameworks & Drivers</span>
+                            </div>
+                            <div class="layer interface">
+                                <span>Interface Adapters</span>
+                            </div>
+                            <div class="layer application">
+                                <span>Application Business Rules</span>
+                            </div>
+                            <div class="layer domain">
+                                <span>Enterprise Business Rules</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="architecture-description">
+                        <h3><i class="fas fa-bullseye"></i> Temel Amaç</h3>
+                        <p>Clean Architecture'ın temel amacı <strong>iş mantığını dış dünyadan izole etmektir</strong>. Bu sayede:</p>
+                        <ul>
+                            <li>Framework bağımsızlığı sağlanır</li>
+                            <li>Test edilebilirlik artar</li>
+                            <li>UI değişikliklerinden etkilenmez</li>
+                            <li>Veritabanı teknolojisinden bağımsız olur</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="dependency-rule">
+                    <h3><i class="fas fa-arrow-right"></i> Bağımlılık Kuralı</h3>
+                    <div class="rule-explanation">
+                        <div class="rule-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="rule-content">
+                            <h4>En Önemli Kural</h4>
+                            <p><strong>İç katmanlar dış katmanları bilemez!</strong> Bağımlılık yönü her zaman <strong>dıştan içe doğru</strong> olmalıdır.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-layer-group"></i> .NET Clean Architecture Katmanları</h2>
+
+                <div class="dotnet-layers">
+                    <div class="layer-structure">
+                        <div class="layer-card domain-layer">
+                            <div class="layer-header">
+                                <div class="layer-icon">
+                                    <i class="fas fa-gem"></i>
+                                </div>
+                                <h3>Domain Layer</h3>
+                                <span class="layer-badge core">Core</span>
+                            </div>
+                            <div class="layer-content">
+                                <p><strong>İş kurallarının kalbi</strong> - En merkezi katman</p>
+                                <div class="layer-components">
+                                    <h4>İçerdikleri:</h4>
+                                    <div class="component-list">
+                                        <span class="component">Entities</span>
+                                        <span class="component">Value Objects</span>
+                                        <span class="component">Domain Events</span>
+                                        <span class="component">Specifications</span>
+                                        <span class="component">Business Rules</span>
+                                    </div>
+                                </div>
+                                <div class="layer-example">
+                                    <strong>Örnek:</strong> Product, Customer, Order sınıfları
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="layer-card application-layer">
+                            <div class="layer-header">
+                                <div class="layer-icon">
+                                    <i class="fas fa-cogs"></i>
+                                </div>
+                                <h3>Application Layer</h3>
+                                <span class="layer-badge use-cases">Use Cases</span>
+                            </div>
+                            <div class="layer-content">
+                                <p><strong>Uygulama iş kuralları</strong> - Domain'i orkestra eder</p>
+                                <div class="layer-components">
+                                    <h4>İçerdikleri:</h4>
+                                    <div class="component-list">
+                                        <span class="component">Use Cases</span>
+                                        <span class="component">Commands & Queries</span>
+                                        <span class="component">Handlers</span>
+                                        <span class="component">DTOs</span>
+                                        <span class="component">Interfaces</span>
+                                    </div>
+                                </div>
+                                <div class="layer-example">
+                                    <strong>Örnek:</strong> CreateProductCommand, GetCustomerQuery
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="layer-card infrastructure-layer">
+                            <div class="layer-header">
+                                <div class="layer-icon">
+                                    <i class="fas fa-database"></i>
+                                </div>
+                                <h3>Infrastructure Layer</h3>
+                                <span class="layer-badge external">External</span>
+                            </div>
+                            <div class="layer-content">
+                                <p><strong>Dış dünya bağlantıları</strong> - Framework implementasyonları</p>
+                                <div class="layer-components">
+                                    <h4>İçerdikleri:</h4>
+                                    <div class="component-list">
+                                        <span class="component">Repositories</span>
+                                        <span class="component">DbContext</span>
+                                        <span class="component">External APIs</span>
+                                        <span class="component">File System</span>
+                                        <span class="component">Email Services</span>
+                                    </div>
+                                </div>
+                                <div class="layer-example">
+                                    <strong>Örnek:</strong> ProductRepository, EmailService
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="layer-card presentation-layer">
+                            <div class="layer-header">
+                                <div class="layer-icon">
+                                    <i class="fas fa-desktop"></i>
+                                </div>
+                                <h3>Presentation Layer</h3>
+                                <span class="layer-badge ui">UI</span>
+                            </div>
+                            <div class="layer-content">
+                                <p><strong>Kullanıcı arayüzü</strong> - Dış dünya ile etkileşim</p>
+                                <div class="layer-components">
+                                    <h4>İçerdikleri:</h4>
+                                    <div class="component-list">
+                                        <span class="component">Controllers</span>
+                                        <span class="component">Views</span>
+                                        <span class="component">ViewModels</span>
+                                        <span class="component">API Endpoints</span>
+                                        <span class="component">Middleware</span>
+                                    </div>
+                                </div>
+                                <div class="layer-example">
+                                    <strong>Örnek:</strong> ProductController, CustomerViewModel
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dependency-flow">
+                    <h3><i class="fas fa-route"></i> Bağımlılık Akışı</h3>
+                    <div class="flow-diagram">
+                        <div class="flow-step">
+                            <div class="step-box presentation">
+                                <i class="fas fa-desktop"></i>
+                                <span>Presentation</span>
+                            </div>
+                        </div>
+                        <div class="flow-arrow">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                        <div class="flow-step">
+                            <div class="step-box application">
+                                <i class="fas fa-cogs"></i>
+                                <span>Application</span>
+                            </div>
+                        </div>
+                        <div class="flow-arrow">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                        <div class="flow-step">
+                            <div class="step-box domain">
+                                <i class="fas fa-gem"></i>
+                                <span>Domain</span>
+                            </div>
+                        </div>
+                        <div class="flow-arrow reverse">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>Infrastructure implements interfaces</span>
+                        </div>
+                        <div class="flow-step">
+                            <div class="step-box infrastructure">
+                                <i class="fas fa-database"></i>
+                                <span>Infrastructure</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-folder"></i> Proje Yapısı</h2>
+
+                <div class="project-structure">
+                    <div class="structure-tree">
+                        <div class="tree-item root">
+                            <i class="fas fa-folder-open"></i>
+                            <span>MyProject.Solution</span>
+                        </div>
+                        <div class="tree-branch">
+                            <div class="tree-item folder">
+                                <i class="fas fa-folder"></i>
+                                <span>src</span>
+                            </div>
+                            <div class="tree-subbranch">
+                                <div class="tree-item project domain">
+                                    <i class="fas fa-gem"></i>
+                                    <span>MyProject.Domain</span>
+                                </div>
+                                <div class="project-files">
+                                    <div class="file-item">
+                                        <i class="fas fa-file-code"></i>
+                                        <span>Entities/</span>
+                                    </div>
+                                    <div class="file-item">
+                                        <i class="fas fa-file-code"></i>
+                                        <span>ValueObjects/</span>
+                                    </div>
+                                    <div class="file-item">
+                                        <i class="fas fa-file-code"></i>
+                                        <span>Events/</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tree-subbranch">
+                                <div class="tree-item project application">
+                                    <i class="fas fa-cogs"></i>
+                                    <span>MyProject.Application</span>
+                                </div>
+                                <div class="project-files">
+                                    <div class="file-item">
+                                        <i class="fas fa-file-code"></i>
+                                        <span>Features/</span>
+                                    </div>
+                                    <div class="file-item">
+                                        <i class="fas fa-file-code"></i>
+                                        <span>Interfaces/</span>
+                                    </div>
+                                    <div class="file-item">
+                                        <i class="fas fa-file-code"></i>
+                                        <span>DTOs/</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tree-subbranch">
+                                <div class="tree-item project infrastructure">
+                                    <i class="fas fa-database"></i>
+                                    <span>MyProject.Infrastructure</span>
+                                </div>
+                                <div class="project-files">
+                                    <div class="file-item">
+                                        <i class="fas fa-file-code"></i>
+                                        <span>Repositories/</span>
+                                    </div>
+                                    <div class="file-item">
+                                        <i class="fas fa-file-code"></i>
+                                        <span>Data/</span>
+                                    </div>
+                                    <div class="file-item">
+                                        <i class="fas fa-file-code"></i>
+                                        <span>Services/</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tree-subbranch">
+                                <div class="tree-item project presentation">
+                                    <i class="fas fa-desktop"></i>
+                                    <span>MyProject.API</span>
+                                </div>
+                                <div class="project-files">
+                                    <div class="file-item">
+                                        <i class="fas fa-file-code"></i>
+                                        <span>Controllers/</span>
+                                    </div>
+                                    <div class="file-item">
+                                        <i class="fas fa-file-code"></i>
+                                        <span>Middleware/</span>
+                                    </div>
+                                    <div class="file-item">
+                                        <i class="fas fa-file-code"></i>
+                                        <span>Program.cs</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tree-branch">
+                            <div class="tree-item folder">
+                                <i class="fas fa-folder"></i>
+                                <span>tests</span>
+                            </div>
+                            <div class="tree-subbranch">
+                                <div class="tree-item project">
+                                    <i class="fas fa-vial"></i>
+                                    <span>MyProject.UnitTests</span>
+                                </div>
+                                <div class="tree-item project">
+                                    <i class="fas fa-vial"></i>
+                                    <span>MyProject.IntegrationTests</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-code"></i> Kod Örnekleri</h2>
+
+                <div class="code-examples">
+                    <div class="example-section domain-example">
+                        <h3><i class="fas fa-gem"></i> Domain Layer - Entity Örneği</h3>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="file-name">Domain/Entities/Product.cs</span>
+                                <span class="language">C#</span>
+                            </div>
+                            <pre><code>public class Product : BaseEntity
+{
+    public string Name { get; private set; }
+    public decimal Price { get; private set; }
+    public string Description { get; private set; }
+    public bool IsActive { get; private set; }
+    
+    private readonly List&lt;DomainEvent&gt; _events = new();
+    public IReadOnlyCollection&lt;DomainEvent&gt; Events =&gt; _events.AsReadOnly();
+
+    private Product() { } // EF Core için
+
+    public Product(string name, decimal price, string description)
+    {
+        if (string.IsNullOrEmpty(name))
+            throw new ArgumentException("Product name cannot be empty");
+            
+        if (price &lt;= 0)
+            throw new ArgumentException("Price must be greater than zero");
+
+        Name = name;
+        Price = price;
+        Description = description;
+        IsActive = true;
+        
+        _events.Add(new ProductCreatedEvent(this));
+    }
+
+    public void UpdatePrice(decimal newPrice)
+    {
+        if (newPrice &lt;= 0)
+            throw new ArgumentException("Price must be greater than zero");
+
+        var oldPrice = Price;
+        Price = newPrice;
+        
+        _events.Add(new ProductPriceUpdatedEvent(this, oldPrice, newPrice));
+    }
+
+    public void Deactivate()
+    {
+        IsActive = false;
+        _events.Add(new ProductDeactivatedEvent(this));
+    }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="example-section application-example">
+                        <h3><i class="fas fa-cogs"></i> Application Layer - Use Case Örneği</h3>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="file-name">Application/Features/Products/Commands/CreateProduct.cs</span>
+                                <span class="language">C#</span>
+                            </div>
+                            <pre><code>public record CreateProductCommand(
+    string Name,
+    decimal Price,
+    string Description
+) : ICommand&lt;ProductDto&gt;;
+
+public class CreateProductCommandHandler : ICommandHandler&lt;CreateProductCommand, ProductDto&gt;
+{
+    private readonly IProductRepository _productRepository;
+    private readonly IUnitOfWork _unitOfWork;
+    private readonly IMapper _mapper;
+    private readonly ILogger&lt;CreateProductCommandHandler&gt; _logger;
+
+    public CreateProductCommandHandler(
+        IProductRepository productRepository,
+        IUnitOfWork unitOfWork,
+        IMapper mapper,
+        ILogger&lt;CreateProductCommandHandler&gt; logger)
+    {
+        _productRepository = productRepository;
+        _unitOfWork = unitOfWork;
+        _mapper = mapper;
+        _logger = logger;
+    }
+
+    public async Task&lt;ProductDto&gt; Handle(CreateProductCommand request, CancellationToken cancellationToken)
+    {
+        _logger.LogInformation("Creating product with name: {Name}", request.Name);
+
+        // Business rule validation
+        var existingProduct = await _productRepository.GetByNameAsync(request.Name);
+        if (existingProduct != null)
+            throw new BusinessRuleException("Product with this name already exists");
+
+        // Create domain entity
+        var product = new Product(request.Name, request.Price, request.Description);
+
+        // Save to repository
+        await _productRepository.AddAsync(product);
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
+
+        _logger.LogInformation("Product created successfully with ID: {Id}", product.Id);
+
+        return _mapper.Map&lt;ProductDto&gt;(product);
+    }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="example-section infrastructure-example">
+                        <h3><i class="fas fa-database"></i> Infrastructure Layer - Repository Örneği</h3>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="file-name">Infrastructure/Repositories/ProductRepository.cs</span>
+                                <span class="language">C#</span>
+                            </div>
+                            <pre><code>public class ProductRepository : IProductRepository
+{
+    private readonly ApplicationDbContext _context;
+
+    public ProductRepository(ApplicationDbContext context)
+    {
+        _context = context;
+    }
+
+    public async Task&lt;Product?&gt; GetByIdAsync(int id)
+    {
+        return await _context.Products
+            .FirstOrDefaultAsync(p =&gt; p.Id == id);
+    }
+
+    public async Task&lt;Product?&gt; GetByNameAsync(string name)
+    {
+        return await _context.Products
+            .FirstOrDefaultAsync(p =&gt; p.Name == name);
+    }
+
+    public async Task&lt;IEnumerable&lt;Product&gt;&gt; GetActiveProductsAsync()
+    {
+        return await _context.Products
+            .Where(p =&gt; p.IsActive)
+            .ToListAsync();
+    }
+
+    public async Task AddAsync(Product product)
+    {
+        await _context.Products.AddAsync(product);
+    }
+
+    public void Update(Product product)
+    {
+        _context.Products.Update(product);
+    }
+
+    public void Delete(Product product)
+    {
+        _context.Products.Remove(product);
+    }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="example-section presentation-example">
+                        <h3><i class="fas fa-desktop"></i> Presentation Layer - Controller Örneği</h3>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="file-name">API/Controllers/ProductsController.cs</span>
+                                <span class="language">C#</span>
+                            </div>
+                            <pre><code>[ApiController]
+[Route("api/[controller]")]
+public class ProductsController : ControllerBase
+{
+    private readonly IMediator _mediator;
+
+    public ProductsController(IMediator mediator)
+    {
+        _mediator = mediator;
+    }
+
+    [HttpPost]
+    public async Task&lt;ActionResult&lt;ProductDto&gt;&gt; CreateProduct(CreateProductCommand command)
+    {
+        try
+        {
+            var result = await _mediator.Send(command);
+            return CreatedAtRoute(nameof(GetProduct), new { id = result.Id }, result);
+        }
+        catch (BusinessRuleException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpGet("{id}", Name = nameof(GetProduct))]
+    public async Task&lt;ActionResult&lt;ProductDto&gt;&gt; GetProduct(int id)
+    {
+        var query = new GetProductByIdQuery(id);
+        var result = await _mediator.Send(query);
+        
+        if (result == null)
+            return NotFound();
+            
+        return Ok(result);
+    }
+
+    [HttpGet]
+    public async Task&lt;ActionResult&lt;IEnumerable&lt;ProductDto&gt;&gt;&gt; GetProducts()
+    {
+        var query = new GetActiveProductsQuery();
+        var result = await _mediator.Send(query);
+        return Ok(result);
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-puzzle-piece"></i> CQRS ve MediatR Entegrasyonu</h2>
+
+                <div class="cqrs-integration">
+                    <div class="cqrs-intro">
+                        <div class="cqrs-visual">
+                            <div class="cqrs-icon">
+                                <i class="fas fa-exchange-alt"></i>
+                            </div>
+                            <h3>CQRS (Command Query Responsibility Segregation)</h3>
+                        </div>
+                        <p><strong>CQRS</strong>, okuma ve yazma işlemlerini ayrı modeller halinde organize etme yaklaşımıdır. Clean Architecture ile mükemmel uyum sağlar.</p>
+                    </div>
+
+                    <div class="cqrs-benefits">
+                        <h4><i class="fas fa-star"></i> CQRS + Clean Architecture Avantajları</h4>
+                        <div class="benefits-grid">
+                            <div class="benefit-item">
+                                <i class="fas fa-separation"></i>
+                                <h5>Ayrım (Separation)</h5>
+                                <p>Okuma ve yazma işlemleri birbirinden bağımsız</p>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-expand-arrows-alt"></i>
+                                <h5>Ölçeklenebilirlik</h5>
+                                <p>Her işlem türü bağımsız olarak optimize edilebilir</p>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-code"></i>
+                                <h5>Daha Temiz Kod</h5>
+                                <p>Her handler tek bir sorumluluğa sahip</p>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-vial"></i>
+                                <h5>Test Edilebilirlik</h5>
+                                <p>Her use case ayrı ayrı test edilebilir</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mediatr-setup">
+                        <h4><i class="fas fa-cogs"></i> MediatR Konfigürasyonu</h4>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="file-name">Program.cs</span>
+                                <span class="language">C#</span>
+                            </div>
+                            <pre><code>// MediatR registration
+builder.Services.AddMediatR(cfg =&gt; {
+    cfg.RegisterServicesFromAssembly(typeof(CreateProductCommand).Assembly);
+});
+
+// FluentValidation registration
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssembly(typeof(CreateProductCommandValidator).Assembly);
+
+// AutoMapper registration
+builder.Services.AddAutoMapper(typeof(ProductMappingProfile).Assembly);
+
+// Repository registrations
+builder.Services.AddScoped&lt;IProductRepository, ProductRepository&gt;();
+builder.Services.AddScoped&lt;IUnitOfWork, UnitOfWork&gt;();</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-shield-alt"></i> Domain Driven Design (DDD) Entegrasyonu</h2>
+
+                <div class="ddd-integration">
+                    <div class="ddd-concepts">
+                        <h3><i class="fas fa-cubes"></i> DDD Temel Kavramları</h3>
+                        <div class="concepts-grid">
+                            <div class="concept-card entity">
+                                <div class="concept-icon">
+                                    <i class="fas fa-cube"></i>
+                                </div>
+                                <h4>Entity</h4>
+                                <p>Benzersiz kimliği olan ve yaşam döngüsü boyunca takip edilen nesneler</p>
+                                <div class="concept-example">
+                                    <strong>Örnek:</strong> Customer, Product, Order
+                                </div>
+                            </div>
+
+                            <div class="concept-card value-object">
+                                <div class="concept-icon">
+                                    <i class="fas fa-gem"></i>
+                                </div>
+                                <h4>Value Object</h4>
+                                <p>Kimliği olmayan, değerleriyle tanımlanan değişmez nesneler</p>
+                                <div class="concept-example">
+                                    <strong>Örnek:</strong> Money, Email, Address
+                                </div>
+                            </div>
+
+                            <div class="concept-card aggregate">
+                                <div class="concept-icon">
+                                    <i class="fas fa-sitemap"></i>
+                                </div>
+                                <h4>Aggregate</h4>
+                                <p>İş kuralları açısından bir bütün olarak ele alınan nesne grubu</p>
+                                <div class="concept-example">
+                                    <strong>Örnek:</strong> Order + OrderItems
+                                </div>
+                            </div>
+
+                            <div class="concept-card domain-service">
+                                <div class="concept-icon">
+                                    <i class="fas fa-cog"></i>
+                                </div>
+                                <h4>Domain Service</h4>
+                                <p>Tek bir entity'ye ait olmayan domain mantığını içeren servisler</p>
+                                <div class="concept-example">
+                                    <strong>Örnek:</strong> PricingService, InventoryService
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="value-object-example">
+                        <h4><i class="fas fa-gem"></i> Value Object Örneği</h4>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="file-name">Domain/ValueObjects/Money.cs</span>
+                                <span class="language">C#</span>
+                            </div>
+                            <pre><code>public class Money : ValueObject
+{
+    public decimal Amount { get; private set; }
+    public string Currency { get; private set; }
+
+    private Money() { } // EF Core için
+
+    public Money(decimal amount, string currency)
+    {
+        if (amount &lt; 0)
+            throw new ArgumentException("Amount cannot be negative");
+            
+        if (string.IsNullOrEmpty(currency))
+            throw new ArgumentException("Currency cannot be empty");
+
+        Amount = amount;
+        Currency = currency;
+    }
+
+    public static Money operator +(Money a, Money b)
+    {
+        if (a.Currency != b.Currency)
+            throw new InvalidOperationException("Cannot add different currencies");
+            
+        return new Money(a.Amount + b.Amount, a.Currency);
+    }
+
+    protected override IEnumerable&lt;object&gt; GetEqualityComponents()
+    {
+        yield return Amount;
+        yield return Currency;
+    }
+
+    public override string ToString() =&gt; $"{Amount:C} {Currency}";
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="domain-events">
+                        <h4><i class="fas fa-bolt"></i> Domain Events</h4>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="file-name">Domain/Events/ProductCreatedEvent.cs</span>
+                                <span class="language">C#</span>
+                            </div>
+                            <pre><code>public class ProductCreatedEvent : DomainEvent
+{
+    public Product Product { get; }
+
+    public ProductCreatedEvent(Product product)
+    {
+        Product = product;
+    }
+}
+
+public class ProductCreatedEventHandler : INotificationHandler&lt;ProductCreatedEvent&gt;
+{
+    private readonly IEmailService _emailService;
+    private readonly ILogger&lt;ProductCreatedEventHandler&gt; _logger;
+
+    public ProductCreatedEventHandler(IEmailService emailService, ILogger&lt;ProductCreatedEventHandler&gt; logger)
+    {
+        _emailService = emailService;
+        _logger = logger;
+    }
+
+    public async Task Handle(ProductCreatedEvent notification, CancellationToken cancellationToken)
+    {
+        _logger.LogInformation("Product created: {ProductName}", notification.Product.Name);
+        
+        // Send notification email to administrators
+        await _emailService.SendProductCreatedNotificationAsync(notification.Product);
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-vial"></i> Test Stratejisi</h2>
+
+                <div class="testing-strategy">
+                    <div class="test-pyramid">
+                        <h3><i class="fas fa-pyramid"></i> Test Piramidi</h3>
+                        <div class="pyramid-visual">
+                            <div class="pyramid-level unit">
+                                <div class="level-content">
+                                    <span class="level-name">Unit Tests</span>
+                                    <span class="level-percentage">70%</span>
+                                </div>
+                            </div>
+                            <div class="pyramid-level integration">
+                                <div class="level-content">
+                                    <span class="level-name">Integration Tests</span>
+                                    <span class="level-percentage">20%</span>
+                                </div>
+                            </div>
+                            <div class="pyramid-level e2e">
+                                <div class="level-content">
+                                    <span class="level-name">E2E Tests</span>
+                                    <span class="level-percentage">10%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="test-examples">
+                        <h4><i class="fas fa-code"></i> Test Örnekleri</h4>
+                        
+                        <div class="test-example unit-test">
+                            <h5><i class="fas fa-atom"></i> Unit Test Örneği</h5>
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <span class="file-name">Tests/Domain/ProductTests.cs</span>
+                                    <span class="language">C#</span>
+                                </div>
+                                <pre><code>public class ProductTests
+{
+    [Fact]
+    public void CreateProduct_WithValidData_ShouldCreateSuccessfully()
+    {
+        // Arrange
+        var name = "Test Product";
+        var price = 100m;
+        var description = "Test Description";
+
+        // Act
+        var product = new Product(name, price, description);
+
+        // Assert
+        product.Name.Should().Be(name);
+        product.Price.Should().Be(price);
+        product.Description.Should().Be(description);
+        product.IsActive.Should().BeTrue();
+        product.Events.Should().ContainSingle(e =&gt; e is ProductCreatedEvent);
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData(null)]
+    public void CreateProduct_WithInvalidName_ShouldThrowException(string invalidName)
+    {
+        // Act & Assert
+        var action = () =&gt; new Product(invalidName, 100m, "Description");
+        action.Should().Throw&lt;ArgumentException&gt;();
+    }
+}</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="test-example integration-test">
+                            <h5><i class="fas fa-plug"></i> Integration Test Örneği</h5>
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <span class="file-name">Tests/Application/CreateProductCommandHandlerTests.cs</span>
+                                    <span class="language">C#</span>
+                                </div>
+                                <pre><code>public class CreateProductCommandHandlerTests : IntegrationTestBase
+{
+    [Fact]
+    public async Task Handle_WithValidCommand_ShouldCreateProduct()
+    {
+        // Arrange
+        var command = new CreateProductCommand("Test Product", 100m, "Description");
+
+        // Act
+        var result = await Mediator.Send(command);
+
+        // Assert
+        result.Should().NotBeNull();
+        result.Name.Should().Be(command.Name);
+        
+        var productInDb = await Context.Products.FirstOrDefaultAsync(p =&gt; p.Id == result.Id);
+        productInDb.Should().NotBeNull();
+    }
+
+    [Fact]
+    public async Task Handle_WithDuplicateName_ShouldThrowException()
+    {
+        // Arrange
+        var existingProduct = new Product("Existing Product", 50m, "Description");
+        Context.Products.Add(existingProduct);
+        await Context.SaveChangesAsync();
+
+        var command = new CreateProductCommand("Existing Product", 100m, "New Description");
+
+        // Act & Assert
+        var action = async () =&gt; await Mediator.Send(command);
+        await action.Should().ThrowAsync&lt;BusinessRuleException&gt;();
+    }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-star"></i> Clean Architecture Avantajları</h2>
+
+                <div class="architecture-benefits">
+                    <div class="benefits-grid">
+                        <div class="benefit-card testability">
+                            <div class="benefit-icon">
+                                <i class="fas fa-vial"></i>
+                            </div>
+                            <h3>Test Edilebilirlik</h3>
+                            <p>Her katman bağımsız olarak test edilebilir</p>
+                            <div class="benefit-details">
+                                <span class="detail">Unit testler kolay</span>
+                                <span class="detail">Mocking basit</span>
+                                <span class="detail">TDD uyumlu</span>
+                            </div>
+                        </div>
+
+                        <div class="benefit-card maintainability">
+                            <div class="benefit-icon">
+                                <i class="fas fa-wrench"></i>
+                            </div>
+                            <h3>Sürdürülebilirlik</h3>
+                            <p>Kod değişiklikleri lokalize edilmiş</p>
+                            <div class="benefit-details">
+                                <span class="detail">Kolay refactoring</span>
+                                <span class="detail">Düşük coupling</span>
+                                <span class="detail">Yüksek cohesion</span>
+                            </div>
+                        </div>
+
+                        <div class="benefit-card flexibility">
+                            <div class="benefit-icon">
+                                <i class="fas fa-exchange-alt"></i>
+                            </div>
+                            <h3>Esneklik</h3>
+                            <p>Framework ve teknoloji değişikliklerine açık</p>
+                            <div class="benefit-details">
+                                <span class="detail">Database değiştirilebilir</span>
+                                <span class="detail">UI framework değiştirilebilir</span>
+                                <span class="detail">3rd party entegrasyonlar kolay</span>
+                            </div>
+                        </div>
+
+                        <div class="benefit-card scalability">
+                            <div class="benefit-icon">
+                                <i class="fas fa-expand-arrows-alt"></i>
+                            </div>
+                            <h3>Ölçeklenebilirlik</h3>
+                            <p>Büyük ekipler paralel çalışabilir</p>
+                            <div class="benefit-details">
+                                <span class="detail">Feature team'ler</span>
+                                <span class="detail">Paralel geliştirme</span>
+                                <span class="detail">Microservice'e geçiş kolay</span>
+                            </div>
+                        </div>
+
+                        <div class="benefit-card business-focus">
+                            <div class="benefit-icon">
+                                <i class="fas fa-bullseye"></i>
+                            </div>
+                            <h3>İş Odaklılık</h3>
+                            <p>Domain mantığı merkeze alınmış</p>
+                            <div class="benefit-details">
+                                <span class="detail">Business rules açık</span>
+                                <span class="detail">Domain expert'ler anlayabilir</span>
+                                <span class="detail">Ubiquitous language</span>
+                            </div>
+                        </div>
+
+                        <div class="benefit-card independence">
+                            <div class="benefit-icon">
+                                <i class="fas fa-unlink"></i>
+                            </div>
+                            <h3>Bağımsızlık</h3>
+                            <p>Framework ve external dependency'lerden bağımsız</p>
+                            <div class="benefit-details">
+                                <span class="detail">Framework agnostic</span>
+                                <span class="detail">Database agnostic</span>
+                                <span class="detail">UI agnostic</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-exclamation-triangle"></i> Dikkat Edilmesi Gerekenler</h2>
+
+                <div class="considerations">
+                    <div class="warning-cards">
+                        <div class="warning-card complexity">
+                            <div class="warning-icon">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <h4>Karmaşıklık</h4>
+                            <p>Küçük projeler için <strong>over-engineering</strong> olabilir</p>
+                            <div class="warning-advice">
+                                <i class="fas fa-lightbulb"></i>
+                                <span>Proje büyüklüğüne göre karar verin</span>
+                            </div>
+                        </div>
+
+                        <div class="warning-card learning-curve">
+                            <div class="warning-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h4>Öğrenme Eğrisi</h4>
+                            <p>Yeni geliştiriciler için <strong>öğrenme süreci</strong> gerekli</p>
+                            <div class="warning-advice">
+                                <i class="fas fa-lightbulb"></i>
+                                <span>Ekip eğitimine yatırım yapın</span>
+                            </div>
+                        </div>
+
+                        <div class="warning-card initial-setup">
+                            <div class="warning-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <h4>İlk Kurulum</h4>
+                            <p>Başlangıçta <strong>daha fazla kod</strong> yazmanız gerekir</p>
+                            <div class="warning-advice">
+                                <i class="fas fa-lightbulb"></i>
+                                <span>Template'ler ve code generator'lar kullanın</span>
+                            </div>
+                        </div>
+
+                        <div class="warning-card team-alignment">
+                            <div class="warning-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h4>Ekip Uyumu</h4>
+                            <p>Tüm ekibin <strong>aynı prensipler</strong>i takip etmesi gerekli</p>
+                            <div class="warning-advice">
+                                <i class="fas fa-lightbulb"></i>
+                                <span>Code review süreçleri ve coding standard'lar belirleyin</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="best-practices">
+                    <h3><i class="fas fa-star"></i> En İyi Pratikler</h3>
+                    <div class="practices-list">
+                        <div class="practice-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div class="practice-content">
+                                <h4>Interface Segregation</h4>
+                                <p>Repository interface'lerini küçük ve odaklanmış tutun</p>
+                            </div>
+                        </div>
+                        <div class="practice-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div class="practice-content">
+                                <h4>Rich Domain Model</h4>
+                                <p>Entity'ler sadece data container değil, behavior içermeli</p>
+                            </div>
+                        </div>
+                        <div class="practice-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div class="practice-content">
+                                <h4>Fail Fast</h4>
+                                <p>Validation'ları mümkün olduğunca erken yapın</p>
+                            </div>
+                        </div>
+                        <div class="practice-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div class="practice-content">
+                                <h4>Dependency Injection</h4>
+                                <p>Constructor injection kullanın, service locator anti-pattern'den kaçının</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="conclusion">
+                    <h2><i class="fas fa-flag-checkered"></i> Sonuç</h2>
+                    <p>.NET Clean Architecture, <strong>sürdürülebilir</strong>, <strong>test edilebilir</strong> ve <strong>esnek</strong> uygulamalar geliştirmek için güçlü bir yaklaşımdır. SOLID prensiplerine dayanan bu mimari, özellikle orta ve büyük ölçekli projeler için büyük avantajlar sağlar.</p>
+                    
+                    <div class="key-takeaways">
+                        <h3><i class="fas fa-key"></i> Ana Çıkarımlar</h3>
+                        <ul>
+                            <li>Domain mantığını merkeze alın ve koruyun</li>
+                            <li>Bağımlılık yönünü her zaman dıştan içe doğru tutun</li>
+                            <li>CQRS ve MediatR ile use case'leri net bir şekilde ayrın</li>
+                            <li>DDD prensipleriyle domain modeling yapın</li>
+                            <li>Kapsamlı test stratejisi uygulayın</li>
+                            <li>Proje büyüklüğüne göre complexity seviyesini ayarlayın</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="next-steps">
+                    <h3><i class="fas fa-arrow-right"></i> Sonraki Adımlar</h3>
+                    <ul>
+                        <li>Küçük bir proje ile Clean Architecture pratik yapın</li>
+                        <li>MediatR ve FluentValidation kütüphanelerini keşfedin</li>
+                        <li>DDD pattern'lerini daha detaylı öğrenin</li>
+                        <li>Entity Framework Core ile Clean Architecture entegrasyonu yapın</li>
+                        <li>Microservices mimarisine geçiş stratejilerini araştırın</li>
+                    </ul>
+                </div>
+
+                <!-- Post Footer -->
+                <div class="post-footer">
+                    <div class="author-info">
+                        <div class="author-avatar">
+                            <img alt="Alperen Çetin">
+                        </div>
+                        <div class="author-details">
+                            <h4>Alperen Çetin</h4>
+                            <p>Full Stack Developer | .NET Specialist</p>
+                            <div class="social-links">
+                                <a href="#" class="social-link">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                                <a href="#" class="social-link">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="#" class="social-link">
+                                    <i class="fas fa-envelope"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="post-navigation">
+                        <a href="../index.html#blog" class="btn">
+                            <i class="fas fa-arrow-left"></i> Blog'a Dön
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

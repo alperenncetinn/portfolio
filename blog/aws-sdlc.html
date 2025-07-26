@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Software Development Lifecycle - Alperen Çetin</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="blog.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/png" href="../images/alp-digital-logo.png">
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Navigasyon Çubuğu -->
+        <nav class="navbar">
+            <div class="logo">
+                <img src="../images/alp-digital-logo.png" alt="Logo" class="logo-img">
+                <span>portfolio</span>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html#home">Ana Sayfa</a>
+                <a href="../index.html#about">Hakkımda</a>
+                <a href="../index.html#projects">Projeler</a>
+                <a href="../index.html#blog" class="active">Blog</a>
+                <a href="../index.html#services">Hizmetler</a>
+                <a href="../index.html#contact">İletişim</a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+
+        <!-- Blog Post Content -->
+        <main class="blog-post">
+            <div class="blog-header">
+                <div class="breadcrumb">
+                    <a href="../index.html">Ana Sayfa</a>
+                    <span>/</span>
+                    <a href="../index.html#blog">Blog</a>
+                    <span>/</span>
+                    <span>AWS Software Development Lifecycle</span>
+                </div>
+                
+                <div class="post-meta">
+                    <span class="category">AWS</span>
+                    <span class="date">25 Temmuz 2025</span>
+                    <span class="read-time"><i class="fas fa-clock"></i> 15 dk okuma</span>
+                </div>
+                
+                <h1>AWS Software Development Lifecycle</h1>
+                
+                <div class="post-tags">
+                    <span class="tag">AWS</span>
+                    <span class="tag">SDLC</span>
+                    <span class="tag">Frontend</span>
+                    <span class="tag">Backend</span>
+                    <span class="tag">Database</span>
+                    <span class="tag">SaaS</span>
+                </div>
+            </div>
+
+            <article class="post-content">
+                <section class="intro">
+                    <p class="lead">Yazılım geliştirme yaşam döngüsü (SDLC), bir yazılımın fikir aşamasından başlayıp, geliştirilip, test edilip, dağıtılıp ve sonunda bakımının yapılmasına kadar geçen tüm aşamaların sistematik ve disiplinli bir şekilde izlendiği süreçtir. Bu yazıda SDLC'yi AWS perspektifiyle ele alacağız.</p>
+                </section>
+
+                <section id="sdlc-nedir">
+                    <h2><i class="fas fa-cogs"></i> SDLC Nedir?</h2>
+                    
+                    <p><strong>SDLC (Software Development Lifecycle)</strong>, bir yazılımın <strong>fikir aşamasından başlayıp, geliştirilip, test edilip, dağıtılıp ve sonunda bakımının yapılmasına kadar geçen tüm aşamaların sistematik ve disiplinli bir şekilde izlendiği süreçtir.</strong></p>
+
+                    <div class="sdlc-visual">
+                        <div class="sdlc-circle">
+                            <div class="sdlc-step" data-step="1">
+                                <i class="fas fa-lightbulb"></i>
+                                <span>Planlama</span>
+                            </div>
+                            <div class="sdlc-step" data-step="2">
+                                <i class="fas fa-drafting-compass"></i>
+                                <span>Tasarım</span>
+                            </div>
+                            <div class="sdlc-step" data-step="3">
+                                <i class="fas fa-code"></i>
+                                <span>Geliştirme</span>
+                            </div>
+                            <div class="sdlc-step" data-step="4">
+                                <i class="fas fa-bug"></i>
+                                <span>Test</span>
+                            </div>
+                            <div class="sdlc-step" data-step="5">
+                                <i class="fas fa-rocket"></i>
+                                <span>Dağıtım</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="sdlc-asamalari">
+                    <h2><i class="fas fa-list-ol"></i> SDLC Aşamaları</h2>
+
+                    <div class="phase-container">
+                        <div class="phase-card">
+                            <div class="phase-header">
+                                <div class="phase-number">1</div>
+                                <h3><i class="fas fa-clipboard-list"></i> Planlama ve Gereksinim Analizi</h3>
+                            </div>
+                            <div class="phase-content">
+                                <p>Bu aşamada;</p>
+                                <ul>
+                                    <li>Müşteri ihtiyaçları toparlanır ve müşterinin gereksinimleri öğrenilir</li>
+                                    <li>Projenin hedefi, kapsamı, zaman ve maliyet tahmin edilir</li>
+                                    <li>Risk analizi yapılır</li>
+                                    <li>Fonksiyonel gereksinimler (ne yapacak?) ve fonksiyonel olmayan gereksinimler (performans, güvenlik gibi) belirlenir</li>
+                                </ul>
+                                <div class="phase-result">
+                                    <strong>Sonuç:</strong> Bu aşama sonunda elimizde ne yapacağımıza dair bir şablon oluşuyor.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="phase-card">
+                            <div class="phase-header">
+                                <div class="phase-number">2</div>
+                                <h3><i class="fas fa-drafting-compass"></i> Tasarım (Design)</h3>
+                            </div>
+                            <div class="phase-content">
+                                <p>Tasarlama aşamasında;</p>
+                                <ul>
+                                    <li>Yazılım mimarisi oluşturulur</li>
+                                    <li>Kullanıcı arayüzü tasarımı, veri tabanı tasarımı yapılır</li>
+                                    <li>Hangi teknolojilerin kullanılacağı seçilir</li>
+                                </ul>
+                                <div class="phase-result">
+                                    <strong>Kısaca:</strong> Yazılımın iskeletini oluştururuz.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="phase-card">
+                            <div class="phase-header">
+                                <div class="phase-number">3</div>
+                                <h3><i class="fas fa-code"></i> Geliştirme (Development)</h3>
+                            </div>
+                            <div class="phase-content">
+                                <p>Development sürecimiz başlar bu aşamada ürünü ayağa kaldırırız;</p>
+                                <ul>
+                                    <li>Kodlama süreci başlar</li>
+                                    <li>Modüller oluşturulur ve birleştirilir</li>
+                                    <li>Versiyon kontrol sistemleri kullanılır</li>
+                                </ul>
+                                <div class="phase-result">
+                                    <strong>Sonuç:</strong> Analiz aşamasında tespit ettiğimiz, design aşamasında belirlediğimiz şeyleri koda döküyoruz.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="phase-card">
+                            <div class="phase-header">
+                                <div class="phase-number">4</div>
+                                <h3><i class="fas fa-bug"></i> Test Etme</h3>
+                            </div>
+                            <div class="phase-content">
+                                <ul>
+                                    <li>Kodun hataları bulunur</li>
+                                    <li>Yazılımın gereksinimleri karşılayıp karşılamadığı kontrol edilir</li>
+                                    <li>Farklı test türleri uygulanır: Unit, Integration, System, Acceptance testleri</li>
+                                </ul>
+                                <div class="phase-result">
+                                    <strong>Not:</strong> Burada kod istenilen düzeye gelene kadar 1.aşamaya kadar gideriz.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="phase-card">
+                            <div class="phase-header">
+                                <div class="phase-number">5</div>
+                                <h3><i class="fas fa-rocket"></i> Uygulama (Deployment)</h3>
+                            </div>
+                            <div class="phase-content">
+                                <ul>
+                                    <li>Yazılım <strong>canlıya alınır</strong> ve gerçek kullanıcılarla buluşur</li>
+                                    <li>Yayınlama sırasında <strong>kesinti, hata olmaması</strong> için dikkatli bir geçiş yapılır</li>
+                                    <li>Geliştirme ve testten sonra, kodun üretim ortamına taşınması sürecidir</li>
+                                </ul>
+                                <div class="beta-info">
+                                    <h4><i class="fas fa-flask"></i> Beta Sürüm</h4>
+                                    <p>Bir yazılımın geliştirme sürecinde, temel özellikleri büyük ölçüde tamamlanmış ama hâlâ test edilen ve nihai sürüm öncesinde sınırlı sayıda kullanıcıyla paylaşılan versiyonudur.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="yazilim-mimarisi">
+                    <h2><i class="fas fa-layer-group"></i> Modern Yazılım Mimarisi</h2>
+                    
+                    <p>Neredeyse her kurumsal uygulama <strong>backend</strong>, <strong>frontend</strong> ve <strong>database</strong>den oluşmaktadır.</p>
+
+                    <div class="architecture-overview">
+                        <div class="arch-component frontend">
+                            <i class="fas fa-desktop"></i>
+                            <h4>Frontend</h4>
+                            <p>Kullanıcı Arayüzü</p>
+                        </div>
+                        <div class="arch-arrow">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <div class="arch-component backend">
+                            <i class="fas fa-server"></i>
+                            <h4>Backend</h4>
+                            <p>İş Mantığı</p>
+                        </div>
+                        <div class="arch-arrow">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <div class="arch-component database">
+                            <i class="fas fa-database"></i>
+                            <h4>Database</h4>
+                            <p>Veri Depolama</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="frontend">
+                    <h2><i class="fas fa-desktop"></i> Frontend (Ön Yüz)</h2>
+
+                    <div class="component-detail">
+                        <h3>Nedir?</h3>
+                        <ul>
+                            <li>Kullanıcının doğrudan gördüğü ve etkileşimde bulunduğu kısmıdır</li>
+                            <li>Web sitesinin veya uygulamanın <strong>arayüzüdür</strong>: butonlar, menüler, yazılar, renkler, görseller</li>
+                            <li>Tarayıcıda veya mobil cihazda çalışır</li>
+                        </ul>
+
+                        <h3>Kullanılan Teknolojiler:</h3>
+                        <div class="tech-tags">
+                            <span class="tech-tag html">HTML</span>
+                            <span class="tech-tag css">CSS</span>
+                            <span class="tech-tag js">JavaScript</span>
+                            <span class="tech-tag react">React</span>
+                            <span class="tech-tag angular">Angular</span>
+                            <span class="tech-tag vue">Vue</span>
+                        </div>
+
+                        <div class="analogy-box restaurant">
+                            <h4><i class="fas fa-utensils"></i> Restoran Analojisi</h4>
+                            <p>Bir restoranın <strong>dekorasyonu ve menü kartı</strong> gibi düşün.</p>
+                            <p>Müşteri masaya oturduğunda ne sipariş vereceğini, nasıl sipariş vereceğini ön yüz belirler: sandalye rahat mı, menü kolay okunuyor mu biz bunu düşünürüz.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="backend">
+                    <h2><i class="fas fa-server"></i> Backend (Arka Yüz / Sunucu Tarafı)</h2>
+
+                    <div class="component-detail">
+                        <h3>Nedir?</h3>
+                        <ul>
+                            <li>Kullanıcının <strong>görmediği ama işlemlerin yürütüldüğü</strong>, verilerin işlendiği kısımdır</li>
+                            <li>Kullanıcının gönderdiği verileri alır, işler ve gerektiğinde veritabanıyla iletişim kurar</li>
+                            <li>API (Application Programming Interface) aracılığıyla frontend ile iletişim kurar</li>
+                        </ul>
+
+                        <h3>Kullanılan Teknolojiler:</h3>
+                        <div class="tech-tags">
+                            <span class="tech-tag python">Python</span>
+                            <span class="tech-tag java">Java</span>
+                            <span class="tech-tag nodejs">Node.js</span>
+                            <span class="tech-tag go">Go</span>
+                            <span class="tech-tag php">PHP</span>
+                            <span class="tech-tag django">Django</span>
+                            <span class="tech-tag spring">Spring Boot</span>
+                            <span class="tech-tag express">Express.js</span>
+                        </div>
+
+                        <div class="analogy-box kitchen">
+                            <h4><i class="fas fa-utensils"></i> Restoran Analojisi</h4>
+                            <p>Restoranın <strong>mutfağı ve garsonları</strong> gibi düşün.</p>
+                            <p>Müşteri siparişini verir (frontend), garson siparişi mutfağa iletir (API), mutfakta yemek hazırlanır (backend), sonra garson geri getirir.</p>
+                            <p><strong>Müşteri mutfağın içini görmez ama tüm önemli işler orada yapılır!</strong></p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="database">
+                    <h2><i class="fas fa-database"></i> Database (Veritabanı)</h2>
+
+                    <div class="component-detail">
+                        <h3>Nedir?</h3>
+                        <ul>
+                            <li>Yazılımın <strong>bilgilerini kalıcı olarak depoladığı yerdir</strong></li>
+                            <li>Kullanıcı bilgileri, ürünler, siparişler gibi veriler burada saklanır</li>
+                            <li>Backend, ihtiyaç duydukça database'e gider veri alır veya kaydeder</li>
+                        </ul>
+
+                        <h3>Kullanılan Teknolojiler:</h3>
+                        <div class="tech-tags">
+                            <span class="tech-tag mysql">MySQL</span>
+                            <span class="tech-tag postgresql">PostgreSQL</span>
+                            <span class="tech-tag mssql">MSSQL</span>
+                            <span class="tech-tag mongodb">MongoDB</span>
+                            <span class="tech-tag dynamodb">DynamoDB</span>
+                        </div>
+
+                        <div class="analogy-box storage">
+                            <h4><i class="fas fa-utensils"></i> Restoran Analojisi</h4>
+                            <p>Restoranın <strong>depo veya kiler bölümü</strong> gibidir.</p>
+                            <p>Şef yemeği hazırlamak için malzemeye ihtiyaç duyduğunda depoya gider. Depoda pirinç, et, baharat gibi her şey düzgün dizilidir.</p>
+                            <p><strong>Depo olmazsa mutfakta yemek yapılamaz!</strong></p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="ozet-tablo">
+                    <h2><i class="fas fa-table"></i> Özet Karşılaştırma</h2>
+
+                    <div class="comparison-table-simple">
+                        <div class="table-header">
+                            <div class="table-cell">Kısım</div>
+                            <div class="table-cell">Ne İş Yapar?</div>
+                            <div class="table-cell">Kullanıcı Görür mü?</div>
+                        </div>
+                        <div class="table-row">
+                            <div class="table-cell"><strong>Frontend</strong></div>
+                            <div class="table-cell">Görsel arayüz, kullanıcı etkileşimi</div>
+                            <div class="table-cell success">✅</div>
+                        </div>
+                        <div class="table-row">
+                            <div class="table-cell"><strong>Backend</strong></div>
+                            <div class="table-cell">İş mantığı, veri işleme</div>
+                            <div class="table-cell error">❌</div>
+                        </div>
+                        <div class="table-row">
+                            <div class="table-cell"><strong>Database</strong></div>
+                            <div class="table-cell">Verileri kalıcı saklama</div>
+                            <div class="table-cell error">❌</div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="trendyol-ornegi">
+                    <h2><i class="fas fa-shopping-cart"></i> Trendyol Örneği</h2>
+
+                    <div class="example-box">
+                        <p>Mesela günümüz uygulamalarından <strong>Trendyol</strong>'dan örnek verelim:</p>
+                        
+                        <div class="example-grid">
+                            <div class="example-item frontend-ex">
+                                <h4><i class="fas fa-desktop"></i> Frontend</h4>
+                                <p>Web sitesindeki ürün listesi, sepete ekle butonu</p>
+                            </div>
+                            <div class="example-item backend-ex">
+                                <h4><i class="fas fa-server"></i> Backend</h4>
+                                <p>Siparişi işleme, stok kontrolü, ödeme işlemi</p>
+                            </div>
+                            <div class="example-item database-ex">
+                                <h4><i class="fas fa-database"></i> Database</h4>
+                                <p>Ürünler, kullanıcı bilgileri, ödeme kayıtları</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="saas">
+                    <h2><i class="fas fa-cloud"></i> SaaS (Software as a Service)</h2>
+
+                    <p>Yazılımın dağıtılması sırasında kullanıcı sunucu vs yönetmek zorunda kalıyordu ve bu müşteri açısından zordu. Bu sebeple <strong>SaaS</strong> yani <strong>Software as a Service</strong> yöntemi geliştirilmeye başlandı.</p>
+
+                    <div class="saas-definition">
+                        <h3>SaaS Nedir?</h3>
+                        <p><strong>SaaS (Software as a Service)</strong>, yazılımın <strong>internet üzerinden servis olarak sunulduğu bir modeldir.</strong></p>
+                        
+                        <div class="saas-benefits">
+                            <div class="benefit-item">
+                                <i class="fas fa-check-circle"></i>
+                                <p>Yazılımı bilgisayarına kurmazsın</p>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-check-circle"></i>
+                                <p>Sadece internet bağlantısı ile bir tarayıcıdan erişir ve kullanırsın</p>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-check-circle"></i>
+                                <p>Database, sunucu gibi kısımları sunucu tarafında halledersiniz</p>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-check-circle"></i>
+                                <p>Müşteri sadece internet üzerinden hizmetinize erişir</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="saas-examples">
+                        <h3><i class="fas fa-examples"></i> SaaS Örnekleri</h3>
+                        <div class="saas-grid">
+                            <div class="saas-example">
+                                <i class="fab fa-google"></i>
+                                <span>Google Workspace</span>
+                            </div>
+                            <div class="saas-example">
+                                <i class="fab fa-microsoft"></i>
+                                <span>Microsoft 365</span>
+                            </div>
+                            <div class="saas-example">
+                                <i class="fab fa-spotify"></i>
+                                <span>Spotify</span>
+                            </div>
+                            <div class="saas-example">
+                                <i class="fab fa-netflix"></i>
+                                <span>Netflix</span>
+                            </div>
+                            <div class="saas-example">
+                                <i class="fab fa-dropbox"></i>
+                                <span>Dropbox</span>
+                            </div>
+                            <div class="saas-example">
+                                <i class="fab fa-slack"></i>
+                                <span>Slack</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="aws-baglaminda">
+                    <h2><i class="fab fa-aws"></i> AWS Bağlamında SDLC</h2>
+
+                    <div class="aws-services">
+                        <h3>AWS ile SDLC Aşamaları</h3>
+                        
+                        <div class="aws-phase-grid">
+                            <div class="aws-phase">
+                                <h4><i class="fas fa-lightbulb"></i> Planlama</h4>
+                                <ul>
+                                    <li>AWS Cost Calculator</li>
+                                    <li>AWS Well-Architected Tool</li>
+                                    <li>AWS Organizations</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="aws-phase">
+                                <h4><i class="fas fa-drafting-compass"></i> Tasarım</h4>
+                                <ul>
+                                    <li>AWS Architecture Center</li>
+                                    <li>AWS CloudFormation</li>
+                                    <li>AWS CDK</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="aws-phase">
+                                <h4><i class="fas fa-code"></i> Geliştirme</h4>
+                                <ul>
+                                    <li>AWS CodeCommit</li>
+                                    <li>AWS Cloud9</li>
+                                    <li>AWS CodeBuild</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="aws-phase">
+                                <h4><i class="fas fa-bug"></i> Test</h4>
+                                <ul>
+                                    <li>AWS CodePipeline</li>
+                                    <li>AWS Device Farm</li>
+                                    <li>AWS X-Ray</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="aws-phase">
+                                <h4><i class="fas fa-rocket"></i> Dağıtım</h4>
+                                <ul>
+                                    <li>AWS CodeDeploy</li>
+                                    <li>AWS Elastic Beanstalk</li>
+                                    <li>AWS ECS/EKS</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="conclusion">
+                    <h2><i class="fas fa-flag-checkered"></i> Sonuç</h2>
+                    <p>SDLC, yazılım projelerinin başarısı için kritik öneme sahiptir. Her aşamanın düzenli ve sistematik olarak takip edilmesi, kaliteli ve güvenilir yazılımlar ortaya çıkarır.</p>
+                    
+                    <p>AWS gibi bulut platformları, SDLC'nin her aşamasında güçlü araçlar sunarak geliştirme sürecini hızlandırır ve kolaylaştırır. SaaS modeli ile birlikte, modern yazılım geliştirme daha erişilebilir ve ölçeklenebilir hale gelmiştir.</p>
+
+                    <div class="key-takeaways">
+                        <h3><i class="fas fa-key"></i> Önemli Çıkarımlar</h3>
+                        <ul>
+                            <li>SDLC sistematik bir yaklaşım gerektirir</li>
+                            <li>Frontend, Backend ve Database üçlüsü modern yazılımın temelidir</li>
+                            <li>SaaS modeli kullanıcılar için büyük kolaylık sağlar</li>
+                            <li>AWS gibi bulut platformları SDLC sürecini optimize eder</li>
+                        </ul>
+                    </div>
+                </section>
+            </article>
+
+            <div class="post-footer">
+                <div class="author-info">
+                    <img src="../images/profilePhoto.jpg" alt="Alperen Çetin" class="author-avatar">
+                    <div class="author-details">
+                        <h4>Alperen Çetin</h4>
+                        <p>Freelance Yazılım Geliştirici ve Bilgisayar Mühendisi Öğrencisi</p>
+                        <div class="social-links">
+                            <a href="https://www.linkedin.com/in/alperen-çetin-890596318/" target="_blank" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="https://github.com/alperenncetinn" target="_blank" class="social-link"><i class="fab fa-github"></i></a>
+                            <a href="https://twitter.com/alperencetinim" target="_blank" class="social-link"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="post-navigation">
+                    <a href="../index.html#blog" class="btn secondary">
+                        <i class="fas fa-arrow-left"></i> Blog'a Dön
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <img src="../images/alp-digital-logo.png" alt="Logo" class="logo-img">
+                        <span>portfolio</span>
+                    </div>
+                    <p>Yenilikçi ve kullanıcı dostu dijital deneyimler oluşturuyorum.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Hızlı Bağlantılar</h4>
+                    <ul>
+                        <li><a href="../index.html#home">Ana Sayfa</a></li>
+                        <li><a href="../index.html#about">Hakkımda</a></li>
+                        <li><a href="../index.html#projects">Projeler</a></li>
+                        <li><a href="../index.html#blog">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>İletişim</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> alperen.cetin.969@gmail.com</li>
+                        <li><i class="fas fa-phone"></i> +90 532 431 81 38</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Alperen Çetin. Tüm hakları saklıdır.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="../script.js"></script>
+</body>
+
+</html>

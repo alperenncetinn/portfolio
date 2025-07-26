@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abstract Class ve Interface Farkı - Alperen Çetin</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="blog.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/png" href="../images/alp-digital-logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Navigasyon Çubuğu -->
+        <nav class="navbar">
+            <div class="logo">
+                <img src="../images/alp-digital-logo.png" alt="Logo" class="logo-img">
+                <span>portfolio</span>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html#home">Ana Sayfa</a>
+                <a href="../index.html#about">Hakkımda</a>
+                <a href="../index.html#projects">Projeler</a>
+                <a href="../index.html#blog" class="active">Blog</a>
+                <a href="../index.html#services">Hizmetler</a>
+                <a href="../index.html#contact">İletişim</a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+
+        <!-- Blog Post Content -->
+        <main class="blog-post">
+            <div class="blog-header">
+                <div class="breadcrumb">
+                    <a href="../index.html">Ana Sayfa</a>
+                    <span>/</span>
+                    <a href="../index.html#blog">Blog</a>
+                    <span>/</span>
+                    <span>Abstract Class ve Interface Farkı</span>
+                </div>
+                
+                <div class="post-meta">
+                    <span class="category">C#</span>
+                    <span class="date">26 Temmuz 2025</span>
+                    <span class="read-time"><i class="fas fa-clock"></i> 12 dk okuma</span>
+                </div>
+                
+                <h1>Abstract Class ve Interface Farkı</h1>
+                
+                <div class="post-tags">
+                    <span class="tag">C#</span>
+                    <span class="tag">OOP</span>
+                    <span class="tag">Abstract Class</span>
+                    <span class="tag">Interface</span>
+                    <span class="tag">Inheritance</span>
+                </div>
+            </div>
+
+            <article class="post-content">
+                <section class="intro">
+                    <p class="lead">C# programlamada en çok karıştırılan konulardan biri olan Abstract Class ve Interface kavramlarını, pratik bir araç kiralama örneği üzerinden detaylı olarak inceleyeceğiz. Bu yazıda, ne zaman hangisini kullanacağınızı ve aralarındaki temel farkları öğreneceksiniz.</p>
+                </section>
+
+                <section id="giris">
+                    <h2><i class="fas fa-car"></i> Senaryo: Araç Kiralama Sistemi</h2>
+                    
+                    <p>Bir araç kiralama yazılımı yazdığınızı düşünün. Bu yazılımda farklı türde araçlarınız olacak: <strong>Arabalar</strong>, <strong>Motosikletler</strong>, <strong>Kamyonlar</strong> vb.</p>
+
+                    <div class="info-box">
+                        <p>Bu örnek üzerinden hem Abstract Class hem de Interface kavramlarını pratik olarak göreceğiz ve hangi durumda hangisini kullanmamız gerektiğini anlayacağız.</p>
+                    </div>
+                </section>
+
+                <section id="abstract-class">
+                    <h2><i class="fas fa-layer-group"></i> Soyut Sınıf (Abstract Class) Örneği: <code>Arac</code></h2>
+                    
+                    <p>Diyelim ki tüm araçların ortak bazı temel özellikleri ve bir başlangıç değeri olmalı: her aracın bir <strong>markası</strong>, bir <strong>modeli</strong> ve <strong>tüm araçlara otomatik olarak atanacak bir seri numarası (Id)</strong> olmalı. Ayrıca, her araç hareket edebilir ama her araç farklı şekilde hareket eder.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="language">C#</span>
+                            <span class="filename">Arac.cs</span>
+                        </div>
+                        <pre><code class="language-csharp">public abstract class Arac
+{
+    // Ortak Özellikler (Durum tutabiliriz)
+    public Guid Id { get; set; } // Tüm araçların benzersiz bir ID'si olacak
+    public string Marka { get; set; }
+    public string Model { get; set; }
+
+    // Yapıcı metot (Constructor) - ID'yi otomatik atıyoruz
+    public Arac(string marka, string model)
+    {
+        Id = Guid.NewGuid(); // Her araç oluşturulduğunda benzersiz ID alır
+        Marka = marka;
+        Model = model;
+    }
+
+    // Ortak SOMUT Metot (Tüm araçlar için aynı davranış)
+    public void BilgileriGoster()
+    {
+        Console.WriteLine($"ID: {Id}, Marka: {Marka}, Model: {Model}");
+    }
+
+    // Ortak SOYUT Metot (Her araç farklı hareket eder, alt sınıflar bunu uygulamak zorunda)
+    public abstract void HareketEt();
+}</code></pre>
+                    </div>
+
+                    <div class="highlight-box">
+                        <h3><i class="fas fa-question-circle"></i> Neden <code>abstract class Arac</code>?</h3>
+                        <ul>
+                            <li><strong>Ortak Alanlar/Özellikler:</strong> <code>Id</code>, <code>Marka</code>, <code>Model</code> gibi tüm araçlarda bulunacak alanları tanımlayabiliriz.</li>
+                            
+                            <li><strong>Ortak Başlatma Mantığı:</strong> Yapıcı metot sayesinde her <code>Arac</code> nesnesi oluştuğunda <code>Id</code>'sinin otomatik olarak <code>Guid.NewGuid()</code> ile atanmasını sağlayabiliriz. <span class="warning">Bir arayüzde yapıcı metot olamaz.</span></li>
+                            
+                            <li><strong>Ortak Somut Davranış:</strong> <code>BilgileriGoster()</code> gibi tüm araçların aynı şekilde çalışacak metotlarını yazabiliriz.</li>
+                            
+                            <li><strong>Zorunlu Soyut Davranış:</strong> <code>HareketEt()</code> metodu soyut olduğu için, <code>Arac</code> sınıfından türeyen her sınıf (örneğin <code>Araba</code>, <code>Motosiklet</code>) bu metodu <strong>kendi içinde uygulamak zorundadır</strong>.</li>
+                        </ul>
+                    </div>
+
+                    <p>Şimdi bu <code>Arac</code> sınıfından türeyen gerçek araçları oluşturalım:</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="language">C#</span>
+                            <span class="filename">Araba.cs</span>
+                        </div>
+                        <pre><code class="language-csharp">public class Araba : Arac
+{
+    public int KapiSayisi { get; set; }
+
+    public Araba(string marka, string model, int kapiSayisi)
+        : base(marka, model) // Base class'ın (Arac) yapıcı metodunu çağırıyoruz
+    {
+        KapiSayisi = kapiSayisi;
+    }
+
+    // Soyut metodu uygulamak zorundayız
+    public override void HareketEt()
+    {
+        Console.WriteLine("Araba dört teker üzerinde ilerliyor.");
+    }
+}</code></pre>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="language">C#</span>
+                            <span class="filename">Motosiklet.cs</span>
+                        </div>
+                        <pre><code class="language-csharp">public class Motosiklet : Arac
+{
+    public bool TekerlekliYanCantasiVarMi { get; set; }
+
+    public Motosiklet(string marka, string model, bool tekerlekliYanCantasiVarMi)
+        : base(marka, model) // Base class'ın (Arac) yapıcı metodunu çağırıyoruz
+    {
+        TekerlekliYanCantasiVarMi = tekerlekliYanCantasiVarMi;
+    }
+
+    // Soyut metodu uygulamak zorundayız
+    public override void HareketEt()
+    {
+        Console.WriteLine("Motosiklet iki teker üzerinde hızla ilerliyor.");
+    }
+}</code></pre>
+                    </div>
+                </section>
+
+                <section id="interface">
+                    <h2><i class="fas fa-plug"></i> Arayüz (Interface) Örneği: <code>IKiralayabilir</code> ve <code>IYukTasiyabilir</code></h2>
+                    
+                    <p>Şimdi, bazı araçların kiralanabilir, bazı araçların yük taşıyabilir özelliklere sahip olması gerektiğini düşünelim. Bir araba hem kiralanabilir hem de yük taşıyabilir, bir motorsiklet sadece kiralanabilir olabilir.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="language">C#</span>
+                            <span class="filename">IKiralayabilir.cs</span>
+                        </div>
+                        <pre><code class="language-csharp">// Kiralama yeteneği olan her varlığın bu metodu uygulaması gerektiğini belirten bir sözleşme
+public interface IKiralayabilir
+{
+    // İmza tanımlıyoruz, uygulama detayı yok
+    void Kirala(int gunSayisi);
+    decimal HesaplaKiraBedeli(int gunSayisi, decimal gunlukFiyat);
+}</code></pre>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="language">C#</span>
+                            <span class="filename">IYukTasiyabilir.cs</span>
+                        </div>
+                        <pre><code class="language-csharp">// Yük taşıma yeteneği olan her varlığın bu metodu uygulaması gerektiğini belirten bir sözleşme
+public interface IYukTasiyabilir
+{
+    // İmza tanımlıyoruz, uygulama detayı yok
+    void YukDoldur(int miktar);
+    void YukBosalt(int miktar);
+}</code></pre>
+                    </div>
+
+                    <p>Şimdi bu arayüzleri araçlarımıza uygulayalım:</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="language">C#</span>
+                            <span class="filename">Araba.cs - Updated</span>
+                        </div>
+                        <pre><code class="language-csharp">public class Araba : Arac, IKiralayabilir // Araba, Arac'tan miras alır ve IKiralayabilir'i uygular
+{
+    public int KapiSayisi { get; set; }
+
+    public Araba(string marka, string model, int kapiSayisi)
+        : base(marka, model)
+    {
+        KapiSayisi = kapiSayisi;
+    }
+
+    public override void HareketEt()
+    {
+        Console.WriteLine("Araba dört teker üzerinde ilerliyor.");
+    }
+
+    // IKiralayabilir arayüzünün metotlarını uyguluyoruz
+    public void Kirala(int gunSayisi)
+    {
+        Console.WriteLine($"{Marka} {Model} {gunSayisi} günlüğüne kiralandı.");
+    }
+
+    public decimal HesaplaKiraBedeli(int gunSayisi, decimal gunlukFiyat)
+    {
+        return gunSayisi * gunlukFiyat;
+    }
+}</code></pre>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="language">C#</span>
+                            <span class="filename">Kamyon.cs</span>
+                        </div>
+                        <pre><code class="language-csharp">public class Kamyon : Arac, IYukTasiyabilir, IKiralayabilir // Kamyon hem yük taşıyabilir hem kiralanabilir
+{
+    public int KapasiteTon { get; set; }
+
+    public Kamyon(string marka, string model, int kapasiteTon)
+        : base(marka, model)
+    {
+        KapasiteTon = kapasiteTon;
+    }
+
+    public override void HareketEt()
+    {
+        Console.WriteLine("Kamyon ağır yüklerle yolda ilerliyor.");
+    }
+
+    // IYukTasiyabilir arayüzünün metotlarını uyguluyoruz
+    public void YukDoldur(int miktar)
+    {
+        Console.WriteLine($"{Marka} {Model}'e {miktar} ton yük yüklendi.");
+    }
+
+    public void YukBosalt(int miktar)
+    {
+        Console.WriteLine($"{Marka} {Model}'den {miktar} ton yük boşaltıldı.");
+    }
+
+    // IKiralayabilir arayüzünün metotlarını uyguluyoruz (örneğin kamyonları da kiralayabiliriz)
+    public void Kirala(int gunSayisi)
+    {
+        Console.WriteLine($"{Marka} {Model} {gunSayisi} günlüğüne kiralandı (kamyon).");
+    }
+
+    public decimal HesaplaKiraBedeli(int gunSayisi, decimal gunlukFiyat)
+    {
+        return gunSayisi * gunlukFiyat * 1.5m; // Kamyon olduğu için daha pahalı olabilir
+    }
+}</code></pre>
+                    </div>
+                </section>
+
+                <section id="kullanim-ornegi">
+                    <h2><i class="fas fa-play-circle"></i> Pratik Kullanım Örneği</h2>
+                    
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="language">C#</span>
+                            <span class="filename">Program.cs</span>
+                        </div>
+                        <pre><code class="language-csharp">class Program
+{
+    static void Main(string[] args)
+    {
+        // Farklı araç türleri oluşturuyoruz
+        var araba = new Araba("Toyota", "Corolla", 4);
+        var motosiklet = new Motosiklet("Yamaha", "R1", false);
+        var kamyon = new Kamyon("Mercedes", "Actros", 25);
+
+        // Tüm araçlar ortak Arac sınıfından türediği için aynı şekilde kullanabiliyoruz
+        Console.WriteLine("=== Araç Bilgileri ===");
+        araba.BilgileriGoster();
+        motosiklet.BilgileriGoster();
+        kamyon.BilgileriGoster();
+
+        Console.WriteLine("\n=== Hareket Şekilleri ===");
+        araba.HareketEt();
+        motosiklet.HareketEt();
+        kamyon.HareketEt();
+
+        // Interface'ler sayesinde farklı yetenekleri kullanabiliyoruz
+        Console.WriteLine("\n=== Kiralama İşlemleri ===");
+        araba.Kirala(7);
+        kamyon.Kirala(3);
+
+        Console.WriteLine("\n=== Yük Taşıma İşlemleri ===");
+        kamyon.YukDoldur(15);
+        kamyon.YukBosalt(10);
+
+        // Polimorfizm örneği
+        Console.WriteLine("\n=== Polimorfizm Örneği ===");
+        List&lt;IKiralayabilir&gt; kiralanabilirAraclar = new List&lt;IKiralayabilir&gt;
+        {
+            araba,
+            kamyon
+        };
+
+        foreach (var arac in kiralanabilirAraclar)
+        {
+            arac.Kirala(5);
+        }
+    }
+}</code></pre>
+                    </div>
+                </section>
+
+                <section id="ne-zaman-hangisi">
+                    <h2><i class="fas fa-balance-scale"></i> Ne Zaman Hangisini Kullanmalıyız?</h2>
+
+                    <div class="comparison-table">
+                        <div class="comparison-header">
+                            <div class="comparison-column">
+                                <h3><i class="fas fa-layer-group"></i> Abstract Class</h3>
+                            </div>
+                            <div class="comparison-vs">VS</div>
+                            <div class="comparison-column">
+                                <h3><i class="fas fa-plug"></i> Interface</h3>
+                            </div>
+                        </div>
+                        
+                        <div class="comparison-row">
+                            <div class="comparison-item">
+                                <h4>Ortak Durum Paylaşımı</h4>
+                                <p>Tüm türetilmiş sınıfların <strong>ortak bir temel Id'ye, yaratılma/güncellenme zamanına vb. sahip olmasını garanti etmek</strong> istediğinizde.</p>
+                            </div>
+                            <div class="comparison-item">
+                                <h4>Yetenek Sözleşmesi</h4>
+                                <p>Farklı sınıfların <strong>ortak bir "yapabilirlik" (capability) veya "sözleşme" paylaşmasını</strong> istediğinizde.</p>
+                            </div>
+                        </div>
+
+                        <div class="comparison-row">
+                            <div class="comparison-item">
+                                <h4>Varsayılan Implementasyon</h4>
+                                <p>Bazı metotların <strong>varsayılan (somut) uygulamalarını</strong> sağlamak ve kod tekrarını önlemek istediğinizde.</p>
+                            </div>
+                            <div class="comparison-item">
+                                <h4>Çoklu Yetenek</h4>
+                                <p>Birden fazla "yapabilirliği" bir sınıfa eklemek istediğinizde. Bir sınıf <strong>birden fazla arayüz uygulayabilir</strong>.</p>
+                            </div>
+                        </div>
+
+                        <div class="comparison-row">
+                            <div class="comparison-item">
+                                <h4>Tek Kalıtım</h4>
+                                <p>Türetilmiş sınıfların <strong>paylaşması gereken durum (fields/properties)</strong> varsa ve sadece <strong>tek bir temel tipte</strong> olmasını istediğinizde.</p>
+                            </div>
+                            <div class="comparison-item">
+                                <h4>Esnek Implementasyon</h4>
+                                <p><strong>Uygulama detaylarının her sınıfa bırakılmasını</strong> veya varsayılan arayüz metotları ile çok genel bir uygulama sağlamak istediğinizde.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="decision-tree">
+                        <h3><i class="fas fa-decision-tree"></i> Karar Ağacı</h3>
+                        <div class="tree-node">
+                            <div class="tree-question">Ortak duruma (fields/properties) ihtiyacım var mı?</div>
+                            <div class="tree-branches">
+                                <div class="tree-branch">
+                                    <div class="tree-answer yes">Evet</div>
+                                    <div class="tree-result">
+                                        <strong>Abstract Class</strong> kullan
+                                        <small>Örnek: Entity base class</small>
+                                    </div>
+                                </div>
+                                <div class="tree-branch">
+                                    <div class="tree-answer no">Hayır</div>
+                                    <div class="tree-subnodes">
+                                        <div class="tree-question">Birden fazla yetenek mi ekleyeceğim?</div>
+                                        <div class="tree-branches">
+                                            <div class="tree-branch">
+                                                <div class="tree-answer yes">Evet</div>
+                                                <div class="tree-result">
+                                                    <strong>Interface</strong> kullan
+                                                    <small>Örnek: IKiralayabilir + IYukTasiyabilir</small>
+                                                </div>
+                                            </div>
+                                            <div class="tree-branch">
+                                                <div class="tree-answer no">Hayır</div>
+                                                <div class="tree-result">
+                                                    <strong>Her ikisi de</strong> uygun
+                                                    <small>Tercihe göre karar ver</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="ozet">
+                    <h2><i class="fas fa-list-check"></i> Özet ve Önemli Noktalar</h2>
+
+                    <div class="summary-grid">
+                        <div class="summary-card">
+                            <h4><i class="fas fa-layer-group"></i> Abstract Class</h4>
+                            <ul>
+                                <li>Ortak durum (state) paylaşımı</li>
+                                <li>Yapıcı metot (constructor) olabilir</li>
+                                <li>Hem somut hem soyut metotlar</li>
+                                <li>Tek kalıtım (single inheritance)</li>
+                                <li>Varsayılan implementasyon sağlar</li>
+                            </ul>
+                        </div>
+
+                        <div class="summary-card">
+                            <h4><i class="fas fa-plug"></i> Interface</h4>
+                            <ul>
+                                <li>Sadece sözleşme (contract) tanımlar</li>
+                                <li>Yapıcı metot olamaz</li>
+                                <li>Sadece metot imzaları (C# 8.0+ default methods)</li>
+                                <li>Çoklu implementasyon (multiple inheritance)</li>
+                                <li>Esneklik ve polimorfizm sağlar</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="warning-box">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Dikkat Edilmesi Gerekenler</h4>
+                        <ul>
+                            <li>Abstract class'tan <strong>direkt nesne oluşturamazsınız</strong></li>
+                            <li>Interface'lerdeki tüm metotları <strong>implement etmek zorundasınız</strong></li>
+                            <li>Bir sınıf <strong>sadece bir abstract class'tan türeyebilir</strong> ama <strong>birden fazla interface implement edebilir</strong></li>
+                            <li>Abstract metotlar <strong>mutlaka override edilmelidir</strong></li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="conclusion">
+                    <h2><i class="fas fa-graduation-cap"></i> Sonuç</h2>
+                    <p>Abstract Class ve Interface kavramları, nesne yönelimli programlamanın temel taşlarıdır. Doğru kullanıldığında kodunuzun <strong>daha modüler, esnek ve sürdürülebilir</strong> olmasını sağlarlar.</p>
+                    
+                    <p>Araç kiralama örneğinde gördüğümüz gibi, Abstract Class ortak özellikleri ve davranışları paylaşmak için, Interface ise farklı yetenekleri (capabilities) tanımlamak için kullanılır. Her ikisinin de kendine özgü kullanım alanları vardır ve doğru seçim yapmak kodunuzun kalitesini önemli ölçüde artırır.</p>
+
+                    <div class="next-steps">
+                        <h4><i class="fas fa-arrow-right"></i> Sonraki Adımlar</h4>
+                        <ul>
+                            <li>Bu örnekleri kendi IDE'nizde çalıştırarak deneyimleyin</li>
+                            <li>Farklı senaryolar için Abstract Class ve Interface tasarımları yapın</li>
+                            <li>SOLID prensiplerine göre bu yapıları nasıl kullanabileceğinizi araştırın</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="video-resources">
+                    <h2><i class="fas fa-video"></i> Video Kaynaklar</h2>
+                    <p>Konuyu pekiştirmek için önerilen videolar:</p>
+                    
+                    <div class="video-links">
+                        <a href="https://www.youtube.com/watch?v=Bn3HaaTHc5o" target="_blank" class="video-link">
+                            <i class="fab fa-youtube"></i>
+                            <span>Abstract Class ve Interface Detaylı Anlatım</span>
+                        </a>
+                        <a href="https://www.youtube.com/watch?v=ycc_RiqSjus" target="_blank" class="video-link">
+                            <i class="fab fa-youtube"></i>
+                            <span>Pratik Örneklerle OOP Kavramları</span>
+                        </a>
+                    </div>
+                </section>
+            </article>
+
+            <div class="post-footer">
+                <div class="author-info">
+                    <img src="../images/profilePhoto.jpg" alt="Alperen Çetin" class="author-avatar">
+                    <div class="author-details">
+                        <h4>Alperen Çetin</h4>
+                        <p>Freelance Yazılım Geliştirici ve Bilgisayar Mühendisi Öğrencisi</p>
+                        <div class="social-links">
+                            <a href="https://www.linkedin.com/in/alperen-çetin-890596318/" target="_blank" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="https://github.com/alperenncetinn" target="_blank" class="social-link"><i class="fab fa-github"></i></a>
+                            <a href="https://twitter.com/alperencetinim" target="_blank" class="social-link"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="post-navigation">
+                    <a href="../index.html#blog" class="btn secondary">
+                        <i class="fas fa-arrow-left"></i> Blog'a Dön
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <img src="../images/alp-digital-logo.png" alt="Logo" class="logo-img">
+                        <span>portfolio</span>
+                    </div>
+                    <p>Yenilikçi ve kullanıcı dostu dijital deneyimler oluşturuyorum.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Hızlı Bağlantılar</h4>
+                    <ul>
+                        <li><a href="../index.html#home">Ana Sayfa</a></li>
+                        <li><a href="../index.html#about">Hakkımda</a></li>
+                        <li><a href="../index.html#projects">Projeler</a></li>
+                        <li><a href="../index.html#blog">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>İletişim</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> alperen.cetin.969@gmail.com</li>
+                        <li><i class="fas fa-phone"></i> +90 532 431 81 38</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Alperen Çetin. Tüm hakları saklıdır.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="../script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+</body>
+
+</html>

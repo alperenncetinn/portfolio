@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GenericRepository Pattern: Repository Deseni Rehberi - Alperen Çetin</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="blog.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="blog-post">
+        <div class="container">
+            <!-- Blog Header -->
+            <div class="blog-header">
+                <div class="breadcrumb">
+                    <a href="../index.html"><i class="fas fa-home"></i> Ana Sayfa</a>
+                    <span>/</span>
+                    <a href="../index.html#blog">Blog</a>
+                    <span>/</span>
+                    <span>GenericRepository Pattern</span>
+                </div>
+                
+                <div class="post-meta">
+                    <div class="category">.NET</div>
+                    <div class="date">26 Temmuz 2025</div>
+                    <div class="read-time"><i class="fas fa-clock"></i> 10 dk okuma</div>
+                </div>
+                
+                <h1>GenericRepository Pattern: Repository Deseni Rehberi</h1>
+                
+                <div class="post-tags">
+                    <span class="tag">.NET</span>
+                    <span class="tag">Repository Pattern</span>
+                    <span class="tag">Entity Framework</span>
+                    <span class="tag">Generic</span>
+                    <span class="tag">Design Patterns</span>
+                </div>
+            </div>
+
+            <!-- Blog Content -->
+            <div class="post-content">
+                <div class="intro">
+                    <p class="lead"><strong>Repository Pattern</strong>, veri erişim katmanını soyutlayan ve iş mantığını veri erişiminden ayıran önemli bir tasarım desenidir. <strong>GenericRepository</strong> yaklaşımı ile ortak CRUD operasyonlarını tekrar kullanılabilir hale getirebilir, kod tekrarını önleyebilir ve daha temiz bir mimari oluşturabilirsiniz.</p>
+                </div>
+
+                <h2><i class="fas fa-question-circle"></i> Repository Pattern Nedir?</h2>
+
+                <div class="repository-definition">
+                    <div class="definition-visual">
+                        <div class="definition-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h3>Veri Erişim Soyutlaması</h3>
+                    </div>
+                    <p><strong>Repository Pattern</strong>, veri erişim mantığını kapsülleyerek, <strong>iş mantığını veri tabanı detaylarından ayıran</strong> bir tasarım desenidir.</p>
+                </div>
+
+                <div class="pattern-purpose">
+                    <h3><i class="fas fa-bullseye"></i> Neden Repository Pattern?</h3>
+                    <div class="purpose-grid">
+                        <div class="purpose-card separation">
+                            <div class="purpose-icon">
+                                <i class="fas fa-layer-group"></i>
+                            </div>
+                            <h4>Katman Ayrımı</h4>
+                            <p>İş mantığı ile veri erişimi arasında <strong>net bir ayrım</strong> sağlar</p>
+                        </div>
+                        
+                        <div class="purpose-card testability">
+                            <div class="purpose-icon">
+                                <i class="fas fa-vial"></i>
+                            </div>
+                            <h4>Test Edilebilirlik</h4>
+                            <p>Mock nesnelerle <strong>kolay unit test</strong> yazılabilir</p>
+                        </div>
+                        
+                        <div class="purpose-card maintainability">
+                            <div class="purpose-icon">
+                                <i class="fas fa-wrench"></i>
+                            </div>
+                            <h4>Sürdürülebilirlik</h4>
+                            <p>Veri erişim değişiklikleri <strong>merkezi</strong> olarak yapılır</p>
+                        </div>
+                        
+                        <div class="purpose-card flexibility">
+                            <div class="purpose-icon">
+                                <i class="fas fa-exchange-alt"></i>
+                            </div>
+                            <h4>Esneklik</h4>
+                            <p>Farklı veri kaynaklarına <strong>geçiş kolaylaşır</strong></p>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-code"></i> Klasik Repository vs GenericRepository</h2>
+
+                <div class="repository-comparison">
+                    <div class="comparison-tabs">
+                        <div class="comparison-tab classic">
+                            <div class="tab-header">
+                                <div class="tab-icon">
+                                    <i class="fas fa-file-code"></i>
+                                </div>
+                                <h3>Klasik Repository</h3>
+                                <span class="tab-badge traditional">Geleneksel</span>
+                            </div>
+                            <div class="tab-content">
+                                <p>Her entity için <strong>ayrı repository sınıfı</strong> oluşturulur</p>
+                                <div class="approach-example">
+                                    <div class="code-snippet">
+                                        <code>
+                                            IProductRepository<br>
+                                            ICategoryRepository<br>
+                                            ICustomerRepository<br>
+                                            <span class="comment">// Her entity için ayrı...</span>
+                                        </code>
+                                    </div>
+                                </div>
+                                <div class="approach-pros-cons">
+                                    <div class="pros">
+                                        <h5><i class="fas fa-plus-circle"></i> Avantajlar</h5>
+                                        <ul>
+                                            <li>Entity'ye özel metodlar</li>
+                                            <li>Tip güvenliği</li>
+                                            <li>Açık interface</li>
+                                        </ul>
+                                    </div>
+                                    <div class="cons">
+                                        <h5><i class="fas fa-minus-circle"></i> Dezavantajlar</h5>
+                                        <ul>
+                                            <li>Kod tekrarı</li>
+                                            <li>Çok fazla sınıf</li>
+                                            <li>Bakım zorluğu</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="comparison-tab generic">
+                            <div class="tab-header">
+                                <div class="tab-icon">
+                                    <i class="fas fa-magic"></i>
+                                </div>
+                                <h3>GenericRepository</h3>
+                                <span class="tab-badge modern">Modern</span>
+                            </div>
+                            <div class="tab-content">
+                                <p><strong>Tek generic sınıf</strong> ile tüm entity'ler için ortak operasyonlar</p>
+                                <div class="approach-example">
+                                    <div class="code-snippet">
+                                        <code>
+                                            IGenericRepository&lt;T&gt;<br>
+                                            <span class="comment">// Tüm entity'ler için tek interface</span><br>
+                                            GenericRepository&lt;Product&gt;<br>
+                                            GenericRepository&lt;Category&gt;
+                                        </code>
+                                    </div>
+                                </div>
+                                <div class="approach-pros-cons">
+                                    <div class="pros">
+                                        <h5><i class="fas fa-plus-circle"></i> Avantajlar</h5>
+                                        <ul>
+                                            <li>Kod tekrarı yok</li>
+                                            <li>Hızlı geliştirme</li>
+                                            <li>Tek merkezi kod</li>
+                                        </ul>
+                                    </div>
+                                    <div class="cons">
+                                        <h5><i class="fas fa-minus-circle"></i> Dezavantajlar</h5>
+                                        <ul>
+                                            <li>Entity özel metodlar zor</li>
+                                            <li>Over-abstraction riski</li>
+                                            <li>Interface pollution</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-magic"></i> GenericRepository Implementasyonu</h2>
+
+                <div class="implementation-section">
+                    <div class="step-by-step">
+                        <div class="step-card interface-step">
+                            <div class="step-header">
+                                <div class="step-number">1</div>
+                                <h3>Interface Tanımı</h3>
+                            </div>
+                            <div class="step-content">
+                                <p>Önce generic repository interface'imizi tanımlayalım</p>
+                                <div class="code-block">
+                                    <div class="code-header">
+                                        <span class="file-name">IGenericRepository.cs</span>
+                                        <span class="language">C#</span>
+                                    </div>
+                                    <pre><code>public interface IGenericRepository&lt;T&gt; where T : class
+{
+    // Okuma operasyonları
+    Task&lt;T?&gt; GetByIdAsync(int id);
+    Task&lt;T?&gt; GetByIdAsync(Guid id);
+    Task&lt;IEnumerable&lt;T&gt;&gt; GetAllAsync();
+    Task&lt;IEnumerable&lt;T&gt;&gt; FindAsync(Expression&lt;Func&lt;T, bool&gt;&gt; predicate);
+    Task&lt;T?&gt; FirstOrDefaultAsync(Expression&lt;Func&lt;T, bool&gt;&gt; predicate);
+    
+    // Sayım operasyonları
+    Task&lt;int&gt; CountAsync();
+    Task&lt;int&gt; CountAsync(Expression&lt;Func&lt;T, bool&gt;&gt; predicate);
+    Task&lt;bool&gt; ExistsAsync(Expression&lt;Func&lt;T, bool&gt;&gt; predicate);
+    
+    // Yazma operasyonları
+    Task&lt;T&gt; AddAsync(T entity);
+    Task&lt;IEnumerable&lt;T&gt;&gt; AddRangeAsync(IEnumerable&lt;T&gt; entities);
+    void Update(T entity);
+    void UpdateRange(IEnumerable&lt;T&gt; entities);
+    void Delete(T entity);
+    void Delete(int id);
+    void Delete(Guid id);
+    void DeleteRange(IEnumerable&lt;T&gt; entities);
+    
+    // Sayfalama
+    Task&lt;IEnumerable&lt;T&gt;&gt; GetPagedAsync(int page, int pageSize);
+    Task&lt;IEnumerable&lt;T&gt;&gt; GetPagedAsync(int page, int pageSize, 
+        Expression&lt;Func&lt;T, bool&gt;&gt; predicate);
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-card implementation-step">
+                            <div class="step-header">
+                                <div class="step-number">2</div>
+                                <h3>Entity Framework Implementation</h3>
+                            </div>
+                            <div class="step-content">
+                                <p>Entity Framework kullanarak generic repository'yi implement edelim</p>
+                                <div class="code-block">
+                                    <div class="code-header">
+                                        <span class="file-name">GenericRepository.cs</span>
+                                        <span class="language">C#</span>
+                                    </div>
+                                    <pre><code>public class GenericRepository&lt;T&gt; : IGenericRepository&lt;T&gt; where T : class
+{
+    protected readonly DbContext _context;
+    protected readonly DbSet&lt;T&gt; _dbSet;
+
+    public GenericRepository(DbContext context)
+    {
+        _context = context;
+        _dbSet = context.Set&lt;T&gt;();
+    }
+
+    public virtual async Task&lt;T?&gt; GetByIdAsync(int id)
+    {
+        return await _dbSet.FindAsync(id);
+    }
+
+    public virtual async Task&lt;T?&gt; GetByIdAsync(Guid id)
+    {
+        return await _dbSet.FindAsync(id);
+    }
+
+    public virtual async Task&lt;IEnumerable&lt;T&gt;&gt; GetAllAsync()
+    {
+        return await _dbSet.ToListAsync();
+    }
+
+    public virtual async Task&lt;IEnumerable&lt;T&gt;&gt; FindAsync(Expression&lt;Func&lt;T, bool&gt;&gt; predicate)
+    {
+        return await _dbSet.Where(predicate).ToListAsync();
+    }
+
+    public virtual async Task&lt;T?&gt; FirstOrDefaultAsync(Expression&lt;Func&lt;T, bool&gt;&gt; predicate)
+    {
+        return await _dbSet.FirstOrDefaultAsync(predicate);
+    }
+
+    public virtual async Task&lt;int&gt; CountAsync()
+    {
+        return await _dbSet.CountAsync();
+    }
+
+    public virtual async Task&lt;int&gt; CountAsync(Expression&lt;Func&lt;T, bool&gt;&gt; predicate)
+    {
+        return await _dbSet.CountAsync(predicate);
+    }
+
+    public virtual async Task&lt;bool&gt; ExistsAsync(Expression&lt;Func&lt;T, bool&gt;&gt; predicate)
+    {
+        return await _dbSet.AnyAsync(predicate);
+    }
+
+    public virtual async Task&lt;T&gt; AddAsync(T entity)
+    {
+        var result = await _dbSet.AddAsync(entity);
+        return result.Entity;
+    }
+
+    public virtual async Task&lt;IEnumerable&lt;T&gt;&gt; AddRangeAsync(IEnumerable&lt;T&gt; entities)
+    {
+        await _dbSet.AddRangeAsync(entities);
+        return entities;
+    }
+
+    public virtual void Update(T entity)
+    {
+        _dbSet.Update(entity);
+    }
+
+    public virtual void UpdateRange(IEnumerable&lt;T&gt; entities)
+    {
+        _dbSet.UpdateRange(entities);
+    }
+
+    public virtual void Delete(T entity)
+    {
+        _dbSet.Remove(entity);
+    }
+
+    public virtual void Delete(int id)
+    {
+        var entity = _dbSet.Find(id);
+        if (entity != null)
+            _dbSet.Remove(entity);
+    }
+
+    public virtual void Delete(Guid id)
+    {
+        var entity = _dbSet.Find(id);
+        if (entity != null)
+            _dbSet.Remove(entity);
+    }
+
+    public virtual void DeleteRange(IEnumerable&lt;T&gt; entities)
+    {
+        _dbSet.RemoveRange(entities);
+    }
+
+    public virtual async Task&lt;IEnumerable&lt;T&gt;&gt; GetPagedAsync(int page, int pageSize)
+    {
+        return await _dbSet
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+    }
+
+    public virtual async Task&lt;IEnumerable&lt;T&gt;&gt; GetPagedAsync(int page, int pageSize, 
+        Expression&lt;Func&lt;T, bool&gt;&gt; predicate)
+    {
+        return await _dbSet
+            .Where(predicate)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+    }
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-card uow-step">
+                            <div class="step-header">
+                                <div class="step-number">3</div>
+                                <h3>Unit of Work Pattern</h3>
+                            </div>
+                            <div class="step-content">
+                                <p>Repository'leri koordine etmek için Unit of Work pattern'ı ekleyelim</p>
+                                <div class="code-block">
+                                    <div class="code-header">
+                                        <span class="file-name">IUnitOfWork.cs</span>
+                                        <span class="language">C#</span>
+                                    </div>
+                                    <pre><code>public interface IUnitOfWork : IDisposable
+{
+    IGenericRepository&lt;T&gt; Repository&lt;T&gt;() where T : class;
+    Task&lt;int&gt; SaveChangesAsync();
+    int SaveChanges();
+    Task BeginTransactionAsync();
+    Task CommitTransactionAsync();
+    Task RollbackTransactionAsync();
+}
+
+public class UnitOfWork : IUnitOfWork
+{
+    private readonly DbContext _context;
+    private readonly Dictionary&lt;Type, object&gt; _repositories;
+    private IDbContextTransaction? _transaction;
+
+    public UnitOfWork(DbContext context)
+    {
+        _context = context;
+        _repositories = new Dictionary&lt;Type, object&gt;();
+    }
+
+    public IGenericRepository&lt;T&gt; Repository&lt;T&gt;() where T : class
+    {
+        var type = typeof(T);
+        
+        if (!_repositories.ContainsKey(type))
+        {
+            var repositoryType = typeof(GenericRepository&lt;&gt;).MakeGenericType(type);
+            var repositoryInstance = Activator.CreateInstance(repositoryType, _context);
+            _repositories[type] = repositoryInstance!;
+        }
+        
+        return (IGenericRepository&lt;T&gt;)_repositories[type];
+    }
+
+    public async Task&lt;int&gt; SaveChangesAsync()
+    {
+        return await _context.SaveChangesAsync();
+    }
+
+    public int SaveChanges()
+    {
+        return _context.SaveChanges();
+    }
+
+    public async Task BeginTransactionAsync()
+    {
+        _transaction = await _context.Database.BeginTransactionAsync();
+    }
+
+    public async Task CommitTransactionAsync()
+    {
+        if (_transaction != null)
+        {
+            await _transaction.CommitAsync();
+            await _transaction.DisposeAsync();
+            _transaction = null;
+        }
+    }
+
+    public async Task RollbackTransactionAsync()
+    {
+        if (_transaction != null)
+        {
+            await _transaction.RollbackAsync();
+            await _transaction.DisposeAsync();
+            _transaction = null;
+        }
+    }
+
+    public void Dispose()
+    {
+        _transaction?.Dispose();
+        _context?.Dispose();
+    }
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-cogs"></i> Dependency Injection Konfigürasyonu</h2>
+
+                <div class="di-configuration">
+                    <div class="config-example">
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="file-name">Program.cs</span>
+                                <span class="language">C#</span>
+                            </div>
+                            <pre><code>var builder = WebApplication.CreateBuilder(args);
+
+// DbContext registration
+builder.Services.AddDbContext&lt;ApplicationDbContext&gt;(options =&gt;
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Generic Repository registration
+builder.Services.AddScoped(typeof(IGenericRepository&lt;&gt;), typeof(GenericRepository&lt;&gt;));
+
+// Unit of Work registration
+builder.Services.AddScoped&lt;IUnitOfWork, UnitOfWork&gt;();
+
+// Specific repositories (if needed)
+builder.Services.AddScoped&lt;IProductRepository, ProductRepository&gt;();
+builder.Services.AddScoped&lt;ICategoryRepository, CategoryRepository&gt;();
+
+var app = builder.Build();</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-play"></i> Kullanım Örnekleri</h2>
+
+                <div class="usage-examples">
+                    <div class="example-tabs">
+                        <div class="example-tab controller">
+                            <h3><i class="fas fa-desktop"></i> Controller'da Kullanım</h3>
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <span class="file-name">ProductController.cs</span>
+                                    <span class="language">C#</span>
+                                </div>
+                                <pre><code>[ApiController]
+[Route("api/[controller]")]
+public class ProductController : ControllerBase
+{
+    private readonly IUnitOfWork _unitOfWork;
+
+    public ProductController(IUnitOfWork unitOfWork)
+    {
+        _unitOfWork = unitOfWork;
+    }
+
+    [HttpGet]
+    public async Task&lt;ActionResult&lt;IEnumerable&lt;Product&gt;&gt;&gt; GetProducts()
+    {
+        var products = await _unitOfWork.Repository&lt;Product&gt;().GetAllAsync();
+        return Ok(products);
+    }
+
+    [HttpGet("{id}")]
+    public async Task&lt;ActionResult&lt;Product&gt;&gt; GetProduct(int id)
+    {
+        var product = await _unitOfWork.Repository&lt;Product&gt;().GetByIdAsync(id);
+        
+        if (product == null)
+            return NotFound();
+            
+        return Ok(product);
+    }
+
+    [HttpGet("search")]
+    public async Task&lt;ActionResult&lt;IEnumerable&lt;Product&gt;&gt;&gt; SearchProducts(string name)
+    {
+        var products = await _unitOfWork.Repository&lt;Product&gt;()
+            .FindAsync(p =&gt; p.Name.Contains(name));
+            
+        return Ok(products);
+    }
+
+    [HttpPost]
+    public async Task&lt;ActionResult&lt;Product&gt;&gt; CreateProduct(Product product)
+    {
+        await _unitOfWork.Repository&lt;Product&gt;().AddAsync(product);
+        await _unitOfWork.SaveChangesAsync();
+        
+        return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, product);
+    }
+
+    [HttpPut("{id}")]
+    public async Task&lt;IActionResult&gt; UpdateProduct(int id, Product product)
+    {
+        if (id != product.Id)
+            return BadRequest();
+
+        var existingProduct = await _unitOfWork.Repository&lt;Product&gt;().GetByIdAsync(id);
+        if (existingProduct == null)
+            return NotFound();
+
+        _unitOfWork.Repository&lt;Product&gt;().Update(product);
+        await _unitOfWork.SaveChangesAsync();
+        
+        return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task&lt;IActionResult&gt; DeleteProduct(int id)
+    {
+        var product = await _unitOfWork.Repository&lt;Product&gt;().GetByIdAsync(id);
+        if (product == null)
+            return NotFound();
+
+        _unitOfWork.Repository&lt;Product&gt;().Delete(product);
+        await _unitOfWork.SaveChangesAsync();
+        
+        return NoContent();
+    }
+}</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="example-tab service">
+                            <h3><i class="fas fa-cog"></i> Service Layer'da Kullanım</h3>
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <span class="file-name">ProductService.cs</span>
+                                    <span class="language">C#</span>
+                                </div>
+                                <pre><code>public interface IProductService
+{
+    Task&lt;ProductDto&gt; CreateProductAsync(CreateProductRequest request);
+    Task&lt;ProductDto?&gt; GetProductByIdAsync(int id);
+    Task&lt;IEnumerable&lt;ProductDto&gt;&gt; GetActiveProductsAsync();
+    Task&lt;bool&gt; UpdateProductAsync(int id, UpdateProductRequest request);
+    Task&lt;bool&gt; DeleteProductAsync(int id);
+}
+
+public class ProductService : IProductService
+{
+    private readonly IUnitOfWork _unitOfWork;
+    private readonly IMapper _mapper;
+    private readonly ILogger&lt;ProductService&gt; _logger;
+
+    public ProductService(
+        IUnitOfWork unitOfWork, 
+        IMapper mapper, 
+        ILogger&lt;ProductService&gt; logger)
+    {
+        _unitOfWork = unitOfWork;
+        _mapper = mapper;
+        _logger = logger;
+    }
+
+    public async Task&lt;ProductDto&gt; CreateProductAsync(CreateProductRequest request)
+    {
+        _logger.LogInformation("Creating product: {Name}", request.Name);
+
+        // Business logic validation
+        var existingProduct = await _unitOfWork.Repository&lt;Product&gt;()
+            .FirstOrDefaultAsync(p =&gt; p.Name == request.Name);
+            
+        if (existingProduct != null)
+            throw new BusinessException("Product with this name already exists");
+
+        // Create entity
+        var product = _mapper.Map&lt;Product&gt;(request);
+        product.CreatedAt = DateTime.UtcNow;
+        product.IsActive = true;
+
+        // Save to database
+        await _unitOfWork.Repository&lt;Product&gt;().AddAsync(product);
+        await _unitOfWork.SaveChangesAsync();
+
+        _logger.LogInformation("Product created successfully: {Id}", product.Id);
+
+        return _mapper.Map&lt;ProductDto&gt;(product);
+    }
+
+    public async Task&lt;ProductDto?&gt; GetProductByIdAsync(int id)
+    {
+        var product = await _unitOfWork.Repository&lt;Product&gt;().GetByIdAsync(id);
+        return product != null ? _mapper.Map&lt;ProductDto&gt;(product) : null;
+    }
+
+    public async Task&lt;IEnumerable&lt;ProductDto&gt;&gt; GetActiveProductsAsync()
+    {
+        var products = await _unitOfWork.Repository&lt;Product&gt;()
+            .FindAsync(p =&gt; p.IsActive);
+            
+        return _mapper.Map&lt;IEnumerable&lt;ProductDto&gt;&gt;(products);
+    }
+
+    public async Task&lt;bool&gt; UpdateProductAsync(int id, UpdateProductRequest request)
+    {
+        var product = await _unitOfWork.Repository&lt;Product&gt;().GetByIdAsync(id);
+        if (product == null)
+            return false;
+
+        _mapper.Map(request, product);
+        product.UpdatedAt = DateTime.UtcNow;
+
+        _unitOfWork.Repository&lt;Product&gt;().Update(product);
+        await _unitOfWork.SaveChangesAsync();
+
+        return true;
+    }
+
+    public async Task&lt;bool&gt; DeleteProductAsync(int id)
+    {
+        var product = await _unitOfWork.Repository&lt;Product&gt;().GetByIdAsync(id);
+        if (product == null)
+            return false;
+
+        _unitOfWork.Repository&lt;Product&gt;().Delete(product);
+        await _unitOfWork.SaveChangesAsync();
+
+        return true;
+    }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-plus"></i> Gelişmiş Özellikler</h2>
+
+                <div class="advanced-features">
+                    <div class="feature-card includes">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <i class="fas fa-link"></i>
+                            </div>
+                            <h3>Include Support</h3>
+                        </div>
+                        <div class="feature-content">
+                            <p>Related entity'leri yüklemek için Include desteği ekleyelim</p>
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <span class="file-name">Enhanced IGenericRepository</span>
+                                    <span class="language">C#</span>
+                                </div>
+                                <pre><code>public interface IGenericRepository&lt;T&gt; where T : class
+{
+    // Existing methods...
+    
+    Task&lt;T?&gt; GetByIdAsync(int id, params Expression&lt;Func&lt;T, object&gt;&gt;[] includes);
+    Task&lt;IEnumerable&lt;T&gt;&gt; GetAllAsync(params Expression&lt;Func&lt;T, object&gt;&gt;[] includes);
+    Task&lt;IEnumerable&lt;T&gt;&gt; FindAsync(
+        Expression&lt;Func&lt;T, bool&gt;&gt; predicate, 
+        params Expression&lt;Func&lt;T, object&gt;&gt;[] includes);
+}
+
+// Implementation
+public virtual async Task&lt;T?&gt; GetByIdAsync(int id, params Expression&lt;Func&lt;T, object&gt;&gt;[] includes)
+{
+    IQueryable&lt;T&gt; query = _dbSet;
+    
+    foreach (var include in includes)
+    {
+        query = query.Include(include);
+    }
+    
+    return await query.FirstOrDefaultAsync(GetIdPredicate(id));
+}
+
+// Usage
+var product = await _unitOfWork.Repository&lt;Product&gt;()
+    .GetByIdAsync(1, p =&gt; p.Category, p =&gt; p.Reviews);</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="feature-card ordering">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <i class="fas fa-sort"></i>
+                            </div>
+                            <h3>Ordering Support</h3>
+                        </div>
+                        <div class="feature-content">
+                            <p>Sıralama desteği ekleyerek daha esnek sorgular yapabiliriz</p>
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <span class="file-name">Ordering Extension</span>
+                                    <span class="language">C#</span>
+                                </div>
+                                <pre><code>public interface IGenericRepository&lt;T&gt; where T : class
+{
+    Task&lt;IEnumerable&lt;T&gt;&gt; GetAllOrderedAsync&lt;TKey&gt;(
+        Expression&lt;Func&lt;T, TKey&gt;&gt; orderBy, 
+        bool ascending = true);
+        
+    Task&lt;IEnumerable&lt;T&gt;&gt; FindOrderedAsync&lt;TKey&gt;(
+        Expression&lt;Func&lt;T, bool&gt;&gt; predicate,
+        Expression&lt;Func&lt;T, TKey&gt;&gt; orderBy,
+        bool ascending = true);
+}
+
+// Implementation
+public virtual async Task&lt;IEnumerable&lt;T&gt;&gt; GetAllOrderedAsync&lt;TKey&gt;(
+    Expression&lt;Func&lt;T, TKey&gt;&gt; orderBy, 
+    bool ascending = true)
+{
+    var query = ascending 
+        ? _dbSet.OrderBy(orderBy) 
+        : _dbSet.OrderByDescending(orderBy);
+        
+    return await query.ToListAsync();
+}
+
+// Usage
+var products = await _unitOfWork.Repository&lt;Product&gt;()
+    .GetAllOrderedAsync(p =&gt; p.Name, ascending: true);</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="feature-card specifications">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <i class="fas fa-filter"></i>
+                            </div>
+                            <h3>Specification Pattern</h3>
+                        </div>
+                        <div class="feature-content">
+                            <p>Karmaşık sorgu mantığını kapsüllemek için Specification pattern'ı entegre edelim</p>
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <span class="file-name">Specification Pattern</span>
+                                    <span class="language">C#</span>
+                                </div>
+                                <pre><code>public interface ISpecification&lt;T&gt;
+{
+    Expression&lt;Func&lt;T, bool&gt;&gt; Criteria { get; }
+    List&lt;Expression&lt;Func&lt;T, object&gt;&gt;&gt; Includes { get; }
+    Expression&lt;Func&lt;T, object&gt;&gt;? OrderBy { get; }
+    Expression&lt;Func&lt;T, object&gt;&gt;? OrderByDescending { get; }
+    int Take { get; }
+    int Skip { get; }
+    bool IsPagingEnabled { get; }
+}
+
+public class ProductSpecification : BaseSpecification&lt;Product&gt;
+{
+    public ProductSpecification(string name, bool? isActive = null)
+    {
+        if (!string.IsNullOrEmpty(name))
+            Criteria = p =&gt; p.Name.Contains(name);
+            
+        if (isActive.HasValue)
+            Criteria = p =&gt; p.IsActive == isActive.Value;
+            
+        AddInclude(p =&gt; p.Category);
+        AddOrderBy(p =&gt; p.Name);
+    }
+}
+
+// Repository'de kullanım
+public interface IGenericRepository&lt;T&gt; where T : class
+{
+    Task&lt;IEnumerable&lt;T&gt;&gt; FindWithSpecAsync(ISpecification&lt;T&gt; spec);
+    Task&lt;T?&gt; FirstOrDefaultWithSpecAsync(ISpecification&lt;T&gt; spec);
+    Task&lt;int&gt; CountWithSpecAsync(ISpecification&lt;T&gt; spec);
+}
+
+// Usage
+var spec = new ProductSpecification("laptop", isActive: true);
+var products = await _unitOfWork.Repository&lt;Product&gt;()
+    .FindWithSpecAsync(spec);</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-vial"></i> Unit Testing</h2>
+
+                <div class="testing-section">
+                    <div class="test-example">
+                        <h3><i class="fas fa-microscope"></i> Repository Test Örneği</h3>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="file-name">GenericRepositoryTests.cs</span>
+                                <span class="language">C#</span>
+                            </div>
+                            <pre><code>public class GenericRepositoryTests : IDisposable
+{
+    private readonly DbContextOptions&lt;TestDbContext&gt; _options;
+    private readonly TestDbContext _context;
+    private readonly GenericRepository&lt;Product&gt; _repository;
+
+    public GenericRepositoryTests()
+    {
+        _options = new DbContextOptionsBuilder&lt;TestDbContext&gt;()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
+            
+        _context = new TestDbContext(_options);
+        _repository = new GenericRepository&lt;Product&gt;(_context);
+    }
+
+    [Fact]
+    public async Task AddAsync_ShouldAddEntity_WhenEntityIsValid()
+    {
+        // Arrange
+        var product = new Product 
+        { 
+            Name = "Test Product", 
+            Price = 100, 
+            IsActive = true 
+        };
+
+        // Act
+        var result = await _repository.AddAsync(product);
+        await _context.SaveChangesAsync();
+
+        // Assert
+        result.Should().NotBeNull();
+        result.Id.Should().BeGreaterThan(0);
+        
+        var savedProduct = await _repository.GetByIdAsync(result.Id);
+        savedProduct.Should().NotBeNull();
+        savedProduct!.Name.Should().Be("Test Product");
+    }
+
+    [Fact]
+    public async Task GetByIdAsync_ShouldReturnEntity_WhenEntityExists()
+    {
+        // Arrange
+        var product = new Product 
+        { 
+            Name = "Test Product", 
+            Price = 100, 
+            IsActive = true 
+        };
+        await _repository.AddAsync(product);
+        await _context.SaveChangesAsync();
+
+        // Act
+        var result = await _repository.GetByIdAsync(product.Id);
+
+        // Assert
+        result.Should().NotBeNull();
+        result!.Name.Should().Be("Test Product");
+    }
+
+    [Fact]
+    public async Task FindAsync_ShouldReturnMatchingEntities_WhenPredicateMatches()
+    {
+        // Arrange
+        var products = new[]
+        {
+            new Product { Name = "Active Product", IsActive = true },
+            new Product { Name = "Inactive Product", IsActive = false },
+            new Product { Name = "Another Active", IsActive = true }
+        };
+        
+        await _repository.AddRangeAsync(products);
+        await _context.SaveChangesAsync();
+
+        // Act
+        var result = await _repository.FindAsync(p =&gt; p.IsActive);
+
+        // Assert
+        result.Should().HaveCount(2);
+        result.All(p =&gt; p.IsActive).Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task CountAsync_ShouldReturnCorrectCount_WhenEntitiesExist()
+    {
+        // Arrange
+        var products = new[]
+        {
+            new Product { Name = "Product 1", IsActive = true },
+            new Product { Name = "Product 2", IsActive = false },
+            new Product { Name = "Product 3", IsActive = true }
+        };
+        
+        await _repository.AddRangeAsync(products);
+        await _context.SaveChangesAsync();
+
+        // Act
+        var totalCount = await _repository.CountAsync();
+        var activeCount = await _repository.CountAsync(p =&gt; p.IsActive);
+
+        // Assert
+        totalCount.Should().Be(3);
+        activeCount.Should().Be(2);
+    }
+
+    public void Dispose()
+    {
+        _context.Dispose();
+    }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="mock-example">
+                        <h3><i class="fas fa-theater-masks"></i> Service Test ile Mock Kullanımı</h3>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="file-name">ProductServiceTests.cs</span>
+                                <span class="language">C#</span>
+                            </div>
+                            <pre><code>public class ProductServiceTests
+{
+    private readonly Mock&lt;IUnitOfWork&gt; _mockUnitOfWork;
+    private readonly Mock&lt;IGenericRepository&lt;Product&gt;&gt; _mockProductRepository;
+    private readonly Mock&lt;IMapper&gt; _mockMapper;
+    private readonly Mock&lt;ILogger&lt;ProductService&gt;&gt; _mockLogger;
+    private readonly ProductService _productService;
+
+    public ProductServiceTests()
+    {
+        _mockUnitOfWork = new Mock&lt;IUnitOfWork&gt;();
+        _mockProductRepository = new Mock&lt;IGenericRepository&lt;Product&gt;&gt;();
+        _mockMapper = new Mock&lt;IMapper&gt;();
+        _mockLogger = new Mock&lt;ILogger&lt;ProductService&gt;&gt;();
+
+        _mockUnitOfWork.Setup(u =&gt; u.Repository&lt;Product&gt;())
+            .Returns(_mockProductRepository.Object);
+
+        _productService = new ProductService(
+            _mockUnitOfWork.Object,
+            _mockMapper.Object,
+            _mockLogger.Object);
+    }
+
+    [Fact]
+    public async Task CreateProductAsync_ShouldCreateProduct_WhenRequestIsValid()
+    {
+        // Arrange
+        var request = new CreateProductRequest { Name = "Test Product", Price = 100 };
+        var product = new Product { Id = 1, Name = "Test Product", Price = 100 };
+        var productDto = new ProductDto { Id = 1, Name = "Test Product", Price = 100 };
+
+        _mockProductRepository.Setup(r =&gt; r.FirstOrDefaultAsync(It.IsAny&lt;Expression&lt;Func&lt;Product, bool&gt;&gt;&gt;()))
+            .ReturnsAsync((Product?)null);
+
+        _mockMapper.Setup(m =&gt; m.Map&lt;Product&gt;(request))
+            .Returns(product);
+
+        _mockProductRepository.Setup(r =&gt; r.AddAsync(It.IsAny&lt;Product&gt;()))
+            .ReturnsAsync(product);
+
+        _mockMapper.Setup(m =&gt; m.Map&lt;ProductDto&gt;(product))
+            .Returns(productDto);
+
+        // Act
+        var result = await _productService.CreateProductAsync(request);
+
+        // Assert
+        result.Should().NotBeNull();
+        result.Name.Should().Be("Test Product");
+        
+        _mockProductRepository.Verify(r =&gt; r.AddAsync(It.IsAny&lt;Product&gt;()), Times.Once);
+        _mockUnitOfWork.Verify(u =&gt; u.SaveChangesAsync(), Times.Once);
+    }
+
+    [Fact]
+    public async Task CreateProductAsync_ShouldThrowException_WhenProductNameExists()
+    {
+        // Arrange
+        var request = new CreateProductRequest { Name = "Existing Product", Price = 100 };
+        var existingProduct = new Product { Id = 1, Name = "Existing Product" };
+
+        _mockProductRepository.Setup(r =&gt; r.FirstOrDefaultAsync(It.IsAny&lt;Expression&lt;Func&lt;Product, bool&gt;&gt;&gt;()))
+            .ReturnsAsync(existingProduct);
+
+        // Act & Assert
+        var action = async () =&gt; await _productService.CreateProductAsync(request);
+        await action.Should().ThrowAsync&lt;BusinessException&gt;()
+            .WithMessage("Product with this name already exists");
+
+        _mockProductRepository.Verify(r =&gt; r.AddAsync(It.IsAny&lt;Product&gt;()), Times.Never);
+        _mockUnitOfWork.Verify(u =&gt; u.SaveChangesAsync(), Times.Never);
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-balance-scale"></i> Avantajlar vs Dezavantajlar</h2>
+
+                <div class="pros-cons-comparison">
+                    <div class="comparison-grid">
+                        <div class="pros-section">
+                            <div class="section-header pros">
+                                <div class="section-icon">
+                                    <i class="fas fa-thumbs-up"></i>
+                                </div>
+                                <h3>Avantajlar</h3>
+                            </div>
+                            <div class="comparison-list">
+                                <div class="comparison-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <div class="item-content">
+                                        <h4>Kod Tekrarını Önler</h4>
+                                        <p>CRUD operasyonları tek yerde tanımlanır</p>
+                                    </div>
+                                </div>
+                                <div class="comparison-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <div class="item-content">
+                                        <h4>Hızlı Geliştirme</h4>
+                                        <p>Yeni entity'ler için hemen kullanılabilir</p>
+                                    </div>
+                                </div>
+                                <div class="comparison-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <div class="item-content">
+                                        <h4>Tutarlı API</h4>
+                                        <p>Tüm repository'ler aynı interface'i kullanır</p>
+                                    </div>
+                                </div>
+                                <div class="comparison-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <div class="item-content">
+                                        <h4>Test Edilebilirlik</h4>
+                                        <p>Mock nesneler kolayca oluşturulabilir</p>
+                                    </div>
+                                </div>
+                                <div class="comparison-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <div class="item-content">
+                                        <h4>Merkezi Bakım</h4>
+                                        <p>Değişiklikler tek yerden yapılır</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cons-section">
+                            <div class="section-header cons">
+                                <div class="section-icon">
+                                    <i class="fas fa-thumbs-down"></i>
+                                </div>
+                                <h3>Dezavantajlar</h3>
+                            </div>
+                            <div class="comparison-list">
+                                <div class="comparison-item">
+                                    <i class="fas fa-times-circle"></i>
+                                    <div class="item-content">
+                                        <h4>Over-Abstraction</h4>
+                                        <p>Gereksiz soyutlama katmanı oluşturabilir</p>
+                                    </div>
+                                </div>
+                                <div class="comparison-item">
+                                    <i class="fas fa-times-circle"></i>
+                                    <div class="item-content">
+                                        <h4>Entity Özel Metodlar</h4>
+                                        <p>Özel business logic implementasyonu zor</p>
+                                    </div>
+                                </div>
+                                <div class="comparison-item">
+                                    <i class="fas fa-times-circle"></i>
+                                    <div class="item-content">
+                                        <h4>Interface Pollution</h4>
+                                        <p>Kullanılmayan metodlar interface'i kirletir</p>
+                                    </div>
+                                </div>
+                                <div class="comparison-item">
+                                    <i class="fas fa-times-circle"></i>
+                                    <div class="item-content">
+                                        <h4>Performance Sorunları</h4>
+                                        <p>Generic yapı bazen optimize olmayabilir</p>
+                                    </div>
+                                </div>
+                                <div class="comparison-item">
+                                    <i class="fas fa-times-circle"></i>
+                                    <div class="item-content">
+                                        <h4>EF Core Abstraction</h4>
+                                        <p>EF Core zaten repository pattern implement eder</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-lightbulb"></i> En İyi Pratikler</h2>
+
+                <div class="best-practices">
+                    <div class="practices-grid">
+                        <div class="practice-card do">
+                            <div class="practice-header">
+                                <div class="practice-icon success">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <h3>Yapılması Gerekenler</h3>
+                            </div>
+                            <div class="practice-list">
+                                <div class="practice-item">
+                                    <i class="fas fa-arrow-right"></i>
+                                    <span>Unit of Work pattern ile birlikte kullanın</span>
+                                </div>
+                                <div class="practice-item">
+                                    <i class="fas fa-arrow-right"></i>
+                                    <span>Entity'ye özel metodlar için ayrı repository oluşturun</span>
+                                </div>
+                                <div class="practice-item">
+                                    <i class="fas fa-arrow-right"></i>
+                                    <span>Async metodları kullanın</span>
+                                </div>
+                                <div class="practice-item">
+                                    <i class="fas fa-arrow-right"></i>
+                                    <span>Include operasyonları için ayrı metodlar tanımlayın</span>
+                                </div>
+                                <div class="practice-item">
+                                    <i class="fas fa-arrow-right"></i>
+                                    <span>Specification pattern ile karmaşık sorguları yönetin</span>
+                                </div>
+                                <div class="practice-item">
+                                    <i class="fas fa-arrow-right"></i>
+                                    <span>Repository'leri interface ile soyutlayın</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="practice-card dont">
+                            <div class="practice-header">
+                                <div class="practice-icon danger">
+                                    <i class="fas fa-times"></i>
+                                </div>
+                                <h3>Yapılmaması Gerekenler</h3>
+                            </div>
+                            <div class="practice-list">
+                                <div class="practice-item">
+                                    <i class="fas fa-arrow-right"></i>
+                                    <span>Repository'de business logic yazmayın</span>
+                                </div>
+                                <div class="practice-item">
+                                    <i class="fas fa-arrow-right"></i>
+                                    <span>DbContext'i controller'da direkt kullanmayın</span>
+                                </div>
+                                <div class="practice-item">
+                                    <i class="fas fa-arrow-right"></i>
+                                    <span>Generic repository'yi her durumda zorlamayın</span>
+                                </div>
+                                <div class="practice-item">
+                                    <i class="fas fa-arrow-right"></i>
+                                    <span>Kullanılmayan metodları interface'e eklemeyin</span>
+                                </div>
+                                <div class="practice-item">
+                                    <i class="fas fa-arrow-right"></i>
+                                    <span>Transaction yönetimini repository'de yapmayın</span>
+                                </div>
+                                <div class="practice-item">
+                                    <i class="fas fa-arrow-right"></i>
+                                    <span>Complex join'leri generic repository ile zorlamayın</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-route"></i> Alternatif Yaklaşımlar</h2>
+
+                <div class="alternatives">
+                    <div class="alternative-card mediator">
+                        <div class="alternative-header">
+                            <div class="alternative-icon">
+                                <i class="fas fa-exchange-alt"></i>
+                            </div>
+                            <h3>MediatR + CQRS</h3>
+                            <span class="alternative-badge modern">Modern</span>
+                        </div>
+                        <div class="alternative-content">
+                            <p>Repository pattern yerine <strong>MediatR</strong> ile Command/Query ayrımı</p>
+                            <div class="alternative-example">
+                                <div class="code-snippet">
+                                    <code>
+                                        public class GetProductQuery : IRequest&lt;ProductDto&gt;<br>
+                                        public class CreateProductCommand : IRequest&lt;int&gt;<br>
+                                        <span class="comment">// Handler'lar direkt DbContext kullanır</span>
+                                    </code>
+                                </div>
+                            </div>
+                            <div class="alternative-pros">
+                                <strong>Avantajlar:</strong> Single Responsibility, Clear Intent, Easy Testing
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="alternative-card direct-ef">
+                        <div class="alternative-header">
+                            <div class="alternative-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <h3>Direct EF Core</h3>
+                            <span class="alternative-badge simple">Basit</span>
+                        </div>
+                        <div class="alternative-content">
+                            <p>Repository olmadan <strong>doğrudan EF Core</strong> kullanımı</p>
+                            <div class="alternative-example">
+                                <div class="code-snippet">
+                                    <code>
+                                        // Service'te direkt DbContext<br>
+                                        var products = await _context.Products<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;.Where(p => p.IsActive)<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;.ToListAsync();
+                                    </code>
+                                </div>
+                            </div>
+                            <div class="alternative-pros">
+                                <strong>Avantajlar:</strong> Less Abstraction, EF Core Features, Performance
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="alternative-card specification">
+                        <div class="alternative-header">
+                            <div class="alternative-icon">
+                                <i class="fas fa-filter"></i>
+                            </div>
+                            <h3>Specification Only</h3>
+                            <span class="alternative-badge focused">Odaklanmış</span>
+                        </div>
+                        <div class="alternative-content">
+                            <p>Sadece <strong>Specification pattern</strong> ile query abstraction</p>
+                            <div class="alternative-example">
+                                <div class="code-snippet">
+                                    <code>
+                                        var spec = new ActiveProductsSpec();<br>
+                                        var products = await _context.Products<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;.Where(spec.Criteria)<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;.ToListAsync();
+                                    </code>
+                                </div>
+                            </div>
+                            <div class="alternative-pros">
+                                <strong>Avantajlar:</strong> Query Reusability, Business Rules, Testability
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="conclusion">
+                    <h2><i class="fas fa-flag-checkered"></i> Sonuç</h2>
+                    <p>GenericRepository Pattern, <strong>orta ölçekli projeler</strong> için kod tekrarını önleyen ve geliştirme hızını artıran faydalı bir yaklaşımdır. Ancak her projeye uygun olmayabilir. <strong>Proje gereksinimlerinizi</strong>, <strong>ekip deneyimini</strong> ve <strong>karmaşıklık seviyesini</strong> değerlendirerek karar vermeniz önemlidir.</p>
+                    
+                    <div class="decision-guide">
+                        <h3><i class="fas fa-compass"></i> Karar Verme Rehberi</h3>
+                        <div class="guide-grid">
+                            <div class="guide-item use">
+                                <div class="guide-icon success">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <h4>GenericRepository Kullanın</h4>
+                                <ul>
+                                    <li>Orta ölçekli projelerde</li>
+                                    <li>Hızlı prototype geliştirmede</li>
+                                    <li>Çok entity'li CRUD uygulamalarda</li>
+                                    <li>Team standardizasyonu gerektiğinde</li>
+                                </ul>
+                            </div>
+                            <div class="guide-item avoid">
+                                <div class="guide-icon danger">
+                                    <i class="fas fa-times-circle"></i>
+                                </div>
+                                <h4>GenericRepository Kullanmayın</h4>
+                                <ul>
+                                    <li>Karmaşık business logic'li projelerde</li>
+                                    <li>Performance kritik uygulamalarda</li>
+                                    <li>Çok özel sorgu gereksinimlerinde</li>
+                                    <li>Microservice mimarilerinde</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="next-steps">
+                    <h3><i class="fas fa-arrow-right"></i> Sonraki Adımlar</h3>
+                    <ul>
+                        <li>Kendi projenizde GenericRepository implement edin</li>
+                        <li>Unit of Work pattern'ı entegre edin</li>
+                        <li>Specification pattern ile genişletin</li>
+                        <li>MediatR alternatifini değerlendirin</li>
+                        <li>Performance testleri yapın</li>
+                    </ul>
+                </div>
+
+                <!-- Post Footer -->
+                <div class="post-footer">
+                    <div class="author-info">
+                        <div class="author-avatar">
+                            <img alt="Alperen Çetin">
+                        </div>
+                        <div class="author-details">
+                            <h4>Alperen Çetin</h4>
+                            <p>Full Stack Developer | .NET Specialist</p>
+                            <div class="social-links">
+                                <a href="#" class="social-link">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                                <a href="#" class="social-link">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="#" class="social-link">
+                                    <i class="fas fa-envelope"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="post-navigation">
+                        <a href="../index.html#blog" class="btn">
+                            <i class="fas fa-arrow-left"></i> Blog'a Dön
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

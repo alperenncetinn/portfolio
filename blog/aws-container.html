@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Container: VM'den Container'a Geçiş - Alperen Çetin</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="blog.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="blog-post">
+        <div class="container">
+            <!-- Blog Header -->
+            <div class="blog-header">
+                <div class="breadcrumb">
+                    <a href="../index.html"><i class="fas fa-home"></i> Ana Sayfa</a>
+                    <span>/</span>
+                    <a href="../index.html#blog">Blog</a>
+                    <span>/</span>
+                    <span>AWS Container</span>
+                </div>
+                
+                <div class="post-meta">
+                    <div class="category">Infrastructure</div>
+                    <div class="date">26 Temmuz 2025</div>
+                    <div class="read-time"><i class="fas fa-clock"></i> 7 dk okuma</div>
+                </div>
+                
+                <h1>AWS Container: VM'den Container'a Geçiş</h1>
+                
+                <div class="post-tags">
+                    <span class="tag">AWS</span>
+                    <span class="tag">Container</span>
+                    <span class="tag">Docker</span>
+                    <span class="tag">VM</span>
+                    <span class="tag">Infrastructure</span>
+                </div>
+            </div>
+
+            <!-- Blog Content -->
+            <div class="post-content">
+                <div class="intro">
+                    <p class="lead">Yazılım geliştirme dünyasında <strong>container teknolojisi</strong>, uygulamaları çalıştırma ve dağıtma şeklimizi köklü olarak değiştirdi. Bu yazıda geleneksel sanal makinelerden modern container çözümlerine geçişin nedenlerini ve AWS container servislerini keşfedeceksiniz.</p>
+                </div>
+
+                <h2><i class="fas fa-history"></i> Geçmişten Günümüze: Yazılım Dağıtım Sorunu</h2>
+
+                <div class="historical-problem">
+                    <div class="problem-timeline">
+                        <div class="timeline-item past-problem">
+                            <div class="timeline-icon">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <h4>Klasik Sorun</h4>
+                                <p>Eskiden yazılımlar farklı bilgisayarlarda, farklı işletim sistemlerinde, farklı konfigürasyonlarla çalıştırılmak zorundaydı.</p>
+                                <div class="problem-quote">
+                                    <i class="fas fa-quote-left"></i>
+                                    <span>"Bende çalıştı ama sende neden çalışmıyor?"</span>
+                                    <i class="fas fa-quote-right"></i>
+                                </div>
+                                <div class="problem-causes">
+                                    <div class="cause-item">
+                                        <i class="fas fa-desktop"></i>
+                                        <span>Farklı işletim sistemleri</span>
+                                    </div>
+                                    <div class="cause-item">
+                                        <i class="fas fa-cogs"></i>
+                                        <span>Farklı konfigürasyonlar</span>
+                                    </div>
+                                    <div class="cause-item">
+                                        <i class="fas fa-code-branch"></i>
+                                        <span>Bağımlılık çakışmaları</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-server"></i> İlk Çözüm: Virtual Machine (VM)</h2>
+
+                <div class="vm-solution">
+                    <div class="solution-intro">
+                        <div class="solution-icon">
+                            <i class="fas fa-hdd"></i>
+                        </div>
+                        <h3>Sanal Makine Yaklaşımı</h3>
+                        <p>Bu problemin çözümü için önce <strong>Virtual Machine (VM - Sanal Makine)</strong> fikri geldi.</p>
+                    </div>
+                    
+                    <div class="vm-benefits">
+                        <h4><i class="fas fa-check-circle"></i> VM'lerin Getirdiği Çözümler</h4>
+                        <div class="benefits-list">
+                            <div class="benefit-item">
+                                <div class="benefit-icon">
+                                    <i class="fas fa-layer-group"></i>
+                                </div>
+                                <div class="benefit-content">
+                                    <h5>Çoklu İşletim Sistemi</h5>
+                                    <p>Bir fiziksel sunucunun üzerinde <strong>birden çok işletim sistemi</strong> çalıştırmayı sağladı</p>
+                                </div>
+                            </div>
+                            <div class="benefit-item">
+                                <div class="benefit-icon">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <div class="benefit-content">
+                                    <h5>İzolasyon</h5>
+                                    <p>Her VM kendi ortamında çalışarak güvenlik ve kararlılık sağladı</p>
+                                </div>
+                            </div>
+                            <div class="benefit-item">
+                                <div class="benefit-icon">
+                                    <i class="fas fa-balance-scale"></i>
+                                </div>
+                                <div class="benefit-content">
+                                    <h5>Kaynak Paylaşımı</h5>
+                                    <p>Fiziksel kaynakları birden fazla sanal makine arasında paylaştı</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-times-circle"></i> VM'lerin Zamanla Ortaya Çıkan Sorunları</h2>
+
+                <div class="vm-problems">
+                    <div class="problems-grid">
+                        <div class="problem-card weight">
+                            <div class="problem-icon">
+                                <i class="fas fa-weight-hanging"></i>
+                            </div>
+                            <h4>Ağırlık Sorunu</h4>
+                            <p>Çok RAM ve CPU ister, kaynak tüketimi yüksektir</p>
+                            <div class="problem-details">
+                                <span class="detail">Yüksek kaynak kullanımı</span>
+                                <span class="detail">Maliyetli altyapı</span>
+                            </div>
+                        </div>
+                        
+                        <div class="problem-card os-overhead">
+                            <div class="problem-icon">
+                                <i class="fas fa-hdd"></i>
+                            </div>
+                            <h4>OS Overhead</h4>
+                            <p>Her VM içinde komple işletim sistemi kurulurdu</p>
+                            <div class="problem-details">
+                                <span class="detail">Gereksiz disk kullanımı</span>
+                                <span class="detail">Tekrarlayan sistem dosyaları</span>
+                            </div>
+                        </div>
+                        
+                        <div class="problem-card slow-startup">
+                            <div class="problem-icon">
+                                <i class="fas fa-stopwatch"></i>
+                            </div>
+                            <h4>Yavaş Başlatma</h4>
+                            <p>Başlatması dakikalar alıyordu</p>
+                            <div class="problem-details">
+                                <span class="detail">Boot süreci</span>
+                                <span class="detail">Sistem servisleri</span>
+                            </div>
+                        </div>
+                        
+                        <div class="problem-card management">
+                            <div class="problem-icon">
+                                <i class="fas fa-tasks"></i>
+                            </div>
+                            <h4>Yönetim Zorluğu</h4>
+                            <p>Büyük ölçekte yönetmek zordu</p>
+                            <div class="problem-details">
+                                <span class="detail">Karmaşık konfigürasyon</span>
+                                <span class="detail">Güncellemeler</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="search-solution">
+                    <div class="search-box">
+                        <div class="search-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3>Çözüm Arayışı</h3>
+                        <p>Bu eksiklikler nedeniyle, daha <strong>hafif, hızlı ve verimli bir çözüm</strong> arandı...</p>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-cube"></i> Container: Modern Çözüm</h2>
+
+                <div class="container-solution">
+                    <div class="container-intro">
+                        <div class="container-visual">
+                            <div class="container-icon">
+                                <i class="fab fa-docker"></i>
+                            </div>
+                            <h3>Container Teknolojisi</h3>
+                            <p>İşte tam bu noktada <strong>Container</strong> teknolojisi devrim yarattı!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-balance-scale"></i> VM vs Container: Temel Farklar</h2>
+
+                <div class="vm-vs-container">
+                    <div class="comparison-visual">
+                        <div class="vm-architecture">
+                            <h3><i class="fas fa-server"></i> Virtual Machine Mimarisi</h3>
+                            <div class="architecture-stack">
+                                <div class="arch-layer hardware">
+                                    <i class="fas fa-microchip"></i>
+                                    <span>Fiziksel Sunucu</span>
+                                </div>
+                                <div class="arch-layer hypervisor">
+                                    <i class="fas fa-layer-group"></i>
+                                    <span>Hypervisor</span>
+                                </div>
+                                <div class="vm-instances">
+                                    <div class="vm-instance">
+                                        <div class="vm-os">Guest OS</div>
+                                        <div class="vm-app">Uygulama</div>
+                                    </div>
+                                    <div class="vm-instance">
+                                        <div class="vm-os">Guest OS</div>
+                                        <div class="vm-app">Uygulama</div>
+                                    </div>
+                                    <div class="vm-instance">
+                                        <div class="vm-os">Guest OS</div>
+                                        <div class="vm-app">Uygulama</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="vs-separator">
+                            <span>VS</span>
+                        </div>
+                        
+                        <div class="container-architecture">
+                            <h3><i class="fas fa-cube"></i> Container Mimarisi</h3>
+                            <div class="architecture-stack">
+                                <div class="arch-layer hardware">
+                                    <i class="fas fa-microchip"></i>
+                                    <span>Fiziksel Sunucu</span>
+                                </div>
+                                <div class="arch-layer host-os">
+                                    <i class="fas fa-desktop"></i>
+                                    <span>Host OS</span>
+                                </div>
+                                <div class="arch-layer container-runtime">
+                                    <i class="fab fa-docker"></i>
+                                    <span>Container Runtime (Docker)</span>
+                                </div>
+                                <div class="container-instances">
+                                    <div class="container-instance">
+                                        <div class="container-app">App + Libs</div>
+                                    </div>
+                                    <div class="container-instance">
+                                        <div class="container-app">App + Libs</div>
+                                    </div>
+                                    <div class="container-instance">
+                                        <div class="container-app">App + Libs</div>
+                                    </div>
+                                    <div class="container-instance">
+                                        <div class="container-app">App + Libs</div>
+                                    </div>
+                                    <div class="container-instance">
+                                        <div class="container-app">App + Libs</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detailed-comparison">
+                    <h3><i class="fas fa-table"></i> Detaylı Karşılaştırma</h3>
+                    <div class="comparison-table">
+                        <div class="table-header">
+                            <div class="feature-col">Özellik</div>
+                            <div class="vm-col">VM (Virtual Machine)</div>
+                            <div class="container-col">Container</div>
+                        </div>
+                        
+                        <div class="comparison-row">
+                            <div class="feature-cell">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>İzolasyon</span>
+                            </div>
+                            <div class="vm-cell">
+                                Her biri kendi işletim sistemiyle izole
+                            </div>
+                            <div class="container-cell">
+                                Aynı OS çekirdeğini paylaşır, hafif izolasyon
+                            </div>
+                        </div>
+                        
+                        <div class="comparison-row">
+                            <div class="feature-cell">
+                                <i class="fas fa-memory"></i>
+                                <span>Kaynak Kullanımı</span>
+                            </div>
+                            <div class="vm-cell vm-negative">
+                                Ağır, çok RAM/CPU tüketir
+                            </div>
+                            <div class="container-cell container-positive">
+                                Hafif, az kaynak kullanır
+                            </div>
+                        </div>
+                        
+                        <div class="comparison-row">
+                            <div class="feature-cell">
+                                <i class="fas fa-stopwatch"></i>
+                                <span>Başlama Süresi</span>
+                            </div>
+                            <div class="vm-cell vm-negative">
+                                Dakikalar sürebilir
+                            </div>
+                            <div class="container-cell container-positive">
+                                Saniyeler içinde başlar
+                            </div>
+                        </div>
+                        
+                        <div class="comparison-row">
+                            <div class="feature-cell">
+                                <i class="fas fa-shipping-fast"></i>
+                                <span>Taşınabilirlik</span>
+                            </div>
+                            <div class="vm-cell vm-negative">
+                                OS bağımlılığı var
+                            </div>
+                            <div class="container-cell container-positive">
+                                Her ortamda aynı şekilde çalışır
+                            </div>
+                        </div>
+                        
+                        <div class="comparison-row">
+                            <div class="feature-cell">
+                                <i class="fas fa-hdd"></i>
+                                <span>Boyut</span>
+                            </div>
+                            <div class="vm-cell vm-negative">
+                                GB seviyelerinde
+                            </div>
+                            <div class="container-cell container-positive">
+                                MB seviyelerinde
+                            </div>
+                        </div>
+                        
+                        <div class="comparison-row">
+                            <div class="feature-cell">
+                                <i class="fas fa-tools"></i>
+                                <span>Örnek Teknolojiler</span>
+                            </div>
+                            <div class="vm-cell">
+                                VMware, Hyper-V
+                            </div>
+                            <div class="container-cell">
+                                Docker, Podman
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-star"></i> Container'ın Avantajları</h2>
+
+                <div class="container-advantages">
+                    <div class="advantages-grid">
+                        <div class="advantage-card speed">
+                            <div class="advantage-icon">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <h4>Hız</h4>
+                            <div class="advantage-content">
+                                <p>VM gibi tüm işletim sistemini başlatmaz</p>
+                                <div class="advantage-detail">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Saniyeler içinde ayağa kalkar</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="advantage-card portability">
+                            <div class="advantage-icon">
+                                <i class="fas fa-shipping-fast"></i>
+                            </div>
+                            <h4>Taşınabilirlik</h4>
+                            <div class="advantage-content">
+                                <p>Bir container her ortamda aynı çalışır</p>
+                                <div class="advantage-environments">
+                                    <span class="env">Geliştirici PC</span>
+                                    <span class="env">Test Sunucusu</span>
+                                    <span class="env">Bulut</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="advantage-card efficiency">
+                            <div class="advantage-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h4>Kaynak Verimliliği</h4>
+                            <div class="advantage-content">
+                                <p>Aynı fiziksel sunucu üstünde onlarca container çalışabilir</p>
+                                <div class="efficiency-visual">
+                                    <div class="server-representation">
+                                        <i class="fas fa-server"></i>
+                                        <div class="container-count">
+                                            <span>50+</span>
+                                            <small>Container</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="advantage-card modularity">
+                            <div class="advantage-icon">
+                                <i class="fas fa-cubes"></i>
+                            </div>
+                            <h4>Modülerlik</h4>
+                            <div class="advantage-content">
+                                <p>Her uygulama bileşeni ayrı bir container olur</p>
+                                <div class="modularity-note">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span>Mikroservislerde mükemmel uyum sağlar</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="advantage-card cicd">
+                            <div class="advantage-icon">
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                            <h4>Kolay CI/CD Entegrasyonu</h4>
+                            <div class="advantage-content">
+                                <p>Otomatik test, build, deploy süreçleri container ile daha stabil</p>
+                                <div class="cicd-flow">
+                                    <span class="flow-step">Test</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                    <span class="flow-step">Build</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                    <span class="flow-step">Deploy</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-cogs"></i> Container Nasıl Çalışır?</h2>
+
+                <div class="how-containers-work">
+                    <div class="working-comparison">
+                        <div class="vm-working">
+                            <h3><i class="fas fa-server"></i> VM Çalışma Prensibi</h3>
+                            <div class="working-flow">
+                                <div class="flow-step">
+                                    <div class="step-icon">
+                                        <i class="fas fa-microchip"></i>
+                                    </div>
+                                    <span>Fiziksel Sunucu</span>
+                                </div>
+                                <div class="flow-arrow">
+                                    <i class="fas fa-arrow-down"></i>
+                                </div>
+                                <div class="flow-step">
+                                    <div class="step-icon">
+                                        <i class="fas fa-layer-group"></i>
+                                    </div>
+                                    <span>Hypervisor</span>
+                                </div>
+                                <div class="flow-arrow">
+                                    <i class="fas fa-arrow-down"></i>
+                                </div>
+                                <div class="flow-step">
+                                    <div class="step-icon">
+                                        <i class="fas fa-desktop"></i>
+                                    </div>
+                                    <span>Her VM kendi OS + uygulama</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="container-working">
+                            <h3><i class="fas fa-cube"></i> Container Çalışma Prensibi</h3>
+                            <div class="working-flow">
+                                <div class="flow-step">
+                                    <div class="step-icon">
+                                        <i class="fas fa-microchip"></i>
+                                    </div>
+                                    <span>Fiziksel Sunucu</span>
+                                </div>
+                                <div class="flow-arrow">
+                                    <i class="fas fa-arrow-down"></i>
+                                </div>
+                                <div class="flow-step">
+                                    <div class="step-icon">
+                                        <i class="fas fa-desktop"></i>
+                                    </div>
+                                    <span>OS</span>
+                                </div>
+                                <div class="flow-arrow">
+                                    <i class="fas fa-arrow-down"></i>
+                                </div>
+                                <div class="flow-step highlight">
+                                    <div class="step-icon">
+                                        <i class="fab fa-docker"></i>
+                                    </div>
+                                    <span>Container Runtime (Docker)</span>
+                                </div>
+                                <div class="flow-arrow">
+                                    <i class="fas fa-arrow-down"></i>
+                                </div>
+                                <div class="flow-step">
+                                    <div class="step-icon">
+                                        <i class="fas fa-cube"></i>
+                                    </div>
+                                    <span>Uygulama + bağımlılık</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="container-explanation">
+                        <div class="explanation-box">
+                            <div class="explanation-icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <h4>Temel Fark</h4>
+                            <p>Container, işletim sistemi çekirdeğini paylaşır ama <strong>kendi ortamını taklit eder</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fab fa-aws"></i> AWS Container Servisleri</h2>
+
+                <div class="aws-container-services">
+                    <div class="aws-intro">
+                        <div class="aws-logo">
+                            <i class="fab fa-aws"></i>
+                        </div>
+                        <h3>Amazon Web Services Container Çözümleri</h3>
+                        <p>AWS, container teknolojisini kullanmak için çeşitli servisler sunar. Her biri farklı ihtiyaçlara yöneliktir.</p>
+                    </div>
+                    
+                    <div class="aws-services-grid">
+                        <div class="service-card ecs">
+                            <div class="service-header">
+                                <div class="service-icon">
+                                    <i class="fas fa-cubes"></i>
+                                </div>
+                                <h4>Amazon ECS</h4>
+                                <span class="service-badge managed">Fully Managed</span>
+                            </div>
+                            <div class="service-content">
+                                <p><strong>Elastic Container Service</strong></p>
+                                <p>AWS'nin tam yönetimli container orkestrasyon servisidir.</p>
+                                <div class="service-features">
+                                    <div class="feature">
+                                        <i class="fas fa-check"></i>
+                                        <span>Kolay setup</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-check"></i>
+                                        <span>Auto scaling</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-check"></i>
+                                        <span>Load balancing</span>
+                                    </div>
+                                </div>
+                                <div class="use-case">
+                                    <strong>Kullanım:</strong> Başlangıç projeleri, basit container uygulamaları
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="service-card eks">
+                            <div class="service-header">
+                                <div class="service-icon">
+                                    <i class="fas fa-dharmachakra"></i>
+                                </div>
+                                <h4>Amazon EKS</h4>
+                                <span class="service-badge kubernetes">Kubernetes</span>
+                            </div>
+                            <div class="service-content">
+                                <p><strong>Elastic Kubernetes Service</strong></p>
+                                <p>Kubernetes'i AWS üzerinde çalıştırmak için tam yönetimli servis.</p>
+                                <div class="service-features">
+                                    <div class="feature">
+                                        <i class="fas fa-check"></i>
+                                        <span>Kubernetes native</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-check"></i>
+                                        <span>Multi-AZ</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-check"></i>
+                                        <span>Enterprise ready</span>
+                                    </div>
+                                </div>
+                                <div class="use-case">
+                                    <strong>Kullanım:</strong> Büyük ölçekli, karmaşık container uygulamaları
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="service-card fargate">
+                            <div class="service-header">
+                                <div class="service-icon">
+                                    <i class="fas fa-rocket"></i>
+                                </div>
+                                <h4>AWS Fargate</h4>
+                                <span class="service-badge serverless">Serverless</span>
+                            </div>
+                            <div class="service-content">
+                                <p><strong>Serverless Container Platform</strong></p>
+                                <p>Sunucu yönetimi olmadan container çalıştırma servisi.</p>
+                                <div class="service-features">
+                                    <div class="feature">
+                                        <i class="fas fa-check"></i>
+                                        <span>No server management</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-check"></i>
+                                        <span>Pay per use</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-check"></i>
+                                        <span>Auto scaling</span>
+                                    </div>
+                                </div>
+                                <div class="use-case">
+                                    <strong>Kullanım:</strong> Microservices, batch işleri, web uygulamaları
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="service-card ecr">
+                            <div class="service-header">
+                                <div class="service-icon">
+                                    <i class="fas fa-archive"></i>
+                                </div>
+                                <h4>Amazon ECR</h4>
+                                <span class="service-badge registry">Registry</span>
+                            </div>
+                            <div class="service-content">
+                                <p><strong>Elastic Container Registry</strong></p>
+                                <p>Container image'larını saklama ve yönetme servisi.</p>
+                                <div class="service-features">
+                                    <div class="feature">
+                                        <i class="fas fa-check"></i>
+                                        <span>Private repository</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-check"></i>
+                                        <span>Security scanning</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-check"></i>
+                                        <span>High availability</span>
+                                    </div>
+                                </div>
+                                <div class="use-case">
+                                    <strong>Kullanım:</strong> Docker image saklama, versiyon kontrolü
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-route"></i> Container Deployment Akışı</h2>
+
+                <div class="deployment-flow">
+                    <h3><i class="fas fa-play-circle"></i> AWS'de Container Deployment</h3>
+                    <div class="flow-steps">
+                        <div class="deploy-step step-1">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <div class="step-icon">
+                                    <i class="fab fa-docker"></i>
+                                </div>
+                                <h4>Docker Image Oluştur</h4>
+                                <p>Uygulamanızı containerize edin</p>
+                                <div class="step-code">
+                                    <code>docker build -t myapp .</code>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flow-arrow">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                        
+                        <div class="deploy-step step-2">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <div class="step-icon">
+                                    <i class="fas fa-archive"></i>
+                                </div>
+                                <h4>ECR'a Push Et</h4>
+                                <p>Image'ı AWS ECR'a yükleyin</p>
+                                <div class="step-code">
+                                    <code>docker push ecr-url/myapp</code>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flow-arrow">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                        
+                        <div class="deploy-step step-3">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <div class="step-icon">
+                                    <i class="fas fa-cogs"></i>
+                                </div>
+                                <h4>Service Tanımla</h4>
+                                <p>ECS/EKS task definition oluşturun</p>
+                                <div class="step-code">
+                                    <code>aws ecs create-service</code>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flow-arrow">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                        
+                        <div class="deploy-step step-4">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <div class="step-icon">
+                                    <i class="fas fa-rocket"></i>
+                                </div>
+                                <h4>Deploy Et</h4>
+                                <p>Container'ı canlıya alın</p>
+                                <div class="step-code">
+                                    <code>aws ecs update-service</code>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-lightbulb"></i> Container Kullanım Senaryoları</h2>
+
+                <div class="use-cases">
+                    <div class="use-case-grid">
+                        <div class="use-case microservices">
+                            <div class="use-case-icon">
+                                <i class="fas fa-cubes"></i>
+                            </div>
+                            <h4>Mikroservis Mimarisi</h4>
+                            <p>Her mikroservis ayrı container'da çalışarak bağımsızlık sağlar</p>
+                            <div class="use-case-benefits">
+                                <span class="benefit">Bağımsız deployment</span>
+                                <span class="benefit">Farklı teknolojiler</span>
+                                <span class="benefit">Kolay ölçeklendirme</span>
+                            </div>
+                        </div>
+                        
+                        <div class="use-case development">
+                            <div class="use-case-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h4>Geliştirme Ortamları</h4>
+                            <p>Aynı ortamın her yerde çalışması garantisi</p>
+                            <div class="use-case-benefits">
+                                <span class="benefit">Tutarlı ortam</span>
+                                <span class="benefit">Hızlı setup</span>
+                                <span class="benefit">Team collaboration</span>
+                            </div>
+                        </div>
+                        
+                        <div class="use-case cicd">
+                            <div class="use-case-icon">
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                            <h4>CI/CD Pipeline</h4>
+                            <p>Otomatik test ve deployment süreçleri</p>
+                            <div class="use-case-benefits">
+                                <span class="benefit">Reproducible builds</span>
+                                <span class="benefit">Fast deployment</span>
+                                <span class="benefit">Rollback capability</span>
+                            </div>
+                        </div>
+                        
+                        <div class="use-case legacy">
+                            <div class="use-case-icon">
+                                <i class="fas fa-archive"></i>
+                            </div>
+                            <h4>Legacy App Modernization</h4>
+                            <p>Eski uygulamaları container'a taşıma</p>
+                            <div class="use-case-benefits">
+                                <span class="benefit">Lift and shift</span>
+                                <span class="benefit">Cloud migration</span>
+                                <span class="benefit">Cost optimization</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="conclusion">
+                    <h2><i class="fas fa-flag-checkered"></i> Sonuç</h2>
+                    <p>Container teknolojisi, yazılım geliştirme ve deployment süreçlerini <strong>köklü olarak değiştirmiştir</strong>. VM'lerin ağırlığından kurtulup, <strong>hızlı, verimli ve taşınabilir</strong> çözümler sunar. AWS'nin container servisleri ile bu teknolojiden kolayca faydalanabilirsiniz.</p>
+                    
+                    <div class="key-takeaways">
+                        <h3><i class="fas fa-key"></i> Ana Noktalar</h3>
+                        <ul>
+                            <li>Container'lar VM'lerden çok daha hafif ve hızlıdır</li>
+                            <li>Aynı ortamın her yerde çalışması garantisini verir</li>
+                            <li>Mikroservis mimarisi için ideal çözümdür</li>
+                            <li>AWS ECS, EKS, Fargate gibi yönetimli servisler sunar</li>
+                            <li>CI/CD pipeline'larında kritik rol oynar</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="next-steps">
+                    <h3><i class="fas fa-arrow-right"></i> Sonraki Adımlar</h3>
+                    <ul>
+                        <li>Docker'ı yerel ortamınızda kurup test edin</li>
+                        <li>Basit bir web uygulamasını containerize edin</li>
+                        <li>AWS hesabı oluşturup ECS servisini deneyin</li>
+                        <li>ECR'da private repository oluşturun</li>
+                        <li>Fargate ile serverless container deneyimi yaşayın</li>
+                    </ul>
+                </div>
+
+                <!-- Post Footer -->
+                <div class="post-footer">
+                    <div class="author-info">
+                        <div class="author-avatar">
+                            <img src="../images/profilePhoto.jpg" alt="Alperen Çetin">
+                        </div>
+                        <div class="author-details">
+                            <h4>Alperen Çetin</h4>
+                            <p>Full Stack Developer | AWS & Container Enthusiast</p>
+                            <div class="social-links">
+                                <a href="#" class="social-link">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                                <a href="#" class="social-link">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="#" class="social-link">
+                                    <i class="fas fa-envelope"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="post-navigation">
+                        <a href="../index.html#blog" class="btn">
+                            <i class="fas fa-arrow-left"></i> Blog'a Dön
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

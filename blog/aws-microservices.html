@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Microservices: Mikroservis Mimarisi ve API Gateway - Alperen Çetin</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="blog.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="blog-post">
+        <div class="container">
+            <!-- Blog Header -->
+            <div class="blog-header">
+                <div class="breadcrumb">
+                    <a href="../index.html"><i class="fas fa-home"></i> Ana Sayfa</a>
+                    <span>/</span>
+                    <a href="../index.html#blog">Blog</a>
+                    <span>/</span>
+                    <span>AWS Microservices</span>
+                </div>
+                
+                <div class="post-meta">
+                    <div class="category">Cloud</div>
+                    <div class="date">26 Temmuz 2025</div>
+                    <div class="read-time"><i class="fas fa-clock"></i> 8 dk okuma</div>
+                </div>
+                
+                <h1>AWS Microservices: Mikroservis Mimarisi ve API Gateway</h1>
+                
+                <div class="post-tags">
+                    <span class="tag">AWS</span>
+                    <span class="tag">Microservices</span>
+                    <span class="tag">API</span>
+                    <span class="tag">Architecture</span>
+                    <span class="tag">Scalability</span>
+                </div>
+            </div>
+
+            <!-- Blog Content -->
+            <div class="post-content">
+                <div class="intro">
+                    <p class="lead">Modern yazılım geliştirmede <strong>mikroservis mimarisi</strong>, büyük ve karmaşık uygulamaları daha küçük, yönetilebilir parçalara bölerek geliştirme sürecini optimize eden bir yaklaşımdır. Bu yazıda AWS perspektifiyle mikroservis mimarisini ve API Gateway'in önemini keşfedeceksiniz.</p>
+                </div>
+
+                <h2><i class="fas fa-cubes"></i> Mikroservis Nedir?</h2>
+
+                <div class="microservice-definition">
+                    <h3><i class="fas fa-lightbulb"></i> Temel Tanım</h3>
+                    <p><strong>Mikroservis</strong>, büyük bir uygulamanın küçük, bağımsız, bir işi çok iyi yapan parçalara bölünerek geliştirilmesi yöntemidir.</p>
+                </div>
+
+                <div class="microservice-principles">
+                    <h3><i class="fas fa-list-check"></i> Mikroservis Prensipleri</h3>
+                    <div class="principles-grid">
+                        <div class="principle-card single-responsibility">
+                            <div class="principle-icon">
+                                <i class="fas fa-bullseye"></i>
+                            </div>
+                            <h4>Tek Sorumluluk</h4>
+                            <p>Her mikroservis <strong>tek bir işe odaklanır</strong> ve o işi mükemmel yapar.</p>
+                        </div>
+                        
+                        <div class="principle-card independence">
+                            <div class="principle-icon">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <h4>Bağımsızlık</h4>
+                            <p>Bağımsız olarak geliştirilebilir ve <strong>bağımsız deploy edilebilir</strong>.</p>
+                        </div>
+                        
+                        <div class="principle-card communication">
+                            <div class="principle-icon">
+                                <i class="fas fa-comments"></i>
+                            </div>
+                            <h4>API İletişimi</h4>
+                            <p>Diğer mikroservislerle <strong>API arayüzleri</strong> üzerinden haberleşir.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-building"></i> Monolitik vs Mikroservis Mimarisi</h2>
+
+                <div class="architecture-comparison">
+                    <div class="comparison-visual">
+                        <div class="monolith-side">
+                            <div class="arch-icon">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <h3>Monolitik Mimari</h3>
+                            <div class="monolith-block">
+                                <div class="mono-layer">Kullanıcı Arayüzü</div>
+                                <div class="mono-layer">İş Mantığı</div>
+                                <div class="mono-layer">Veri Erişimi</div>
+                                <div class="mono-layer">Veritabanı</div>
+                            </div>
+                            <p>Her şey tek bir uygulamanın içinde</p>
+                        </div>
+                        
+                        <div class="vs-divider">
+                            <span>VS</span>
+                        </div>
+                        
+                        <div class="microservice-side">
+                            <div class="arch-icon">
+                                <i class="fas fa-cubes"></i>
+                            </div>
+                            <h3>Mikroservis Mimarisi</h3>
+                            <div class="microservices-grid">
+                                <div class="micro-service user">
+                                    <i class="fas fa-user"></i>
+                                    <span>Kullanıcı</span>
+                                </div>
+                                <div class="micro-service product">
+                                    <i class="fas fa-shopping-bag"></i>
+                                    <span>Ürün</span>
+                                </div>
+                                <div class="micro-service payment">
+                                    <i class="fas fa-credit-card"></i>
+                                    <span>Ödeme</span>
+                                </div>
+                                <div class="micro-service notification">
+                                    <i class="fas fa-bell"></i>
+                                    <span>Bildirim</span>
+                                </div>
+                            </div>
+                            <p>Uygulama birçok küçük servise bölünür</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-store"></i> E-Ticaret Örneği</h2>
+
+                <div class="ecommerce-example">
+                    <h3><i class="fas fa-shopping-cart"></i> Mikroservis Dağılımı</h3>
+                    <div class="services-table">
+                        <div class="table-header">
+                            <div class="service-col">Mikroservis</div>
+                            <div class="responsibility-col">Görevi</div>
+                            <div class="features-col">Özellikler</div>
+                        </div>
+                        
+                        <div class="service-row user-service">
+                            <div class="service-name">
+                                <i class="fas fa-user"></i>
+                                <span>Kullanıcı Servisi</span>
+                            </div>
+                            <div class="service-responsibility">
+                                Üyelik, giriş çıkış
+                            </div>
+                            <div class="service-features">
+                                <span class="feature">Kayıt</span>
+                                <span class="feature">Giriş</span>
+                                <span class="feature">Profil</span>
+                            </div>
+                        </div>
+                        
+                        <div class="service-row product-service">
+                            <div class="service-name">
+                                <i class="fas fa-shopping-bag"></i>
+                                <span>Ürün Servisi</span>
+                            </div>
+                            <div class="service-responsibility">
+                                Ürün listeleme, detay
+                            </div>
+                            <div class="service-features">
+                                <span class="feature">Katalog</span>
+                                <span class="feature">Arama</span>
+                                <span class="feature">Filtreleme</span>
+                            </div>
+                        </div>
+                        
+                        <div class="service-row payment-service">
+                            <div class="service-name">
+                                <i class="fas fa-credit-card"></i>
+                                <span>Ödeme Servisi</span>
+                            </div>
+                            <div class="service-responsibility">
+                                Ödeme alma işlemi
+                            </div>
+                            <div class="service-features">
+                                <span class="feature">Kart İşlemi</span>
+                                <span class="feature">Taksit</span>
+                                <span class="feature">Güvenlik</span>
+                            </div>
+                        </div>
+                        
+                        <div class="service-row shipping-service">
+                            <div class="service-name">
+                                <i class="fas fa-truck"></i>
+                                <span>Kargo Servisi</span>
+                            </div>
+                            <div class="service-responsibility">
+                                Kargo ve takip işlemleri
+                            </div>
+                            <div class="service-features">
+                                <span class="feature">Teslimat</span>
+                                <span class="feature">Takip</span>
+                                <span class="feature">Adres</span>
+                            </div>
+                        </div>
+                        
+                        <div class="service-row notification-service">
+                            <div class="service-name">
+                                <i class="fas fa-bell"></i>
+                                <span>Bildirim Servisi</span>
+                            </div>
+                            <div class="service-responsibility">
+                                E-posta, SMS gönderme
+                            </div>
+                            <div class="service-features">
+                                <span class="feature">E-posta</span>
+                                <span class="feature">SMS</span>
+                                <span class="feature">Push</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="microservice-benefits">
+                    <h3><i class="fas fa-star"></i> Mikroservis Avantajları</h3>
+                    <div class="benefits-grid">
+                        <div class="benefit-card">
+                            <i class="fas fa-users"></i>
+                            <h4>Bağımsız Ekipler</h4>
+                            <p>Ayrı ekipler tarafından geliştirilir</p>
+                        </div>
+                        <div class="benefit-card">
+                            <i class="fas fa-code"></i>
+                            <h4>Teknoloji Çeşitliliği</h4>
+                            <p>Farklı teknolojilerle yazılabilir</p>
+                        </div>
+                        <div class="benefit-card">
+                            <i class="fas fa-sync"></i>
+                            <h4>Bağımsız Güncelleme</h4>
+                            <p>Bağımsız güncellenebilir</p>
+                        </div>
+                        <div class="benefit-card">
+                            <i class="fas fa-expand-arrows-alt"></i>
+                            <h4>Ölçeklenebilirlik</h4>
+                            <p>İhtiyaca göre ölçeklenir</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-plug"></i> API Nedir?</h2>
+
+                <div class="api-definition">
+                    <div class="api-visual">
+                        <div class="api-icon">
+                            <i class="fas fa-plug"></i>
+                        </div>
+                        <h3>Application Programming Interface</h3>
+                    </div>
+                    <p class="api-description"><strong>API</strong>, iki yazılımın <strong>birbirleriyle iletişim kurmasını sağlayan bir arayüzdür.</strong></p>
+                    <div class="api-analogy">
+                        <div class="analogy-icon">
+                            <i class="fas fa-door-open"></i>
+                        </div>
+                        <p><strong>Kısaca:</strong> Bir yazılımın başka yazılımlara sunduğu kapıdır.</p>
+                    </div>
+                </div>
+
+                <div class="api-purpose">
+                    <h3><i class="fas fa-question-circle"></i> API Neden Kullanılır?</h3>
+                    <div class="purpose-list">
+                        <div class="purpose-item">
+                            <div class="purpose-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="purpose-content">
+                                <h4>Güvenli Erişim</h4>
+                                <p>Bir sistemin <strong>iç detaylarına erişmeden</strong>, sadece izin verilen verilere ve işlevlere ulaşmak için</p>
+                            </div>
+                        </div>
+                        
+                        <div class="purpose-item">
+                            <div class="purpose-icon">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <div class="purpose-content">
+                                <h4>Sistem Entegrasyonu</h4>
+                                <p>Farklı sistemlerin <strong>uyum içindeçalışmasını sağlamak için</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-examples">
+                    <h3><i class="fas fa-lightbulb"></i> API Kullanım Örnekleri</h3>
+                    <div class="examples-grid">
+                        <div class="example-card mobile">
+                            <div class="example-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <h4>Mobil Uygulama</h4>
+                            <p>Bir mobil uygulama, sunucudan veri çekmek için API çağırır</p>
+                        </div>
+                        
+                        <div class="example-card weather">
+                            <div class="example-icon">
+                                <i class="fas fa-cloud-sun"></i>
+                            </div>
+                            <h4>Hava Durumu</h4>
+                            <p>Bir hava durumu uygulaması başka bir siteden anlık hava bilgisini API ile alır</p>
+                        </div>
+                        
+                        <div class="example-card payment">
+                            <div class="example-icon">
+                                <i class="fas fa-credit-card"></i>
+                            </div>
+                            <h4>Ödeme Sistemi</h4>
+                            <p>E-ticaret sitesi, banka API'si ile ödeme işlemlerini gerçekleştirir</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-list"></i> API Türleri</h2>
+
+                <div class="api-types">
+                    <div class="api-type rest">
+                        <div class="type-header">
+                            <div class="type-icon">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <h3>REST API</h3>
+                            <span class="type-badge popular">En Yaygın</span>
+                        </div>
+                        <div class="type-content">
+                            <p><strong>HTTP üzerinden çalışır.</strong> Basit ve yaygın kullanılan API türüdür.</p>
+                            <div class="type-features">
+                                <span class="feature">JSON verisi döner</span>
+                                <span class="feature">HTTP metodları (GET, POST, PUT, DELETE)</span>
+                                <span class="feature">Stateless</span>
+                            </div>
+                            <div class="type-example">
+                                <strong>Örnek:</strong> Çoğu web servisi
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="api-type soap">
+                        <div class="type-header">
+                            <div class="type-icon">
+                                <i class="fas fa-file-code"></i>
+                            </div>
+                            <h3>SOAP API</h3>
+                            <span class="type-badge enterprise">Kurumsal</span>
+                        </div>
+                        <div class="type-content">
+                            <p><strong>Daha katı standartlar.</strong> XML tabanlı protokoldür.</p>
+                            <div class="type-features">
+                                <span class="feature">XML formatında</span>
+                                <span class="feature">Güvenlik odaklı</span>
+                                <span class="feature">Stateful</span>
+                            </div>
+                            <div class="type-example">
+                                <strong>Örnek:</strong> Banka sistemleri
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="api-type graphql">
+                        <div class="type-header">
+                            <div class="type-icon">
+                                <i class="fas fa-project-diagram"></i>
+                            </div>
+                            <h3>GraphQL API</h3>
+                            <span class="type-badge flexible">Esnek</span>
+                        </div>
+                        <div class="type-content">
+                            <p><strong>Kullanıcı istediği veriyi şekillendirerek ister.</strong> Facebook tarafından geliştirilmiştir.</p>
+                            <div class="type-features">
+                                <span class="feature">Tek endpoint</span>
+                                <span class="feature">Query dili</span>
+                                <span class="feature">Esnek veri</span>
+                            </div>
+                            <div class="type-example">
+                                <strong>Örnek:</strong> Facebook API
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="api-type websocket">
+                        <div class="type-header">
+                            <div class="type-icon">
+                                <i class="fas fa-comments"></i>
+                            </div>
+                            <h3>WebSocket API</h3>
+                            <span class="type-badge realtime">Gerçek Zamanlı</span>
+                        </div>
+                        <div class="type-content">
+                            <p><strong>Gerçek zamanlı veri akışı sağlar.</strong> İki yönlü iletişim imkanı sunar.</p>
+                            <div class="type-features">
+                                <span class="feature">Real-time</span>
+                                <span class="feature">İki yönlü</span>
+                                <span class="feature">Düşük gecikme</span>
+                            </div>
+                            <div class="type-example">
+                                <strong>Örnek:</strong> Chat uygulamaları
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-gateway"></i> API Gateway Nedir?</h2>
+
+                <div class="api-gateway-definition">
+                    <div class="gateway-visual">
+                        <div class="gateway-icon">
+                            <i class="fas fa-door-open"></i>
+                        </div>
+                        <h3>Merkezi Kapı</h3>
+                    </div>
+                    <p><strong>API Gateway</strong>, mikroservis mimarilerinde veya çoklu servis yapılarında, <strong>tüm API isteklerinin geçtiği merkezi bir kapıdır.</strong></p>
+                </div>
+
+                <div class="gateway-flow">
+                    <h3><i class="fas fa-route"></i> API Gateway Çalışma Prensibi</h3>
+                    <div class="flow-diagram">
+                        <div class="flow-step client">
+                            <div class="step-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4>İstemci</h4>
+                            <p>Mobil/Web App</p>
+                        </div>
+                        
+                        <div class="flow-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        
+                        <div class="flow-step gateway">
+                            <div class="step-icon">
+                                <i class="fas fa-gateway"></i>
+                            </div>
+                            <h4>API Gateway</h4>
+                            <p>Merkezi Giriş</p>
+                        </div>
+                        
+                        <div class="flow-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        
+                        <div class="flow-step services">
+                            <div class="step-icon">
+                                <i class="fas fa-cubes"></i>
+                            </div>
+                            <h4>Mikroservisler</h4>
+                            <p>İlgili Servis</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-description">
+                        <p>Kullanıcı veya istemci uygulamalar (mobil/web), doğrudan servislerle değil; <strong>önce API Gateway ile iletişim kurar</strong>, gateway isteği doğru servise yönlendirir.</p>
+                    </div>
+                </div>
+
+                <div class="gateway-analogy">
+                    <h3><i class="fas fa-building"></i> Alışveriş Merkezi Analojisi</h3>
+                    <div class="analogy-content">
+                        <div class="analogy-visual">
+                            <div class="shopping-mall">
+                                <div class="reception">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span>Danışma</span>
+                                </div>
+                                <div class="stores">
+                                    <div class="store">
+                                        <i class="fas fa-film"></i>
+                                        <span>Sinema</span>
+                                    </div>
+                                    <div class="store">
+                                        <i class="fas fa-utensils"></i>
+                                        <span>Yemek</span>
+                                    </div>
+                                    <div class="store">
+                                        <i class="fas fa-tshirt"></i>
+                                        <span>Mağaza</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="analogy-explanation">
+                            <div class="analogy-item">
+                                <i class="fas fa-question"></i>
+                                <p><strong>Sinema neredeydi?</strong> → Danışma yönlendirir</p>
+                            </div>
+                            <div class="analogy-item">
+                                <i class="fas fa-question"></i>
+                                <p><strong>Yemek katı nerede?</strong> → Yine danışma söyler</p>
+                            </div>
+                        </div>
+                        <div class="analogy-conclusion">
+                            <p>Kullanıcıdan gelen tüm istekler API Gateway'e gelir. Gateway isteğin içeriğine göre hangi mikroservise gideceğini bilir ve yönlendirir.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-star"></i> API Gateway Neden Kullanılır?</h2>
+
+                <div class="gateway-benefits">
+                    <div class="benefit-card single-entry">
+                        <div class="benefit-icon">
+                            <i class="fas fa-door-open"></i>
+                        </div>
+                        <h3>Tek Giriş Noktası</h3>
+                        <p>Dış dünyadan gelen tüm istekler merkezi bir kapıdan geçer</p>
+                        <div class="benefit-details">
+                            <span class="detail">Basit erişim</span>
+                            <span class="detail">Merkezi kontrol</span>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-card load-balancing">
+                        <div class="benefit-icon">
+                            <i class="fas fa-balance-scale"></i>
+                        </div>
+                        <h3>Yük Dengeleme</h3>
+                        <p>Gelen istekler, arkadaki servisler arasında dengeli dağıtılır</p>
+                        <div class="benefit-details">
+                            <span class="detail">Performans artışı</span>
+                            <span class="detail">Otomatik dağıtım</span>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-card security">
+                        <div class="benefit-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Güvenlik</h3>
+                        <p>Kimlik doğrulama ve yetkilendirme yapılır</p>
+                        <div class="benefit-details">
+                            <span class="detail">JWT Token</span>
+                            <span class="detail">OAuth desteği</span>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-card rate-limiting">
+                        <div class="benefit-icon">
+                            <i class="fas fa-tachometer-alt"></i>
+                        </div>
+                        <h3>Rate Limiting</h3>
+                        <p>Kötüye kullanımı önlemek için kullanıcı başına istek sınırı konabilir</p>
+                        <div class="benefit-details">
+                            <span class="detail">DDoS koruması</span>
+                            <span class="detail">Kaynak yönetimi</span>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-card monitoring">
+                        <div class="benefit-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Logging ve Monitoring</h3>
+                        <p>Tüm API istekleri merkezi loglanabilir ve analiz edilebilir</p>
+                        <div class="benefit-details">
+                            <span class="detail">Detaylı analiz</span>
+                            <span class="detail">Performans takibi</span>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-card transformation">
+                        <div class="benefit-icon">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <h3>Response Transformation</h3>
+                        <p>Geri dönen cevaplar istemcinin isteğine göre şekillendirilebilir</p>
+                        <div class="benefit-details">
+                            <span class="detail">Format dönüşümü</span>
+                            <span class="detail">Veri filtreleme</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gateway-summary">
+                    <div class="summary-box">
+                        <div class="summary-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3>Özet</h3>
+                        <p><strong>Kısaca:</strong> Diğer mikroservis API'lerine erişebileceğim <strong>ortak ve tek bir API</strong> sunmak için API Gateway kullanılır.</p>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-aws"></i> AWS API Gateway</h2>
+
+                <div class="aws-api-gateway">
+                    <div class="aws-gateway-intro">
+                        <div class="aws-icon">
+                            <i class="fab fa-aws"></i>
+                        </div>
+                        <h3>Amazon API Gateway</h3>
+                        <p>AWS'nin sunduğu tam yönetimli API Gateway servisidir. Mikroservis mimarilerinde merkezi API yönetimi sağlar.</p>
+                    </div>
+                    
+                    <div class="aws-gateway-features">
+                        <h4><i class="fas fa-star"></i> AWS API Gateway Özellikleri</h4>
+                        <div class="feature-grid">
+                            <div class="feature-item">
+                                <i class="fas fa-rocket"></i>
+                                <h5>Otomatik Ölçeklendirme</h5>
+                                <p>Trafik artışında otomatik olarak ölçeklenir</p>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <h5>Güvenlik</h5>
+                                <p>AWS IAM, Cognito ile entegre güvenlik</p>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-chart-bar"></i>
+                                <h5>Monitoring</h5>
+                                <p>CloudWatch ile detaylı izleme</p>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-dollar-sign"></i>
+                                <h5>Maliyet Etkin</h5>
+                                <p>Sadece kullandığın kadar öde</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="aws-gateway-types">
+                        <h4><i class="fas fa-list"></i> AWS API Gateway Türleri</h4>
+                        <div class="gateway-types">
+                            <div class="gateway-type rest-api">
+                                <div class="type-header">
+                                    <i class="fas fa-globe"></i>
+                                    <h5>REST API</h5>
+                                </div>
+                                <p>Geleneksel REST API'ler için tam özellikli gateway</p>
+                                <div class="type-features">
+                                    <span>Caching</span>
+                                    <span>Request/Response dönüşümü</span>
+                                    <span>SDK oluşturma</span>
+                                </div>
+                            </div>
+                            
+                            <div class="gateway-type http-api">
+                                <div class="type-header">
+                                    <i class="fas fa-bolt"></i>
+                                    <h5>HTTP API</h5>
+                                </div>
+                                <p>Daha hızlı ve ekonomik, basit HTTP API'ler için</p>
+                                <div class="type-features">
+                                    <span>Daha düşük gecikme</span>
+                                    <span>70% daha ucuz</span>
+                                    <span>JWT yetkilendirme</span>
+                                </div>
+                            </div>
+                            
+                            <div class="gateway-type websocket-api">
+                                <div class="type-header">
+                                    <i class="fas fa-comments"></i>
+                                    <h5>WebSocket API</h5>
+                                </div>
+                                <p>Gerçek zamanlı uygulamalar için WebSocket desteği</p>
+                                <div class="type-features">
+                                    <span>Real-time messaging</span>
+                                    <span>Chat uygulamaları</span>
+                                    <span>Live updates</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="conclusion">
+                    <h2><i class="fas fa-flag-checkered"></i> Sonuç</h2>
+                    <p>Mikroservis mimarisi ve API Gateway, modern yazılım geliştirmede <strong>ölçeklenebilir</strong>, <strong>yönetilebilir</strong> ve <strong>esnek</strong> uygulamalar oluşturmak için kritik öneme sahiptir. AWS API Gateway ile bu mimariyi güvenli ve ekonomik bir şekilde hayata geçirebilirsiniz.</p>
+                    
+                    <div class="key-points">
+                        <h3><i class="fas fa-key"></i> Ana Noktalar</h3>
+                        <ul>
+                            <li>Mikroservisler uygulamaları küçük, bağımsız parçalara böler</li>
+                            <li>API'ler farklı sistemlerin haberleşmesini sağlar</li>
+                            <li>API Gateway tüm isteklerin geçtiği merkezi kapıdır</li>
+                            <li>AWS API Gateway tam yönetimli ve ölçeklenebilir çözümdür</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="next-steps">
+                    <h3><i class="fas fa-arrow-right"></i> Sonraki Adımlar</h3>
+                    <ul>
+                        <li>AWS hesabı oluşturun ve API Gateway servisini keşfedin</li>
+                        <li>Basit bir REST API oluşturarak pratik yapın</li>
+                        <li>Lambda fonksiyonları ile mikroservis geliştirin</li>
+                        <li>Farklı API türlerini test edin</li>
+                    </ul>
+                </div>
+
+                <!-- Post Footer -->
+                <div class="post-footer">
+                    <div class="author-info">
+                        <div class="author-avatar">
+                            <img  alt="Alperen Çetin">
+                        </div>
+                        <div class="author-details">
+                            <h4>Alperen Çetin</h4>
+                            <p>Full Stack Developer | AWS Enthusiast</p>
+                            <div class="social-links">
+                                <a href="#" class="social-link">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                                <a href="#" class="social-link">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="#" class="social-link">
+                                    <i class="fas fa-envelope"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="post-navigation">
+                        <a href="../index.html#blog" class="btn">
+                            <i class="fas fa-arrow-left"></i> Blog'a Dön
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

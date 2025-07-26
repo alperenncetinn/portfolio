@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS DevOps: Geliştirme ve Operasyon Birlikteliği - Alperen Çetin</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="blog.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/png" href="../images/alp-digital-logo.png">
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Navigasyon Çubuğu -->
+        <nav class="navbar">
+            <div class="logo">
+                <img src="../images/alp-digital-logo.png" alt="Logo" class="logo-img">
+                <span>portfolio</span>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html#home">Ana Sayfa</a>
+                <a href="../index.html#about">Hakkımda</a>
+                <a href="../index.html#projects">Projeler</a>
+                <a href="../index.html#blog" class="active">Blog</a>
+                <a href="../index.html#services">Hizmetler</a>
+                <a href="../index.html#contact">İletişim</a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+
+        <!-- Blog Post Content -->
+        <main class="blog-post">
+            <div class="blog-header">
+                <div class="breadcrumb">
+                    <a href="../index.html">Ana Sayfa</a>
+                    <span>/</span>
+                    <a href="../index.html#blog">Blog</a>
+                    <span>/</span>
+                    <span>AWS DevOps</span>
+                </div>
+                
+                <div class="post-meta">
+                    <span class="category">DevOps</span>
+                    <span class="date">26 Temmuz 2025</span>
+                    <span class="read-time"><i class="fas fa-clock"></i> 10 dk okuma</span>
+                </div>
+                
+                <h1>AWS DevOps: Geliştirme ve Operasyon Birlikteliği</h1>
+                
+                <div class="post-tags">
+                    <span class="tag">AWS</span>
+                    <span class="tag">DevOps</span>
+                    <span class="tag">CI/CD</span>
+                    <span class="tag">Automation</span>
+                    <span class="tag">Jenkins</span>
+                    <span class="tag">GitLab</span>
+                </div>
+            </div>
+
+            <article class="post-content">
+                <section class="intro">
+                    <p class="lead">DevOps, yazılım geliştirme (Dev) ve yazılım operasyonları (Ops) süreçlerini birleştirmeyi hedefleyen bir yazılım mühendisliği kültürü ve uygulamasıdır. Bu yazıda geleneksel yaklaşımların sorunlarından modern DevOps çözümlerine kadar olan dönüşümü inceleyeceğiz.</p>
+                </section>
+
+                <section id="devops-nedir">
+                    <h2><i class="fas fa-infinity"></i> DevOps Nedir?</h2>
+                    
+                    <p><strong>DevOps</strong>, yazılım geliştirme (<strong>Dev</strong>) ve yazılım operasyonları (<strong>Ops</strong>) süreçlerini birleştirmeyi hedefleyen bir yazılım mühendisliği kültürü ve uygulamasıdır.</p>
+
+                    <div class="devops-visual">
+                        <div class="devops-infinity">
+                            <div class="dev-side">
+                                <i class="fas fa-code"></i>
+                                <h4>Development</h4>
+                                <ul>
+                                    <li>Kod Yazma</li>
+                                    <li>Test Etme</li>
+                                    <li>Build Alma</li>
+                                </ul>
+                            </div>
+                            <div class="infinity-symbol">
+                                <i class="fas fa-infinity"></i>
+                            </div>
+                            <div class="ops-side">
+                                <i class="fas fa-server"></i>
+                                <h4>Operations</h4>
+                                <ul>
+                                    <li>Deploy Etme</li>
+                                    <li>İzleme</li>
+                                    <li>Bakım</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="geleneksel-problem">
+                    <h2><i class="fas fa-exclamation-triangle"></i> Geleneksel Yaklaşımın Sorunları</h2>
+
+                    <div class="problem-timeline">
+                        <div class="timeline-item problem">
+                            <div class="timeline-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <h4>Geliştirici Ekip</h4>
+                                <p>Eskiden geliştirici ekip sadece <strong>kodu yazar</strong> ve teslim ederdi.</p>
+                                <div class="speech-bubble dev-speech">
+                                    "Kod hazır, işimiz bitti!"
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item problem">
+                            <div class="timeline-icon">
+                                <i class="fas fa-server"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <h4>Operasyon Ekibi</h4>
+                                <p>Operasyon ekibi ise kodu <strong>canlıya alırdı</strong> ve sistem yönetimini yapardı.</p>
+                                <div class="speech-bubble ops-speech">
+                                    "Kodu canlıya alalım bakalım..."
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item conflict">
+                            <div class="timeline-icon">
+                                <i class="fas fa-exclamation-circle"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <h4>Çatışma ve Suçlama</h4>
+                                <p>Hata oluştuğunda iki ekip birbirini suçlayıcı tavırlar sergilierdi:</p>
+                                <div class="conflict-speeches">
+                                    <div class="speech-bubble dev-speech conflict-speech">
+                                        "Kod bozuk değil, sunucu kötü!"
+                                    </div>
+                                    <div class="speech-bubble ops-speech conflict-speech">
+                                        "Sunucu iyi, kod hatalı!"
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item result">
+                            <div class="timeline-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <h4>Sonuç: Yavaşlık</h4>
+                                <p>Bu ayrım, işleri <strong>yavaşlatıyordu</strong> ve proje delivery sürelerini uzatıyordu.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="devops-cozum">
+                    <h2><i class="fas fa-handshake"></i> DevOps ile Çözüm</h2>
+
+                    <div class="solution-grid">
+                        <div class="solution-card collaboration">
+                            <div class="solution-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h4>Birlikte Çalışma</h4>
+                            <p>Geliştirici ve operasyon <strong>aynı süreçte birlikte çalışır</strong>.</p>
+                        </div>
+
+                        <div class="solution-card automation">
+                            <div class="solution-icon">
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <h4>Otomasyon</h4>
+                            <p>Süreçler otomatikleştirilir: <strong>Kod yaz, test et, otomatik deploy et, izle.</strong></p>
+                        </div>
+
+                        <div class="solution-card cicd">
+                            <div class="solution-icon">
+                                <i class="fas fa-infinity"></i>
+                            </div>
+                            <h4>CI/CD</h4>
+                            <p>Sürekli entegrasyon ve sürekli teslimat (<strong>CI/CD</strong>) sağlanır.</p>
+                        </div>
+                    </div>
+
+                    <div class="devops-benefits">
+                        <h3><i class="fas fa-trophy"></i> DevOps'un Faydaları</h3>
+                        <div class="benefits-grid">
+                            <div class="benefit-item">
+                                <i class="fas fa-rocket"></i>
+                                <span>Hızlı Delivery</span>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Daha Az Hata</span>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-sync-alt"></i>
+                                <span>Sürekli İyileştirme</span>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-eye"></i>
+                                <span>Daha İyi İzleme</span>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-users-cog"></i>
+                                <span>Ekip İşbirliği</span>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-chart-line"></i>
+                                <span>Ölçeklenebilirlik</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="devops-sureci">
+                    <h2><i class="fas fa-circle-notch"></i> DevOps Süreç Döngüsü</h2>
+
+                    <div class="devops-cycle">
+                        <div class="cycle-center">
+                            <i class="fas fa-infinity"></i>
+                            <span>DevOps</span>
+                        </div>
+                        
+                        <div class="cycle-step" data-step="1">
+                            <div class="step-icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <div class="step-label">Plan</div>
+                        </div>
+                        
+                        <div class="cycle-step" data-step="2">
+                            <div class="step-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div class="step-label">Code</div>
+                        </div>
+                        
+                        <div class="cycle-step" data-step="3">
+                            <div class="step-icon">
+                                <i class="fas fa-hammer"></i>
+                            </div>
+                            <div class="step-label">Build</div>
+                        </div>
+                        
+                        <div class="cycle-step" data-step="4">
+                            <div class="step-icon">
+                                <i class="fas fa-vial"></i>
+                            </div>
+                            <div class="step-label">Test</div>
+                        </div>
+                        
+                        <div class="cycle-step" data-step="5">
+                            <div class="step-icon">
+                                <i class="fas fa-shipping-fast"></i>
+                            </div>
+                            <div class="step-label">Release</div>
+                        </div>
+                        
+                        <div class="cycle-step" data-step="6">
+                            <div class="step-icon">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <div class="step-label">Deploy</div>
+                        </div>
+                        
+                        <div class="cycle-step" data-step="7">
+                            <div class="step-icon">
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <div class="step-label">Operate</div>
+                        </div>
+                        
+                        <div class="cycle-step" data-step="8">
+                            <div class="step-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="step-label">Monitor</div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="devops-araclari">
+                    <h2><i class="fas fa-toolbox"></i> DevOps Araçları</h2>
+
+                    <div class="tools-explanation">
+                        <p>Her DevOps aşaması için özel araçlar kullanılır. İşte en popüler DevOps araçları:</p>
+                    </div>
+
+                    <div class="tools-table">
+                        <div class="table-header">
+                            <div class="table-cell stage-header">Aşama</div>
+                            <div class="table-cell tools-header">Örnek Araçlar</div>
+                        </div>
+                        
+                        <div class="table-row">
+                            <div class="table-cell stage-cell">
+                                <i class="fas fa-code"></i>
+                                <strong>Kod</strong>
+                            </div>
+                            <div class="table-cell tools-cell">
+                                <div class="tool-tags">
+                                    <span class="tool-tag git">Git</span>
+                                    <span class="tool-tag github">GitHub</span>
+                                    <span class="tool-tag gitlab">GitLab</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="table-row">
+                            <div class="table-cell stage-cell">
+                                <i class="fas fa-hammer"></i>
+                                <strong>Build</strong>
+                            </div>
+                            <div class="table-cell tools-cell">
+                                <div class="tool-tags">
+                                    <span class="tool-tag jenkins">Jenkins</span>
+                                    <span class="tool-tag aws">AWS CodeBuild</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="table-row">
+                            <div class="table-cell stage-cell">
+                                <i class="fas fa-vial"></i>
+                                <strong>Test</strong>
+                            </div>
+                            <div class="table-cell tools-cell">
+                                <div class="tool-tags">
+                                    <span class="tool-tag selenium">Selenium</span>
+                                    <span class="tool-tag junit">JUnit</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="table-row">
+                            <div class="table-cell stage-cell">
+                                <i class="fas fa-shipping-fast"></i>
+                                <strong>Release</strong>
+                            </div>
+                            <div class="table-cell tools-cell">
+                                <div class="tool-tags">
+                                    <span class="tool-tag spinnaker">Spinnaker</span>
+                                    <span class="tool-tag aws">AWS CodePipeline</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="table-row">
+                            <div class="table-cell stage-cell">
+                                <i class="fas fa-rocket"></i>
+                                <strong>Deploy</strong>
+                            </div>
+                            <div class="table-cell tools-cell">
+                                <div class="tool-tags">
+                                    <span class="tool-tag ansible">Ansible</span>
+                                    <span class="tool-tag aws">AWS CodeDeploy</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="table-row">
+                            <div class="table-cell stage-cell">
+                                <i class="fas fa-chart-line"></i>
+                                <strong>İzleme</strong>
+                            </div>
+                            <div class="table-cell tools-cell">
+                                <div class="tool-tags">
+                                    <span class="tool-tag prometheus">Prometheus</span>
+                                    <span class="tool-tag aws">AWS CloudWatch</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="cicd-nedir">
+                    <h2><i class="fas fa-infinity"></i> CI/CD Nedir?</h2>
+
+                    <div class="cicd-explanation">
+                        <div class="ci-section">
+                            <div class="ci-header">
+                                <i class="fas fa-code-branch"></i>
+                                <h3>CI - Continuous Integration</h3>
+                                <span class="ci-subtitle">(Sürekli Entegrasyon)</span>
+                            </div>
+                            <div class="ci-content">
+                                <p>Geliştiricilerin kod değişikliklerini sık sık (günde birkaç kez) ana kod deposuna entegre etmesi sürecidir.</p>
+                                <div class="ci-steps">
+                                    <div class="ci-step">
+                                        <i class="fas fa-upload"></i>
+                                        <span>Kod Push</span>
+                                    </div>
+                                    <div class="ci-arrow">→</div>
+                                    <div class="ci-step">
+                                        <i class="fas fa-hammer"></i>
+                                        <span>Otomatik Build</span>
+                                    </div>
+                                    <div class="ci-arrow">→</div>
+                                    <div class="ci-step">
+                                        <i class="fas fa-vial"></i>
+                                        <span>Otomatik Test</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cd-section">
+                            <div class="cd-header">
+                                <i class="fas fa-rocket"></i>
+                                <h3>CD - Continuous Deployment</h3>
+                                <span class="cd-subtitle">(Sürekli Dağıtım)</span>
+                            </div>
+                            <div class="cd-content">
+                                <p>Test edilen kodun otomatik olarak production ortamına dağıtılması sürecidir.</p>
+                                <div class="cd-steps">
+                                    <div class="cd-step">
+                                        <i class="fas fa-check-circle"></i>
+                                        <span>Test Başarılı</span>
+                                    </div>
+                                    <div class="cd-arrow">→</div>
+                                    <div class="cd-step">
+                                        <i class="fas fa-shipping-fast"></i>
+                                        <span>Otomatik Release</span>
+                                    </div>
+                                    <div class="cd-arrow">→</div>
+                                    <div class="cd-step">
+                                        <i class="fas fa-globe"></i>
+                                        <span>Production'a Deploy</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="aws-devops-servisleri">
+                    <h2><i class="fab fa-aws"></i> AWS DevOps Servisleri</h2>
+
+                    <div class="aws-devops-intro">
+                        <p>AWS, DevOps süreçlerini desteklemek için kapsamlı bir araç seti sunar:</p>
+                    </div>
+
+                    <div class="aws-services-grid">
+                        <div class="aws-service-card codecommit">
+                            <div class="service-icon">
+                                <i class="fas fa-code-branch"></i>
+                            </div>
+                            <h4>AWS CodeCommit</h4>
+                            <p>Güvenli, yüksek ölçeklenebilir Git repository servisi</p>
+                            <div class="service-features">
+                                <span>✓ Private Git repos</span>
+                                <span>✓ IAM entegrasyonu</span>
+                                <span>✓ Sınırsız repository</span>
+                            </div>
+                        </div>
+
+                        <div class="aws-service-card codebuild">
+                            <div class="service-icon">
+                                <i class="fas fa-hammer"></i>
+                            </div>
+                            <h4>AWS CodeBuild</h4>
+                            <p>Tamamen yönetilen build servisi</p>
+                            <div class="service-features">
+                                <span>✓ Otomatik scaling</span>
+                                <span>✓ Paralel build</span>
+                                <span>✓ Custom build ortamları</span>
+                            </div>
+                        </div>
+
+                        <div class="aws-service-card codepipeline">
+                            <div class="service-icon">
+                                <i class="fas fa-project-diagram"></i>
+                            </div>
+                            <h4>AWS CodePipeline</h4>
+                            <p>Sürekli entegrasyon ve teslimat servisi</p>
+                            <div class="service-features">
+                                <span>✓ Görsel pipeline</span>
+                                <span>✓ 3. parti entegrasyonlar</span>
+                                <span>✓ Paralel execution</span>
+                            </div>
+                        </div>
+
+                        <div class="aws-service-card codedeploy">
+                            <div class="service-icon">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <h4>AWS CodeDeploy</h4>
+                            <p>Otomatik uygulama deployment servisi</p>
+                            <div class="service-features">
+                                <span>✓ Blue/Green deployment</span>
+                                <span>✓ Rolling updates</span>
+                                <span>✓ Rollback support</span>
+                            </div>
+                        </div>
+
+                        <div class="aws-service-card cloudwatch">
+                            <div class="service-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h4>AWS CloudWatch</h4>
+                            <p>İzleme ve logging servisi</p>
+                            <div class="service-features">
+                                <span>✓ Real-time monitoring</span>
+                                <span>✓ Custom metrics</span>
+                                <span>✓ Alerting</span>
+                            </div>
+                        </div>
+
+                        <div class="aws-service-card xray">
+                            <div class="service-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <h4>AWS X-Ray</h4>
+                            <p>Distributed tracing servisi</p>
+                            <div class="service-features">
+                                <span>✓ Request tracing</span>
+                                <span>✓ Performance insights</span>
+                                <span>✓ Error analysis</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="devops-pipeline-ornegi">
+                    <h2><i class="fas fa-project-diagram"></i> DevOps Pipeline Örneği</h2>
+
+                    <div class="pipeline-example">
+                        <h3>Tipik Bir CI/CD Pipeline Akışı:</h3>
+                        
+                        <div class="pipeline-flow">
+                            <div class="pipeline-stage">
+                                <div class="stage-number">1</div>
+                                <div class="stage-content">
+                                    <i class="fas fa-code"></i>
+                                    <h4>Developer Commits</h4>
+                                    <p>Geliştirici kodu Git'e push eder</p>
+                                </div>
+                            </div>
+                            
+                            <div class="pipeline-arrow">
+                                <i class="fas fa-arrow-down"></i>
+                            </div>
+                            
+                            <div class="pipeline-stage">
+                                <div class="stage-number">2</div>
+                                <div class="stage-content">
+                                    <i class="fas fa-bell"></i>
+                                    <h4>Webhook Trigger</h4>
+                                    <p>Git webhook CI/CD pipeline'ı tetikler</p>
+                                </div>
+                            </div>
+                            
+                            <div class="pipeline-arrow">
+                                <i class="fas fa-arrow-down"></i>
+                            </div>
+                            
+                            <div class="pipeline-stage">
+                                <div class="stage-number">3</div>
+                                <div class="stage-content">
+                                    <i class="fas fa-hammer"></i>
+                                    <h4>Build & Test</h4>
+                                    <p>Kod derlenir ve otomatik testler çalışır</p>
+                                </div>
+                            </div>
+                            
+                            <div class="pipeline-arrow">
+                                <i class="fas fa-arrow-down"></i>
+                            </div>
+                            
+                            <div class="pipeline-stage">
+                                <div class="stage-number">4</div>
+                                <div class="stage-content">
+                                    <i class="fas fa-rocket"></i>
+                                    <h4>Deploy</h4>
+                                    <p>Başarılı build otomatik olarak deploy edilir</p>
+                                </div>
+                            </div>
+                            
+                            <div class="pipeline-arrow">
+                                <i class="fas fa-arrow-down"></i>
+                            </div>
+                            
+                            <div class="pipeline-stage">
+                                <div class="stage-number">5</div>
+                                <div class="stage-content">
+                                    <i class="fas fa-eye"></i>
+                                    <h4>Monitor</h4>
+                                    <p>Uygulama performansı izlenir</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="conclusion">
+                    <h2><i class="fas fa-flag-checkered"></i> Sonuç</h2>
+                    <p>DevOps, modern yazılım geliştirmenin vazgeçilmez bir parçasıdır. Geliştirme ve operasyon ekiplerini birleştirerek, süreçleri otomatikleştirerek ve sürekli iyileştirme kültürü yaratarak organizasyonların daha hızlı ve güvenilir yazılım sunmasını sağlar.</p>
+                    
+                    <p>AWS gibi bulut platformları, DevOps süreçlerini desteklemek için kapsamlı araç setleri sunar. Bu araçlar sayesinde CI/CD pipeline'ları kolayca kurulabilir ve yönetilebilir.</p>
+
+                    <div class="key-takeaways">
+                        <h3><i class="fas fa-key"></i> Önemli Çıkarımlar</h3>
+                        <ul>
+                            <li>DevOps bir araç değil, <strong>kültür değişimidir</strong></li>
+                            <li>Otomasyon, DevOps'un <strong>temel taşıdır</strong></li>
+                            <li>CI/CD süreçleri <strong>hızlı ve güvenilir delivery</strong> sağlar</li>
+                            <li>AWS DevOps araçları <strong>end-to-end çözüm</strong> sunar</li>
+                            <li>İzleme ve geri bildirim <strong>sürekli iyileştirme</strong> için kritiktir</li>
+                        </ul>
+                    </div>
+                </section>
+            </article>
+
+            <div class="post-footer">
+                <div class="author-info">
+                    <img src="../images/profilePhoto.jpg" alt="Alperen Çetin" class="author-avatar">
+                    <div class="author-details">
+                        <h4>Alperen Çetin</h4>
+                        <p>Freelance Yazılım Geliştirici ve Bilgisayar Mühendisi Öğrencisi</p>
+                        <div class="social-links">
+                            <a href="https://www.linkedin.com/in/alperen-çetin-890596318/" target="_blank" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="https://github.com/alperenncetinn" target="_blank" class="social-link"><i class="fab fa-github"></i></a>
+                            <a href="https://twitter.com/alperencetinim" target="_blank" class="social-link"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="post-navigation">
+                    <a href="../index.html#blog" class="btn secondary">
+                        <i class="fas fa-arrow-left"></i> Blog'a Dön
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <img src="../images/alp-digital-logo.png" alt="Logo" class="logo-img">
+                        <span>portfolio</span>
+                    </div>
+                    <p>Yenilikçi ve kullanıcı dostu dijital deneyimler oluşturuyorum.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Hızlı Bağlantılar</h4>
+                    <ul>
+                        <li><a href="../index.html#home">Ana Sayfa</a></li>
+                        <li><a href="../index.html#about">Hakkımda</a></li>
+                        <li><a href="../index.html#projects">Projeler</a></li>
+                        <li><a href="../index.html#blog">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>İletişim</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> alperen.cetin.969@gmail.com</li>
+                        <li><i class="fas fa-phone"></i> +90 532 431 81 38</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Alperen Çetin. Tüm hakları saklıdır.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="../script.js"></script>
+</body>
+
+</html>

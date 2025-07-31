@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FluentValidation: Modern Veri Doğrulama - Alperen Çetin</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="blog.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="blog-post">
+        <div class="container">
+            <!-- Blog Header -->
+            <div class="blog-header">
+                <div class="breadcrumb">
+                    <a href="../index.html"><i class="fas fa-home"></i> Ana Sayfa</a>
+                    <span>/</span>
+                    <a href="../index.html#blog">Blog</a>
+                    <span>/</span>
+                    <span>FluentValidation</span>
+                </div>
+                
+                <div class="post-meta">
+                    <div class="category">.NET</div>
+                    <div class="date">31 Temmuz 2025</div>
+                    <div class="read-time"><i class="fas fa-clock"></i> 12 dk okuma</div>
+                </div>
+                
+                <h1>FluentValidation: Modern Veri Doğrulama</h1>
+                
+                <div class="post-tags">
+                    <span class="tag">.NET</span>
+                    <span class="tag">FluentValidation</span>
+                    <span class="tag">Validation</span>
+                    <span class="tag">Clean Code</span>
+                    <span class="tag">Testing</span>
+                </div>
+            </div>
+
+            <!-- Blog Content -->
+            <div class="post-content">
+                <div class="intro">
+                    <p class="lead"><strong>FluentValidation</strong>, .NET uygulamalarında veri doğrulama işlemlerini daha <strong>okunabilir</strong>, <strong>test edilebilir</strong> ve <strong>yönetilebilir</strong> hale getiren güçlü bir kütüphanedir. Bu yazıda FluentValidation'ın temellerinden ileri seviye kullanımına kadar tüm detayları öğreneceksiniz.</p>
+                </div>
+
+                <h2><i class="fas fa-question-circle"></i> FluentValidation Nedir?</h2>
+
+                <div class="validation-definition">
+                    <div class="definition-visual">
+                        <div class="definition-icon">
+                            <i class="fas fa-check-shield"></i>
+                        </div>
+                        <h3>Modern Validation Library</h3>
+                    </div>
+                    <p><strong>FluentValidation</strong>, .NET için fluent interface kullanarak <strong>veri doğrulama kuralları tanımlamanızı</strong> sağlayan açık kaynak bir kütüphanedir.</p>
+                </div>
+
+                <div class="validation-problems">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Geleneksel Validation Sorunları</h3>
+                    <div class="problems-grid">
+                        <div class="problem-card attribute">
+                            <div class="problem-icon">
+                                <i class="fas fa-tags"></i>
+                            </div>
+                            <h4>Data Annotations Sınırları</h4>
+                            <p>Attribute'lar ile karmaşık kurallar <strong>yazmak zor</strong></p>
+                            <div class="problem-example">
+                                <code>[Range(18, 65, ErrorMessage = "Yaş 18-65 arası olmalı")]</code>
+                            </div>
+                        </div>
+                        
+                        <div class="problem-card mixing">
+                            <div class="problem-icon">
+                                <i class="fas fa-layer-group"></i>
+                            </div>
+                            <h4>Karışık Sorumluluklar</h4>
+                            <p>Model sınıfları hem veri hem <strong>validation logic</strong> içerir</p>
+                            <div class="problem-example">
+                                <code>Class içinde hem property hem validation</code>
+                            </div>
+                        </div>
+                        
+                        <div class="problem-card testing">
+                            <div class="problem-icon">
+                                <i class="fas fa-vial"></i>
+                            </div>
+                            <h4>Test Zorluğu</h4>
+                            <p>Attribute'ları <strong>unit test</strong> etmek karmaşık</p>
+                            <div class="problem-example">
+                                <code>Validation logic'i test etmek zor</code>
+                            </div>
+                        </div>
+                        
+                        <div class="problem-card reusability">
+                            <div class="problem-icon">
+                                <i class="fas fa-recycle"></i>
+                            </div>
+                            <h4>Tekrar Kullanım</h4>
+                            <p>Validation kurallarını <strong>farklı modellerde</strong> kullanmak zor</p>
+                            <div class="problem-example">
+                                <code>Email validation her yerde tekrar</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-star"></i> FluentValidation Avantajları</h2>
+
+                <div class="fluent-benefits">
+                    <div class="benefits-comparison">
+                        <div class="before-after vertical">
+                            <div class="before-section">
+                                <h3><i class="fas fa-times-circle"></i> Data Annotations İle</h3>
+                                <div class="code-example old">
+                                    <div class="code-block">
+                                        <div class="code-header">
+                                            <span class="file-name">UserModel.cs</span>
+                                            <span class="language">C#</span>
+                                        </div>
+                                        <pre><code>public class User
+{
+    [Required(ErrorMessage = "Ad zorunludur")]
+    [StringLength(50, MinimumLength = 2, 
+        ErrorMessage = "Ad 2-50 karakter arası olmalı")]
+    public string FirstName { get; set; }
+
+    [Required(ErrorMessage = "Email zorunludur")]
+    [EmailAddress(ErrorMessage = "Geçerli email giriniz")]
+    public string Email { get; set; }
+
+    [Range(18, 100, ErrorMessage = "Yaş 18-100 arası olmalı")]
+    public int Age { get; set; }
+
+    [RegularExpression(@"^\+90[0-9]{10}$", 
+        ErrorMessage = "Türkiye telefon formatı: +905xxxxxxxxx")]
+    public string Phone { get; set; }
+}</code></pre>
+                                    </div>
+                                </div>
+                                <div class="approach-issues">
+                                    <h5><i class="fas fa-exclamation-circle"></i> Sorunlar</h5>
+                                    <ul>
+                                        <li>Model karmaşık görünüyor</li>
+                                        <li>Validation logic model içinde</li>
+                                        <li>Test etmek zor</li>
+                                        <li>Tekrar kullanım düşük</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="after-section">
+                                <h3><i class="fas fa-check-circle"></i> FluentValidation İle</h3>
+                                <div class="code-example new">
+                                    <div class="code-block">
+                                        <div class="code-header">
+                                            <span class="file-name">UserValidator.cs</span>
+                                            <span class="language">C#</span>
+                                        </div>
+                                        <pre><code>public class UserValidator : AbstractValidator&lt;User&gt;
+{
+    public UserValidator()
+    {
+        RuleFor(x => x.FirstName)
+            .NotEmpty().WithMessage("Ad zorunludur")
+            .Length(2, 50).WithMessage("Ad 2-50 karakter arası olmalı");
+
+        RuleFor(x => x.Email)
+            .NotEmpty().WithMessage("Email zorunludur")
+            .EmailAddress().WithMessage("Geçerli email giriniz");
+
+        RuleFor(x => x.Age)
+            .InclusiveBetween(18, 100)
+            .WithMessage("Yaş 18-100 arası olmalı");
+
+        RuleFor(x => x.Phone)
+            .Matches(@"^\+90[0-9]{10}$")
+            .WithMessage("Türkiye telefon formatı: +905xxxxxxxxx");
+    }
+}</code></pre>
+                                    </div>
+                                </div>
+                                <div class="approach-benefits">
+                                    <h5><i class="fas fa-check-circle"></i> Avantajlar</h5>
+                                    <ul>
+                                        <li>Temiz ve okunabilir kod</li>
+                                        <li>Ayrı validation sınıfı</li>
+                                        <li>Kolay unit test</li>
+                                        <li>Yüksek tekrar kullanım</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-download"></i> Kurulum ve Temel Kullanım</h2>
+
+                <div class="installation-section">
+                    <div class="install-step">
+                        <h3><i class="fas fa-box"></i> NuGet Paketi Kurulumu</h3>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="file-name">Package Manager Console</span>
+                                <span class="language">PowerShell</span>
+                            </div>
+                            <pre><code># Package Manager Console
+Install-Package FluentValidation
+
+# .NET CLI
+dotnet add package FluentValidation
+
+# ASP.NET Core için ek paket
+Install-Package FluentValidation.AspNetCore</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="basic-usage">
+                        <h3><i class="fas fa-play"></i> Temel Kullanım</h3>
+                        <div class="usage-steps">
+                            <div class="step-card model-step">
+                                <div class="step-header">
+                                    <div class="step-number">1</div>
+                                    <h4>Model Sınıfı</h4>
+                                </div>
+                                <div class="step-content">
+                                    <div class="code-block">
+                                        <div class="code-header">
+                                            <span class="file-name">Models/Product.cs</span>
+                                            <span class="language">C#</span>
+                                        </div>
+                                        <pre><code>public class Product
+{
+    public string Name { get; set; }
+    public decimal Price { get; set; }
+    public string Description { get; set; }
+    public string Category { get; set; }
+    public int Stock { get; set; }
+    public DateTime ReleaseDate { get; set; }
+}</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="step-card validator-step">
+                                <div class="step-header">
+                                    <div class="step-number">2</div>
+                                    <h4>Validator Sınıfı</h4>
+                                </div>
+                                <div class="step-content">
+                                    <div class="code-block">
+                                        <div class="code-header">
+                                            <span class="file-name">Validators/ProductValidator.cs</span>
+                                            <span class="language">C#</span>
+                                        </div>
+                                        <pre><code>using FluentValidation;
+
+public class ProductValidator : AbstractValidator&lt;Product&gt;
+{
+    public ProductValidator()
+    {
+        RuleFor(product => product.Name)
+            .NotEmpty().WithMessage("Ürün adı zorunludur")
+            .MaximumLength(100).WithMessage("Ürün adı 100 karakterden fazla olamaz");
+
+        RuleFor(product => product.Price)
+            .GreaterThan(0).WithMessage("Fiyat 0'dan büyük olmalıdır")
+            .LessThan(1000000).WithMessage("Fiyat 1,000,000'dan küçük olmalıdır");
+
+        RuleFor(product => product.Description)
+            .NotEmpty().WithMessage("Açıklama zorunludur")
+            .MinimumLength(10).WithMessage("Açıklama en az 10 karakter olmalıdır");
+
+        RuleFor(product => product.Category)
+            .NotEmpty().WithMessage("Kategori seçilmelidir")
+            .Must(BeAValidCategory).WithMessage("Geçersiz kategori");
+
+        RuleFor(product => product.Stock)
+            .GreaterThanOrEqualTo(0).WithMessage("Stok negatif olamaz");
+
+        RuleFor(product => product.ReleaseDate)
+            .LessThanOrEqualTo(DateTime.Now).WithMessage("Çıkış tarihi gelecekte olamaz");
+    }
+
+    private bool BeAValidCategory(string category)
+    {
+        var validCategories = new[] { "Elektronik", "Giyim", "Kitap", "Oyuncak" };
+        return validCategories.Contains(category);
+    }
+}</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="step-card usage-step">
+                                <div class="step-header">
+                                    <div class="step-number">3</div>
+                                    <h4>Validation Kullanımı</h4>
+                                </div>
+                                <div class="step-content">
+                                    <div class="code-block">
+                                        <div class="code-header">
+                                            <span class="file-name">Program.cs</span>
+                                            <span class="language">C#</span>
+                                        </div>
+                                        <pre><code>var product = new Product
+{
+    Name = "",
+    Price = -10,
+    Description = "Kısa",
+    Category = "Geçersiz",
+    Stock = -5,
+    ReleaseDate = DateTime.Now.AddDays(1)
+};
+
+var validator = new ProductValidator();
+var validationResult = validator.Validate(product);
+
+if (!validationResult.IsValid)
+{
+    foreach (var error in validationResult.Errors)
+    {
+        Console.WriteLine($"Hata: {error.ErrorMessage}");
+        Console.WriteLine($"Property: {error.PropertyName}");
+        Console.WriteLine($"Değer: {error.AttemptedValue}");
+    }
+}
+
+// Çıktı:
+// Hata: Ürün adı zorunludur
+// Property: Name
+// Değer: 
+
+// Hata: Fiyat 0'dan büyük olmalıdır
+// Property: Price
+// Değer: -10</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-cogs"></i> Validation Kuralları</h2>
+
+                <div class="validation-rules">
+                    <div class="rules-categories">
+                        <div class="rule-category basic">
+                            <div class="category-header">
+                                <div class="category-icon">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <h3>Temel Kurallar</h3>
+                            </div>
+                            <div class="rules-list">
+                                <div class="rule-item">
+                                    <code>.NotEmpty()</code>
+                                    <span>Boş olmamalı</span>
+                                </div>
+                                <div class="rule-item">
+                                    <code>.NotNull()</code>
+                                    <span>Null olmamalı</span>
+                                </div>
+                                <div class="rule-item">
+                                    <code>.Equal("değer")</code>
+                                    <span>Belirli değere eşit olmalı</span>
+                                </div>
+                                <div class="rule-item">
+                                    <code>.NotEqual("değer")</code>
+                                    <span>Belirli değere eşit olmamalı</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="rule-category string">
+                            <div class="category-header">
+                                <div class="category-icon">
+                                    <i class="fas fa-font"></i>
+                                </div>
+                                <h3>String Kuralları</h3>
+                            </div>
+                            <div class="rules-list">
+                                <div class="rule-item">
+                                    <code>.Length(min, max)</code>
+                                    <span>Karakter uzunluğu</span>
+                                </div>
+                                <div class="rule-item">
+                                    <code>.MinimumLength(5)</code>
+                                    <span>Minimum uzunluk</span>
+                                </div>
+                                <div class="rule-item">
+                                    <code>.MaximumLength(100)</code>
+                                    <span>Maximum uzunluk</span>
+                                </div>
+                                <div class="rule-item">
+                                    <code>.Matches(regex)</code>
+                                    <span>Regex pattern</span>
+                                </div>
+                                <div class="rule-item">
+                                    <code>.EmailAddress()</code>
+                                    <span>Email formatı</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="rule-category numeric">
+                            <div class="category-header">
+                                <div class="category-icon">
+                                    <i class="fas fa-calculator"></i>
+                                </div>
+                                <h3>Sayısal Kurallar</h3>
+                            </div>
+                            <div class="rules-list">
+                                <div class="rule-item">
+                                    <code>.GreaterThan(0)</code>
+                                    <span>Büyüktür</span>
+                                </div>
+                                <div class="rule-item">
+                                    <code>.GreaterThanOrEqualTo(18)</code>
+                                    <span>Büyük eşittir</span>
+                                </div>
+                                <div class="rule-item">
+                                    <code>.LessThan(100)</code>
+                                    <span>Küçüktür</span>
+                                </div>
+                                <div class="rule-item">
+                                    <code>.InclusiveBetween(18, 65)</code>
+                                    <span>Aralık (dahil)</span>
+                                </div>
+                                <div class="rule-item">
+                                    <code>.ExclusiveBetween(0, 100)</code>
+                                    <span>Aralık (hariç)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="rule-category collection">
+                            <div class="category-header">
+                                <div class="category-icon">
+                                    <i class="fas fa-list"></i>
+                                </div>
+                                <h3>Koleksiyon Kuralları</h3>
+                            </div>
+                            <div class="rules-list">
+                                <div class="rule-item">
+                                    <code>.Must(predicate)</code>
+                                    <span>Özel koşul</span>
+                                </div>
+                                <div class="rule-item">
+                                    <code>.IsInEnum()</code>
+                                    <span>Enum değeri</span>
+                                </div>
+                                <div class="rule-item">
+                                    <code>.IsEnumName(typeof(Enum))</code>
+                                    <span>Enum ismi</span>
+                                </div>
+                                <div class="rule-item">
+                                    <code>.Custom(context => { })</code>
+                                    <span>Özel validation</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-magic"></i> İleri Seviye Özellikler</h2>
+
+                <div class="advanced-features">
+                    <div class="feature-section conditional">
+                        <h3><i class="fas fa-question"></i> Koşullu Validation</h3>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="file-name">ConditionalValidator.cs</span>
+                                <span class="language">C#</span>
+                            </div>
+                            <pre><code>public class UserValidator : AbstractValidator&lt;User&gt;
+{
+    public UserValidator()
+    {
+        // Yaş 18'den büyükse ehliyet numarası zorunlu
+        RuleFor(x => x.LicenseNumber)
+            .NotEmpty()
+            .When(x => x.Age >= 18)
+            .WithMessage("18 yaş üstü için ehliyet numarası zorunludur");
+
+        // Email veya telefon en az birisi dolu olmalı
+        RuleFor(x => x.Email)
+            .NotEmpty()
+            .When(x => string.IsNullOrEmpty(x.Phone))
+            .WithMessage("Email veya telefon en az birisi girilmelidir");
+
+        RuleFor(x => x.Phone)
+            .NotEmpty()
+            .When(x => string.IsNullOrEmpty(x.Email))
+            .WithMessage("Email veya telefon en az birisi girilmelidir");
+
+        // Unless kullanımı (değilse)
+        RuleFor(x => x.StudentId)
+            .NotEmpty()
+            .Unless(x => x.UserType == UserType.Teacher)
+            .WithMessage("Öğrenci için öğrenci numarası zorunludur");
+    }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="feature-section custom">
+                        <h3><i class="fas fa-code"></i> Özel Validation Metodları</h3>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="file-name">CustomValidation.cs</span>
+                                <span class="language">C#</span>
+                            </div>
+                            <pre><code>public class OrderValidator : AbstractValidator&lt;Order&gt;
+{
+    public OrderValidator()
+    {
+        RuleFor(x => x.CustomerEmail)
+            .Must(BeAValidDomain)
+            .WithMessage("Sadece şirket email adresleri kabul edilir");
+
+        RuleFor(x => x.CreditCardNumber)
+            .Must(BeAValidCreditCard)
+            .WithMessage("Geçersiz kredi kartı numarası");
+
+        RuleFor(x => x.DeliveryDate)
+            .Must(BeAWorkDay)
+            .WithMessage("Teslimat tarihi iş günü olmalıdır");
+
+        // Async validation
+        RuleFor(x => x.ProductCode)
+            .MustAsync(BeUniqueProductCode)
+            .WithMessage("Bu ürün kodu zaten kullanımda");
+    }
+
+    private bool BeAValidDomain(string email)
+    {
+        if (string.IsNullOrEmpty(email)) return false;
+        
+        var allowedDomains = new[] { "company.com", "business.net" };
+        var domain = email.Split('@').LastOrDefault();
+        
+        return allowedDomains.Contains(domain);
+    }
+
+    private bool BeAValidCreditCard(string cardNumber)
+    {
+        if (string.IsNullOrEmpty(cardNumber)) return false;
+        
+        // Luhn algoritması ile kredi kartı doğrulama
+        cardNumber = cardNumber.Replace(" ", "").Replace("-", "");
+        
+        if (cardNumber.Length != 16) return false;
+        
+        // Basit Luhn check implementasyonu
+        return IsValidLuhn(cardNumber);
+    }
+
+    private bool BeAWorkDay(DateTime date)
+    {
+        return date.DayOfWeek != DayOfWeek.Saturday && 
+               date.DayOfWeek != DayOfWeek.Sunday;
+    }
+
+    private async Task&lt;bool&gt; BeUniqueProductCode(string productCode, 
+        CancellationToken cancellationToken)
+    {
+        // Veritabanında kontrol et
+        // Bu örnekte sadece simülasyon
+        await Task.Delay(100, cancellationToken);
+        
+        var existingCodes = new[] { "PROD001", "PROD002", "PROD003" };
+        return !existingCodes.Contains(productCode);
+    }
+
+    private bool IsValidLuhn(string cardNumber)
+    {
+        // Luhn algoritması implementasyonu
+        // Gerçek projede NuGet paketi kullanın
+        return true; // Basitleştirilmiş
+    }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="feature-section nested">
+                        <h3><i class="fas fa-sitemap"></i> Nested Object Validation</h3>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="file-name">NestedValidation.cs</span>
+                                <span class="language">C#</span>
+                            </div>
+                            <pre><code>public class Address
+{
+    public string Street { get; set; }
+    public string City { get; set; }
+    public string ZipCode { get; set; }
+    public string Country { get; set; }
+}
+
+public class Customer
+{
+    public string Name { get; set; }
+    public string Email { get; set; }
+    public Address HomeAddress { get; set; }
+    public Address WorkAddress { get; set; }
+    public List&lt;Address&gt; DeliveryAddresses { get; set; }
+}
+
+public class AddressValidator : AbstractValidator&lt;Address&gt;
+{
+    public AddressValidator()
+    {
+        RuleFor(x => x.Street)
+            .NotEmpty().WithMessage("Sokak bilgisi zorunludur")
+            .MinimumLength(5).WithMessage("Sokak bilgisi en az 5 karakter olmalıdır");
+
+        RuleFor(x => x.City)
+            .NotEmpty().WithMessage("Şehir bilgisi zorunludur");
+
+        RuleFor(x => x.ZipCode)
+            .NotEmpty().WithMessage("Posta kodu zorunludur")
+            .Matches(@"^\d{5}$").WithMessage("Posta kodu 5 haneli sayı olmalıdır");
+
+        RuleFor(x => x.Country)
+            .NotEmpty().WithMessage("Ülke bilgisi zorunludur");
+    }
+}
+
+public class CustomerValidator : AbstractValidator&lt;Customer&gt;
+{
+    public CustomerValidator()
+    {
+        RuleFor(x => x.Name)
+            .NotEmpty().WithMessage("Müşteri adı zorunludur");
+
+        RuleFor(x => x.Email)
+            .NotEmpty().WithMessage("Email zorunludur")
+            .EmailAddress().WithMessage("Geçerli email giriniz");
+
+        // Nested object validation
+        RuleFor(x => x.HomeAddress)
+            .NotNull().WithMessage("Ev adresi zorunludur")
+            .SetValidator(new AddressValidator());
+
+        // Optional nested object
+        RuleFor(x => x.WorkAddress)
+            .SetValidator(new AddressValidator())
+            .When(x => x.WorkAddress != null);
+
+        // Collection validation
+        RuleForEach(x => x.DeliveryAddresses)
+            .SetValidator(new AddressValidator())
+            .When(x => x.DeliveryAddresses != null);
+
+        // Collection kuralları
+        RuleFor(x => x.DeliveryAddresses)
+            .Must(addresses => addresses == null || addresses.Count <= 5)
+            .WithMessage("En fazla 5 teslimat adresi ekleyebilirsiniz");
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-globe"></i> ASP.NET Core Entegrasyonu</h2>
+
+                <div class="aspnet-integration">
+                    <div class="integration-steps">
+                        <div class="step-card startup-step">
+                            <div class="step-header">
+                                <div class="step-number">1</div>
+                                <h4>Startup Configuration</h4>
+                            </div>
+                            <div class="step-content">
+                                <div class="code-block">
+                                    <div class="code-header">
+                                        <span class="file-name">Program.cs</span>
+                                        <span class="language">C#</span>
+                                    </div>
+                                    <pre><code>using FluentValidation;
+using FluentValidation.AspNetCore;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// FluentValidation ekle
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddFluentValidationClientsideAdapters();
+
+// Validator'ları kaydet
+builder.Services.AddValidatorsFromAssemblyContaining&lt;ProductValidator&gt;();
+
+// Veya tek tek kayıt
+builder.Services.AddScoped&lt;IValidator&lt;Product&gt;, ProductValidator&gt;();
+builder.Services.AddScoped&lt;IValidator&lt;User&gt;, UserValidator&gt;();
+
+builder.Services.AddControllers();
+
+var app = builder.Build();
+
+app.MapControllers();
+app.Run();</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-card controller-step">
+                            <div class="step-header">
+                                <div class="step-number">2</div>
+                                <h4>Controller Kullanımı</h4>
+                            </div>
+                            <div class="step-content">
+                                <div class="code-block">
+                                    <div class="code-header">
+                                        <span class="file-name">ProductController.cs</span>
+                                        <span class="language">C#</span>
+                                    </div>
+                                    <pre><code>[ApiController]
+[Route("api/[controller]")]
+public class ProductController : ControllerBase
+{
+    private readonly IValidator&lt;Product&gt; _validator;
+
+    public ProductController(IValidator&lt;Product&gt; validator)
+    {
+        _validator = validator;
+    }
+
+    [HttpPost]
+    public async Task&lt;IActionResult&gt; CreateProduct([FromBody] Product product)
+    {
+        // Otomatik validation - ModelState kontrol edilir
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        // Manuel validation
+        var validationResult = await _validator.ValidateAsync(product);
+        if (!validationResult.IsValid)
+        {
+            // FluentValidation hatalarını ModelState'e ekle
+            validationResult.AddToModelState(ModelState);
+            return BadRequest(ModelState);
+        }
+
+        // İş mantığı
+        // ...
+
+        return Ok("Ürün başarıyla oluşturuldu");
+    }
+
+    [HttpPut("{id}")]
+    public async Task&lt;IActionResult&gt; UpdateProduct(int id, [FromBody] Product product)
+    {
+        // Özel validation scenario
+        var validationResult = await _validator.ValidateAsync(product, options =>
+        {
+            options.IncludeRuleSets("Update"); // Sadece Update kuralları
+            options.IncludeProperties(x => x.Name, x => x.Price); // Sadece belirli property'ler
+        });
+
+        if (!validationResult.IsValid)
+        {
+            return BadRequest(validationResult.Errors.Select(e => new
+            {
+                Property = e.PropertyName,
+                Error = e.ErrorMessage,
+                AttemptedValue = e.AttemptedValue
+            }));
+        }
+
+        return Ok("Ürün güncellendi");
+    }
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-card rulesets-step">
+                            <div class="step-header">
+                                <div class="step-number">3</div>
+                                <h4>Rule Sets Kullanımı</h4>
+                            </div>
+                            <div class="step-content">
+                                <div class="code-block">
+                                    <div class="code-header">
+                                        <span class="file-name">ProductValidatorWithRuleSets.cs</span>
+                                        <span class="language">C#</span>
+                                    </div>
+                                    <pre><code>public class ProductValidator : AbstractValidator&lt;Product&gt;
+{
+    public ProductValidator()
+    {
+        // Genel kurallar (her zaman çalışır)
+        RuleFor(x => x.Name)
+            .NotEmpty().WithMessage("Ürün adı zorunludur");
+
+        // Create işlemi için özel kurallar
+        RuleSet("Create", () =>
+        {
+            RuleFor(x => x.Price)
+                .GreaterThan(0).WithMessage("Yeni ürün fiyatı 0'dan büyük olmalıdır");
+
+            RuleFor(x => x.Stock)
+                .GreaterThanOrEqualTo(1).WithMessage("Yeni ürün için stok girilmelidir");
+        });
+
+        // Update işlemi için özel kurallar
+        RuleSet("Update", () =>
+        {
+            RuleFor(x => x.Price)
+                .GreaterThanOrEqualTo(0).WithMessage("Güncelleme sırasında fiyat negatif olamaz");
+
+            // Güncelleme sırasında stok 0 olabilir
+            RuleFor(x => x.Stock)
+                .GreaterThanOrEqualTo(0).WithMessage("Stok negatif olamaz");
+        });
+
+        // Özel durum kuralları
+        RuleSet("Discount", () =>
+        {
+            RuleFor(x => x.Price)
+                .LessThan(x => x.OriginalPrice * 0.9m)
+                .WithMessage("İndirim fiyatı orijinal fiyatın en az %10'u olmalıdır");
+        });
+    }
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-vial"></i> Unit Testing</h2>
+
+                <div class="testing-section">
+                    <div class="test-benefits">
+                        <h3><i class="fas fa-star"></i> FluentValidation Test Avantajları</h3>
+                        <div class="benefits-grid">
+                            <div class="test-benefit">
+                                <i class="fas fa-check-circle"></i>
+                                <h4>Kolay Test</h4>
+                                <p>Validator sınıfları bağımsız olarak test edilebilir</p>
+                            </div>
+                            <div class="test-benefit">
+                                <i class="fas fa-search"></i>
+                                <h4>Detaylı Kontrol</h4>
+                                <p>Her kural ayrı ayrı test edilebilir</p>
+                            </div>
+                            <div class="test-benefit">
+                                <i class="fas fa-clock"></i>
+                                <h4>Hızlı Çalışma</h4>
+                                <p>Unit testler çok hızlı çalışır</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="test-examples">
+                        <h3><i class="fas fa-microscope"></i> Test Örnekleri</h3>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="file-name">ProductValidatorTests.cs</span>
+                                <span class="language">C#</span>
+                            </div>
+                            <pre><code>using FluentValidation.TestHelper;
+using Xunit;
+
+public class ProductValidatorTests
+{
+    private readonly ProductValidator _validator;
+
+    public ProductValidatorTests()
+    {
+        _validator = new ProductValidator();
+    }
+
+    [Fact]
+    public void Should_Have_Error_When_Name_Is_Empty()
+    {
+        // Arrange
+        var product = new Product { Name = "" };
+
+        // Act & Assert
+        var result = _validator.TestValidate(product);
+        result.ShouldHaveValidationErrorFor(x => x.Name)
+              .WithErrorMessage("Ürün adı zorunludur");
+    }
+
+    [Fact]
+    public void Should_Not_Have_Error_When_Name_Is_Valid()
+    {
+        // Arrange
+        var product = new Product { Name = "Geçerli Ürün Adı" };
+
+        // Act & Assert
+        var result = _validator.TestValidate(product);
+        result.ShouldNotHaveValidationErrorFor(x => x.Name);
+    }
+
+    [Theory]
+    [InlineData(-1)]
+    [InlineData(0)]
+    [InlineData(1000001)]
+    public void Should_Have_Error_When_Price_Is_Invalid(decimal price)
+    {
+        // Arrange
+        var product = new Product { Price = price };
+
+        // Act & Assert
+        var result = _validator.TestValidate(product);
+        result.ShouldHaveValidationErrorFor(x => x.Price);
+    }
+
+    [Theory]
+    [InlineData(0.01)]
+    [InlineData(100)]
+    [InlineData(999999)]
+    public void Should_Not_Have_Error_When_Price_Is_Valid(decimal price)
+    {
+        // Arrange
+        var product = new Product { Price = price };
+
+        // Act & Assert
+        var result = _validator.TestValidate(product);
+        result.ShouldNotHaveValidationErrorFor(x => x.Price);
+    }
+
+    [Fact]
+    public void Should_Have_Error_When_Category_Is_Invalid()
+    {
+        // Arrange
+        var product = new Product { Category = "GeçersizKategori" };
+
+        // Act & Assert
+        var result = _validator.TestValidate(product);
+        result.ShouldHaveValidationErrorFor(x => x.Category)
+              .WithErrorMessage("Geçersiz kategori");
+    }
+
+    [Fact]
+    public void Should_Have_Multiple_Errors_When_Product_Is_Invalid()
+    {
+        // Arrange
+        var product = new Product
+        {
+            Name = "",
+            Price = -10,
+            Description = "Kısa",
+            Category = "Geçersiz",
+            Stock = -1
+        };
+
+        // Act
+        var result = _validator.TestValidate(product);
+
+        // Assert
+        result.ShouldHaveValidationErrorFor(x => x.Name);
+        result.ShouldHaveValidationErrorFor(x => x.Price);
+        result.ShouldHaveValidationErrorFor(x => x.Description);
+        result.ShouldHaveValidationErrorFor(x => x.Category);
+        result.ShouldHaveValidationErrorFor(x => x.Stock);
+    }
+
+    [Fact]
+    public void Should_Pass_All_Validations_When_Product_Is_Valid()
+    {
+        // Arrange
+        var product = new Product
+        {
+            Name = "Geçerli Ürün",
+            Price = 100,
+            Description = "Bu geçerli bir açıklamadır",
+            Category = "Elektronik",
+            Stock = 10,
+            ReleaseDate = DateTime.Now.AddDays(-1)
+        };
+
+        // Act
+        var result = _validator.TestValidate(product);
+
+        // Assert
+        result.ShouldNotHaveAnyValidationErrors();
+    }
+
+    [Fact]
+    public void Should_Validate_Only_Create_Rules_When_RuleSet_Is_Create()
+    {
+        // Arrange
+        var product = new Product
+        {
+            Name = "Test",
+            Price = 0, // Create için geçersiz, Update için geçerli
+            Stock = 0  // Create için geçersiz, Update için geçerli
+        };
+
+        // Act
+        var result = _validator.TestValidate(product, options =>
+        {
+            options.IncludeRuleSets("Create");
+        });
+
+        // Assert
+        result.ShouldHaveValidationErrorFor(x => x.Price);
+        result.ShouldHaveValidationErrorFor(x => x.Stock);
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-magic"></i> İpuçları ve En İyi Pratikler</h2>
+
+                <div class="best-practices">
+                    <div class="practices-grid">
+                        <div class="practice-section naming">
+                            <div class="practice-header">
+                                <div class="practice-icon">
+                                    <i class="fas fa-tag"></i>
+                                </div>
+                                <h3>İsimlendirme</h3>
+                            </div>
+                            <div class="practice-content">
+                                <div class="do-dont">
+                                    <div class="do">
+                                        <h5><i class="fas fa-check"></i> Yapın</h5>
+                                        <ul>
+                                            <li>Validator sınıflarını <code>XValidator</code> olarak adlandırın</li>
+                                            <li>Açık ve anlaşılır hata mesajları yazın</li>
+                                            <li>Türkçe karakter kullanmayın</li>
+                                        </ul>
+                                    </div>
+                                    <div class="dont">
+                                        <h5><i class="fas fa-times"></i> Yapmayın</h5>
+                                        <ul>
+                                            <li>Generic hata mesajları kullanmayın</li>
+                                            <li>Çok uzun hata mesajları yazmayın</li>
+                                            <li>Teknik detayları kullanıcıya göstermeyin</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="practice-section organization">
+                            <div class="practice-header">
+                                <div class="practice-icon">
+                                    <i class="fas fa-folder-open"></i>
+                                </div>
+                                <h3>Organizasyon</h3>
+                            </div>
+                            <div class="practice-content">
+                                <div class="folder-structure">
+                                    <h5><i class="fas fa-sitemap"></i> Klasör Yapısı</h5>
+                                    <div class="structure">
+                                        <div class="folder">
+                                            <i class="fas fa-folder"></i>
+                                            <span>Validators/</span>
+                                        </div>
+                                        <div class="file indent-1">
+                                            <i class="fas fa-file-code"></i>
+                                            <span>ProductValidator.cs</span>
+                                        </div>
+                                        <div class="file indent-1">
+                                            <i class="fas fa-file-code"></i>
+                                            <span>UserValidator.cs</span>
+                                        </div>
+                                        <div class="file indent-1">
+                                            <i class="fas fa-file-code"></i>
+                                            <span>AddressValidator.cs</span>
+                                        </div>
+                                        <div class="folder indent-1">
+                                            <i class="fas fa-folder"></i>
+                                            <span>Extensions/</span>
+                                        </div>
+                                        <div class="file indent-2">
+                                            <i class="fas fa-file-code"></i>
+                                            <span>CustomValidators.cs</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="practice-section performance">
+                            <div class="practice-header">
+                                <div class="practice-icon">
+                                    <i class="fas fa-tachometer-alt"></i>
+                                </div>
+                                <h3>Performans</h3>
+                            </div>
+                            <div class="practice-content">
+                                <div class="performance-tips">
+                                    <div class="tip">
+                                        <i class="fas fa-lightbulb"></i>
+                                        <span>Async validation'ı sadece gerektiğinde kullanın</span>
+                                    </div>
+                                    <div class="tip">
+                                        <i class="fas fa-lightbulb"></i>
+                                        <span>Karmaşık kuralları cache'leyin</span>
+                                    </div>
+                                    <div class="tip">
+                                        <i class="fas fa-lightbulb"></i>
+                                        <span>RuleSet'leri kullanarak gereksiz validation'lardan kaçının</span>
+                                    </div>
+                                    <div class="tip">
+                                        <i class="fas fa-lightbulb"></i>
+                                        <span>Validator'ları Singleton olarak kaydedin</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="common-patterns">
+                    <h3><i class="fas fa-puzzle-piece"></i> Yaygın Kullanım Desenleri</h3>
+                    <div class="patterns-grid">
+                        <div class="pattern-card">
+                            <h4><i class="fas fa-user-check"></i> Kullanıcı Kayıt Validasyonu</h4>
+                            <div class="code-block small">
+                                <pre><code>RuleFor(x => x.Email)
+    .NotEmpty().WithMessage("Email zorunludur")
+    .EmailAddress().WithMessage("Geçerli email giriniz")
+    .MustAsync(BeUniqueEmail).WithMessage("Bu email zaten kullanımda");
+
+RuleFor(x => x.Password)
+    .NotEmpty().WithMessage("Şifre zorunludur")
+    .MinimumLength(8).WithMessage("Şifre en az 8 karakter olmalıdır")
+    .Matches("[A-Z]").WithMessage("En az bir büyük harf")
+    .Matches("[a-z]").WithMessage("En az bir küçük harf")
+    .Matches("[0-9]").WithMessage("En az bir rakam");</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="pattern-card">
+                            <h4><i class="fas fa-credit-card"></i> Ödeme Validasyonu</h4>
+                            <div class="code-block small">
+                                <pre><code>RuleFor(x => x.CardNumber)
+    .NotEmpty().WithMessage("Kart numarası zorunludur")
+    .CreditCard().WithMessage("Geçersiz kart numarası");
+
+RuleFor(x => x.ExpiryDate)
+    .NotEmpty().WithMessage("Son kullanma tarihi zorunludur")
+    .Must(BeValidExpiryDate).WithMessage("Kartın süresi dolmuş");
+
+RuleFor(x => x.CVV)
+    .NotEmpty().WithMessage("CVV zorunludur")
+    .Length(3, 4).WithMessage("CVV 3-4 haneli olmalıdır");</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="pattern-card">
+                            <h4><i class="fas fa-file-upload"></i> Dosya Upload Validasyonu</h4>
+                            <div class="code-block small">
+                                <pre><code>RuleFor(x => x.File)
+    .NotNull().WithMessage("Dosya seçilmelidir")
+    .Must(BeValidFileSize).WithMessage("Dosya boyutu max 5MB olabilir")
+    .Must(BeValidFileType).WithMessage("Sadece JPG, PNG, PDF dosyaları");
+
+private bool BeValidFileSize(IFormFile file)
+{
+    return file?.Length <= 5 * 1024 * 1024; // 5MB
+}
+
+private bool BeValidFileType(IFormFile file)
+{
+    var allowedTypes = new[] { ".jpg", ".png", ".pdf" };
+    var extension = Path.GetExtension(file?.FileName)?.ToLower();
+    return allowedTypes.Contains(extension);
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="conclusion">
+                    <h2><i class="fas fa-flag-checkered"></i> Sonuç</h2>
+                    <p>FluentValidation, .NET projelerinde <strong>temiz</strong>, <strong>okunabilir</strong> ve <strong>test edilebilir</strong> validation logic'i yazmanın en etkili yollarından biridir. Geleneksel Data Annotations'a göre çok daha esnek ve güçlü özellikler sunar.</p>
+                    
+                    <div class="key-benefits">
+                        <h3><i class="fas fa-star"></i> Ana Faydalar</h3>
+                        <div class="benefits-summary">
+                            <div class="benefit-item">
+                                <i class="fas fa-code"></i>
+                                <span><strong>Temiz Kod:</strong> Validation logic'i model sınıflarından ayrı</span>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-eye"></i>
+                                <span><strong>Okunabilirlik:</strong> Fluent syntax ile doğal dil gibi yazım</span>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-vial"></i>
+                                <span><strong>Test Edilebilirlik:</strong> Unit test yazmak çok kolay</span>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-recycle"></i>
+                                <span><strong>Tekrar Kullanım:</strong> Validation logic'i paylaşılabilir</span>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-cogs"></i>
+                                <span><strong>Esneklik:</strong> Karmaşık validation senaryoları desteklenir</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="next-steps">
+                    <h3><i class="fas fa-arrow-right"></i> Sonraki Adımlar</h3>
+                    <ul>
+                        <li>Mevcut projelerinizde FluentValidation'ı deneyin</li>
+                        <li>Data Annotations'dan FluentValidation'a geçiş yapın</li>
+                        <li>Custom validation metodları yazarak pratik yapın</li>
+                        <li>ASP.NET Core projelerinde otomatik validation'ı aktifleştirin</li>
+                        <li>Unit testler yazarak validation logic'inizi doğrulayın</li>
+                    </ul>
+                </div>
+
+                <!-- Post Footer -->
+                <div class="post-footer">
+                    <div class="author-info">
+                        <div class="author-avatar">
+                            <img alt="Alperen Çetin">
+                        </div>
+                        <div class="author-details">
+                            <h4>Alperen Çetin</h4>
+                            <p>Full Stack Developer | .NET Specialist</p>
+                            <div class="social-links">
+                                <a href="#" class="social-link">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                                <a href="#" class="social-link">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="#" class="social-link">
+                                    <i class="fas fa-envelope"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="post-navigation">
+                        <a href="../index.html#blog" class="btn">
+                            <i class="fas fa-arrow-left"></i> Blog'a Dön
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

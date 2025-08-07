@@ -101,7 +101,120 @@ skillLevels.forEach(skill => {
 // Sayfa yükleme animasyonu
 window.addEventListener('load', () => {
     document.body.classList.add('loaded');
+    
+    // Hareketli arka plan elementlerini oluştur
+    createFloatingOrbs();
+    createAnimatedLines();
+    createParallaxElements();
 });
+
+// Hareketli küreler oluşturma
+function createFloatingOrbs() {
+    const orbsContainer = document.createElement('div');
+    orbsContainer.className = 'floating-orbs';
+    
+    // 6 adet yüzen küre oluştur
+    for (let i = 0; i < 6; i++) {
+        const orb = document.createElement('div');
+        orb.className = 'orb';
+        orbsContainer.appendChild(orb);
+    }
+    
+    document.body.appendChild(orbsContainer);
+}
+
+// Hareketli çizgiler oluşturma
+function createAnimatedLines() {
+    const linesContainer = document.createElement('div');
+    linesContainer.className = 'animated-lines';
+    
+    // 3 adet hareketli çizgi oluştur
+    for (let i = 0; i < 3; i++) {
+        const line = document.createElement('div');
+        line.className = 'line';
+        linesContainer.appendChild(line);
+    }
+    
+    document.body.appendChild(linesContainer);
+}
+
+// Paralaks elementleri oluşturma
+function createParallaxElements() {
+    const parallaxContainer = document.createElement('div');
+    parallaxContainer.className = 'parallax-container';
+    parallaxContainer.style.position = 'fixed';
+    parallaxContainer.style.top = '0';
+    parallaxContainer.style.left = '0';
+    parallaxContainer.style.width = '100%';
+    parallaxContainer.style.height = '100%';
+    parallaxContainer.style.pointerEvents = 'none';
+    parallaxContainer.style.zIndex = '-1';
+    
+    // 3 adet paralaks element oluştur
+    for (let i = 1; i <= 3; i++) {
+        const element = document.createElement('div');
+        element.className = `parallax-element parallax-${i}`;
+        parallaxContainer.appendChild(element);
+    }
+    
+    document.body.appendChild(parallaxContainer);
+}
+
+// Mouse takip eden partikül efekti
+function createMouseTrail() {
+    const trail = [];
+    const maxTrailLength = 20;
+    
+    document.addEventListener('mousemove', (e) => {
+        // Rastgele partikül oluştur
+        if (Math.random() > 0.9) {
+            const particle = document.createElement('div');
+            particle.style.position = 'fixed';
+            particle.style.left = e.clientX + 'px';
+            particle.style.top = e.clientY + 'px';
+            particle.style.width = '4px';
+            particle.style.height = '4px';
+            particle.style.borderRadius = '50%';
+            particle.style.background = `rgba(${Math.random() > 0.5 ? '94, 23, 235' : '0, 194, 255'}, 0.6)`;
+            particle.style.pointerEvents = 'none';
+            particle.style.zIndex = '9999';
+            particle.style.boxShadow = `0 0 6px rgba(${Math.random() > 0.5 ? '94, 23, 235' : '0, 194, 255'}, 0.8)`;
+            
+            document.body.appendChild(particle);
+            
+            // Partikülü animasyonla kaybet
+            setTimeout(() => {
+                particle.style.transition = 'all 1s ease-out';
+                particle.style.transform = 'scale(0)';
+                particle.style.opacity = '0';
+                
+                setTimeout(() => {
+                    if (particle.parentNode) {
+                        particle.parentNode.removeChild(particle);
+                    }
+                }, 1000);
+            }, 100);
+        }
+    });
+}
+
+// Scroll tabanlı paralaks efekti
+function initScrollParallax() {
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const parallaxElements = document.querySelectorAll('.parallax-element');
+        
+        parallaxElements.forEach((element, index) => {
+            const speed = (index + 1) * 0.5;
+            const yPos = -(scrolled * speed);
+            element.style.transform = `translateY(${yPos}px)`;
+        });
+    });
+}
+
+// Tüm efektleri başlat
+createMouseTrail();
+initScrollParallax();
 
 // Yumuşak kaydırma işlevi
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {

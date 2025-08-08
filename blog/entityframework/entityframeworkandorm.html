@@ -1,0 +1,704 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Entity Framework ve ORM</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.highlight-default_background {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-default { background-color: rgba(84, 72, 49, 0.08); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="249c050d-7613-80d6-b4ae-f1e73c84c487" class="page sans"><header><h1 class="page-title">Entity Framework ve ORM</h1><p class="page-description"></p></header><div class="page-body"><h2 id="249c050d-7613-807f-befc-c9aa2384587d" class="">Entity Framework</h2><ul id="249c050d-7613-8095-8f29-f7afcd57f012" class="bulleted-list"><li style="list-style-type:disc">Entity Framework bir ORM ( object relational mapper) dir .</li></ul><ul id="249c050d-7613-807c-b172-c046574d91bd" class="bulleted-list"><li style="list-style-type:disc">.NET geliştiricilerinin nesnelerini kullanarak veritabanlarıyla proje arasında köprü görevi görür. Geliştiricilerin genellikle yazması gereken çoğu db erişim/işlem kodunu ortadan kaldırır.</li></ul><p id="249c050d-7613-8097-95ce-c939e575f3e1" class="">
+</p><h2 id="249c050d-7613-808e-8917-d67d7f36fd33" class="">ORM(Object Relational Mapper)</h2><div id="249c050d-7613-80ed-b9b1-fa371abfd2a2" class="column-list"><div id="249c050d-7613-8090-85c5-dd76bf0160f4" style="width:50%" class="column"><ul id="249c050d-7613-8063-b7e5-e0f385159d02" class="bulleted-list"><li style="list-style-type:disc">Nesne ilişkisel eşleme , nesne tabanlı programlarama dilleri yapısına uygun olmayan katı veritabanı sorguları yerine veritabanı yapısının bir <mark class="highlight-yellow_background">nesne gibi düşünülerek</mark> yazılım gekiştirilmesine olanak sağlayan programlama teknolojisidir.</li></ul></div><div id="249c050d-7613-80ac-a6f7-c9d9a52b0cbb" style="width:50%" class="column"><figure id="249c050d-7613-800b-9ce0-fee448af4596" class="image"><a href="Entity%20Framework%20ve%20ORM%20249c050d761380d6b4aef1e73c84c487/image.png"><img style="width:710px" src="Entity%20Framework%20ve%20ORM%20249c050d761380d6b4aef1e73c84c487/image.png"/></a></figure></div></div><ul id="249c050d-7613-8061-8499-dd6ada8098bb" class="bulleted-list"><li style="list-style-type:disc">Programlama dillerinde veriler object olarak kullanılır , veritabanında ise tablolar şeklindedir ORM bu iki farklı yapıyı birbirine bağlar <ul id="249c050d-7613-8041-8fe6-f8bc01ae58be" class="bulleted-list"><li style="list-style-type:circle">ORM kullandığımızda, <strong>veritabanındaki her tablo bir “entity” olarak modellenir</strong>. Entity, programdaki **bir sınıf (class)**dır ve:<ul id="249c050d-7613-8028-a20d-f3e5770144bc" class="bulleted-list"><li style="list-style-type:square">Veritabanındaki tablonun yapısını yansıtır.</li></ul><ul id="249c050d-7613-80f3-a4b9-c4714dd6a1fc" class="bulleted-list"><li style="list-style-type:square">Tablo sütunları, sınıfın özellikleri (property) olur.</li></ul><ul id="249c050d-7613-8036-9bf7-e3b766515d89" class="bulleted-list"><li style="list-style-type:square">Örneğin, <code>Products</code> tablosu, <code>Product</code> entity’si olarak temsil edilir.</li></ul></li></ul></li></ul><p id="249c050d-7613-8087-a7e7-ec8d73f7f2e1" class="">
+</p><h2 id="249c050d-7613-8069-b116-fc9407cea8ab" class=""><strong>Entity FrameWork’ün Desteklediği DataBaseler</strong></h2><table id="249c050d-7613-807a-bbb4-e7630f85dbf8" class="simple-table"><thead class="simple-table-header"><tr id="249c050d-7613-8080-ae9b-cf0af68e9f11"><th id="WvJ[" class="simple-table-header-color simple-table-header" style="width:235.66666666666666px">Veritabanı Sistemi</th><th id="_F`D" class="simple-table-header-color simple-table-header" style="width:235.66666666666666px">Örnek Yapılandırma</th><th id="M\TA" class="simple-table-header-color simple-table-header" style="width:235.66666666666666px">NuGet Paketi</th></tr></thead><tbody><tr id="249c050d-7613-8097-ad2e-c9a6b7d74f4c"><td id="WvJ[" class="" style="width:235.66666666666666px">SQL Server veya Azure SQL</td><td id="_F`D" class="" style="width:235.66666666666666px"><code>.UseSqlServer(connectionString)</code></td><td id="M\TA" class="" style="width:235.66666666666666px"><a href="https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer">Microsoft.EntityFrameworkCore.SqlServer</a></td></tr><tr id="249c050d-7613-805a-95c5-d3a78c5b813f"><td id="WvJ[" class="" style="width:235.66666666666666px">Azure Cosmos DB</td><td id="_F`D" class="" style="width:235.66666666666666px"><code>.UseCosmos(connectionString, databaseName)</code></td><td id="M\TA" class="" style="width:235.66666666666666px"><a href="https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Cosmos">Microsoft.EntityFrameworkCore.Cosmos</a></td></tr><tr id="249c050d-7613-80fa-9f65-c48fdd0f2095"><td id="WvJ[" class="" style="width:235.66666666666666px">SQLite</td><td id="_F`D" class="" style="width:235.66666666666666px"><code>.UseSqlite(connectionString)</code></td><td id="M\TA" class="" style="width:235.66666666666666px"><a href="https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite">Microsoft.EntityFrameworkCore.Sqlite</a></td></tr><tr id="249c050d-7613-803e-bb45-e565b59c9248"><td id="WvJ[" class="" style="width:235.66666666666666px">EF Core bellek içi veritabanı</td><td id="_F`D" class="" style="width:235.66666666666666px"><code>.UseInMemoryDatabase(databaseName)</code></td><td id="M\TA" class="" style="width:235.66666666666666px"><a href="https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.InMemory">Microsoft.EntityFrameworkCore.InMemory</a></td></tr><tr id="249c050d-7613-800c-8526-ebbe96c66bdd"><td id="WvJ[" class="" style="width:235.66666666666666px">PostgreSQL*</td><td id="_F`D" class="" style="width:235.66666666666666px"><code>.UseNpgsql(connectionString)</code></td><td id="M\TA" class="" style="width:235.66666666666666px"><a href="https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL">Npgsql.EntityFrameworkCore.PostgreSQL</a></td></tr><tr id="249c050d-7613-80d7-a7db-e64394b319a2"><td id="WvJ[" class="" style="width:235.66666666666666px">MySQL/MariaDB*</td><td id="_F`D" class="" style="width:235.66666666666666px"><code>.UseMySql(connectionString)</code></td><td id="M\TA" class="" style="width:235.66666666666666px"><a href="https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql">Pomelo.EntityFrameworkCore.MySql</a></td></tr><tr id="249c050d-7613-8075-bedb-cde5049b72ba"><td id="WvJ[" class="" style="width:235.66666666666666px">Oracle*</td><td id="_F`D" class="" style="width:235.66666666666666px"><code>.UseOracle(connectionString)</code></td><td id="M\TA" class="" style="width:235.66666666666666px"><a href="https://www.nuget.org/packages/Oracle.EntityFrameworkCore">Oracle.EntityFrameworkCore</a></td></tr></tbody></table><p id="249c050d-7613-8028-8c7e-ef1436479c07" class="">
+</p><p id="249c050d-7613-8057-9ab8-d79f93687cd9" class="">
+</p><h2 id="249c050d-7613-8067-81f4-dd13998a6d85" class="">Adım Adım Yapalım (PostgreSql ile)</h2><h2 id="249c050d-7613-8054-b532-ef101e6d6275" class="">1️⃣ NuGet paketini ekle</h2><p id="249c050d-7613-8051-ab21-ec57de81d9a4" class="">PostgreSQL ile bağlanmak için <strong>Npgsql</strong> gerekiyor:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="249c050d-7613-8062-9582-db9e9f556623" class="code code-wrap"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">dotnet add package Npgsql</code></pre><h2 id="249c050d-7613-8061-a4f8-fbf0a5b7643a" class="">2️⃣ appsettings.json oluştur yada düzenle </h2><p id="249c050d-7613-805d-a7d8-e096ce319b12" class="">Projenin kök dizinine <code>appsettings.json</code> dosyası ekle ve bağlantı bilgini buraya yaz:</p><figure id="249c050d-7613-80a2-91fb-c8af9665fdef" class="image"><a href="Entity%20Framework%20ve%20ORM%20249c050d761380d6b4aef1e73c84c487/Ekran_Resmi_2025-08-08_17.35.58.png"><img style="width:3090px" src="Entity%20Framework%20ve%20ORM%20249c050d761380d6b4aef1e73c84c487/Ekran_Resmi_2025-08-08_17.35.58.png"/></a></figure><ul id="249c050d-7613-80e5-949c-e3d4b25f7285" class="bulleted-list"><li style="list-style-type:disc"><strong>Not:</strong> Şifre ve kullanıcı adını kendi PostgreSQL bilgine göre değiştir.</li></ul><p id="249c050d-7613-8061-9304-da0fa8f469bc" class="">
+</p><h2 id="249c050d-7613-8085-8ea2-e95ca68f361e" class="">3️⃣ Repository (DataService) sınıfını oluştur</h2><p id="249c050d-7613-802a-91ad-db086f715e6c" class=""><code>DataService.cs</code> adında bir dosya aç.</p><figure id="249c050d-7613-8057-b033-d150e1d11380" class="image"><a href="Entity%20Framework%20ve%20ORM%20249c050d761380d6b4aef1e73c84c487/Ekran_Resmi_2025-08-08_17.53.22.png"><img style="width:3002px" src="Entity%20Framework%20ve%20ORM%20249c050d761380d6b4aef1e73c84c487/Ekran_Resmi_2025-08-08_17.53.22.png"/></a></figure><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="249c050d-7613-802b-905e-eb1a7ddb2110" class="code code-wrap"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">public class DataService</code></pre><ul id="249c050d-7613-805c-a99e-d4a5717b7ccf" class="bulleted-list"><li style="list-style-type:disc">Bu DataService adında bir sınıf tanımlıyor . Bu sınıf ,veritabanı işlemlerini yönetecek olan servis sınıfıdır.</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="249c050d-7613-8006-943b-dce1952baba1" class="code code-wrap"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">{
+    private readonly string _connectionString;</code></pre><ul id="249c050d-7613-8016-96ff-f60ffac190ff" class="bulleted-list"><li style="list-style-type:disc">Sınıf içinde sadece okunabilir yani readonly bir alan tanımlıyoruz.</li></ul><ul id="249c050d-7613-802e-9a95-d10ebc12c503" class="bulleted-list"><li style="list-style-type:disc">Bu alan PostgreSQL veritabanı bağlantı stringini saklamak için kullanılacak .</li></ul><p id="249c050d-7613-804a-8e50-f239462047c6" class="">
+</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="249c050d-7613-8000-a94d-d593da42c020" class="code code-wrap"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">	public DataService(IConfiguration config)</code></pre><ul id="249c050d-7613-80fb-ab77-e714b67a7d8e" class="bulleted-list"><li style="list-style-type:disc">bu sınıfın constructorudur yani yapıcısı </li></ul><ul id="249c050d-7613-802b-8943-da1a23b3ae8a" class="bulleted-list"><li style="list-style-type:disc">.NET Core&#x27;da <code>IConfiguration</code> interfacei , <code>appsettings.json</code> gibi konfigürasyon dosyalarından ayarları almayı sağlar.</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="249c050d-7613-80cf-9332-c3fa3f991d0e" class="code code-wrap"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">    {
+        _connectionString = config.GetConnectionString(&quot;PostgresDb&quot;);
+    }</code></pre><ul id="249c050d-7613-80e5-8e92-e410bc233de2" class="bulleted-list"><li style="list-style-type:disc">konfigurasyon dosyasındaki (mesela appsettings.json) postgresDb adındaki connectionString çekilerek _connectionString alanına atanır </li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="249c050d-7613-8074-8c9b-f1171d9a834f" class="code code-wrap"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">public async Task&lt;List&lt;string&gt;&gt;GetDataAsync()</code></pre><ul id="249c050d-7613-8022-9c51-d11e11906c8f" class="bulleted-list"><li style="list-style-type:disc">GetDataAsync adlı asenkron çalışan bir metod tanımlanıyor. Bu metod PostgreSQL den veri çekip , List&lt;string&gt; olarak geri çevirmesi gerekiyor <ul id="249c050d-7613-80eb-99df-ed6cf1b88dee" class="bulleted-list"><li style="list-style-type:circle">Her yerden çağrılabilir (<code>public</code>)</li></ul><ul id="249c050d-7613-80b5-905e-e99e590cfa3a" class="bulleted-list"><li style="list-style-type:circle">Asenkron olarak çalışır (<code>async</code>)</li></ul><ul id="249c050d-7613-80dc-804e-ee6069747b1c" class="bulleted-list"><li style="list-style-type:circle">Sana ileride bir <code>List&lt;string&gt;</code> döndürür (<code>Task&lt;List&lt;string&gt;&gt;</code>)</li></ul><ul id="249c050d-7613-803d-85ca-dbf624f3eb8c" class="bulleted-list"><li style="list-style-type:circle">Veritabanından veri çeker (<code>GetData...</code>)</li></ul><ul id="249c050d-7613-8020-ba8e-c56cfbd36823" class="bulleted-list"><li style="list-style-type:circle">Ve bu iş <strong>asenkron</strong> olduğu için çağıran kişi <code>await</code> kullanmalıdır.<ul id="249c050d-7613-80ee-8fcc-d1448b14106e" class="bulleted-list"><li style="list-style-type:square">Senkron olsaydı nasıl olurdu ?<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="249c050d-7613-8014-8ee8-d0b64a5dcec5" class="code code-wrap"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">public List&lt;string&gt; GetData()</code></pre></li></ul></li></ul></li></ul><p id="249c050d-7613-804c-80bd-e50bf28196a5" class="">
+</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="249c050d-7613-8018-945b-f91dd7e7de4b" class="code code-wrap"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">    {
+        var result=new List&lt;string&gt;();</code></pre><ul id="249c050d-7613-80c5-b5a0-f82560d00a83" class="bulleted-list"><li style="list-style-type:disc">veritabanından alınacak verilerin saklanacağı boş bir List&lt;String&gt; oluşturuyoruz.</li></ul><p id="249c050d-7613-80cc-b937-c8714b841fa3" class="">
+</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="249c050d-7613-809b-af95-e9728d4e9b63" class="code code-wrap"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">        await using var connection = new NpgsqlConnection(_connectionString);</code></pre><ul id="249c050d-7613-80d3-9709-d8f47c6c2d9b" class="bulleted-list"><li style="list-style-type:disc">PostgreSQL bağlantısı kurmak için NpgsqlConnection nesnesi oluşturuyoruz. &quot;await using&quot; ile kullanılması, işlem bittiğinde bağlantının otomatik olarak kapanmasını sağlar (asenkron dispose).</li></ul><p id="249c050d-7613-8005-94a4-f1984fe66a14" class="">
+</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="249c050d-7613-80de-8a7f-f624716ea128" class="code code-wrap"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">        await connection.OpenAsync();</code></pre><ul id="249c050d-7613-80cf-ae34-f8a00b0abc1e" class="bulleted-list"><li style="list-style-type:disc">Veritabanı bağlantısnı asenkron olarak açıyoruz .</li></ul><p id="249c050d-7613-80db-bbfb-ef94fe593f1e" class="">
+</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="249c050d-7613-8055-a862-dfcfd90ecaf7" class="code code-wrap"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">	var sql = &quot;select*from testTable&quot;;</code></pre><ul id="249c050d-7613-8070-b5dd-d259783f23f3" class="bulleted-list"><li style="list-style-type:disc">veritabanından veri çekmek için SQL sorgusu tanımlanıyor</li></ul><p id="249c050d-7613-80fb-9c0b-cda9334e2d4b" class="">testTablenin tüm sutunlarını içeriyor </p><p id="249c050d-7613-80f3-a23c-ef590b9eea2b" class="">
+</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="249c050d-7613-8053-ab17-dd90f20c4a1e" class="code code-wrap"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">await using var cmd = new NpgsqlCommand(sql,connection);</code></pre><ul id="249c050d-7613-80e4-8528-edd4a86f9661" class="bulleted-list"><li style="list-style-type:disc">SQL sorgusunu çalıştırmak için bir NpgsqlCommand nesnesi oluşturuluyor</li></ul><ul id="249c050d-7613-800c-bbbb-e6bdcd2260cc" class="bulleted-list"><li style="list-style-type:disc">Bu nesne yukarıda tanımlanan SQL sorgusunu ve bağlantıyı kullanıyor </li></ul><ul id="249c050d-7613-80be-b477-c0f0df1acf10" class="bulleted-list"><li style="list-style-type:disc">burda using kullanmamızın sebebi işin bitince dispose et yani kapat demektir <ul id="249c050d-7613-80e9-b90c-d2964d2c0044" class="bulleted-list"><li style="list-style-type:circle">Eğer <code>await using</code> yazmazsan ve <code>Dispose()</code> çağırmazsan, veritabanı bağlantısı <strong>açık kalabilir</strong>.</li></ul><ul id="249c050d-7613-80f6-9528-cfadea9a74f1" class="bulleted-list"><li style="list-style-type:circle">Bu da hata verir: <code>&quot;Too many connections&quot;</code> gibi.</li></ul></li></ul><p id="249c050d-7613-8037-af93-c0b54107f56b" class="">
+</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="249c050d-7613-80c8-9e50-ea010d519efd" class="code code-wrap"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">        await using var reader = await cmd.ExecuteReaderAsync();</code></pre><ul id="249c050d-7613-8065-8ad0-e3a557614e29" class="bulleted-list"><li style="list-style-type:disc">Komut çalıştırılıyor ve sonuçları satır satır okuyabilmek için bir DataReader nesnesi elde ediliyor .</li></ul><p id="249c050d-7613-8031-9333-e1092cf4b8b1" class="">
+</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="249c050d-7613-801b-be92-c529d0fd9a83" class="code code-wrap"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">while(await reader.ReadAsync())     </code></pre><ul id="249c050d-7613-802a-b5dd-e35563aede02" class="bulleted-list"><li style="list-style-type:disc">Veriyi satır satır okuyoruz Her ReadAsync() komutu bir sonraki satıra geçmeyi sağlar</li></ul><p id="249c050d-7613-806f-beb8-e52cff08d055" class="">
+</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="249c050d-7613-8044-a388-c2b1143fa093" class="code code-wrap"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">        {
+            result.Add(reader.GetString(0));
+        }</code></pre><ul id="249c050d-7613-80d7-8260-f33b66cf815d" class="bulleted-list"><li style="list-style-type:disc">Her satırdan 0. sütundaki (ilk sütun) veriyi al ve result listesine ekle. Eğer tablonuzda başka türde veriler varsa (int, datetime vs.), buna göre<mark class="highlight-blue"> reader.GetString(0) </mark>yerine <mark class="highlight-blue">reader.GetInt32(0)</mark> gibi uygun bir dönüşüm yapılmalı.</li></ul><p id="249c050d-7613-8041-8371-ea3ef1672794" class="">
+</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="249c050d-7613-80f6-a2e8-f17e8df9d8a9" class="code code-wrap"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">        return result;
+    }
+}</code></pre><p id="249c050d-7613-8041-96c1-f47d2039e896" class="">Döngü bittikten sonra toplanan veriler List&lt;String&gt; olarak geri dönmesi sağlanır </p><p id="249c050d-7613-80d5-9aab-ed84fab3d0b9" class="">
+</p><h3 id="249c050d-7613-80d3-b951-dd3d8aa473e7" class="">Özetle:</h3><ul id="249c050d-7613-80cc-b282-ce39b0ffaa72" class="bulleted-list"><li style="list-style-type:disc">PostgreSQL bağlantı dizesi <code>IConfiguration</code> ile alınır.</li></ul><ul id="249c050d-7613-8080-a4ec-ee9fd5730602" class="bulleted-list"><li style="list-style-type:disc">Bağlantı açılır ve <code>testTable</code> tablosundan veriler okunur.</li></ul><ul id="249c050d-7613-80e4-9c6c-e4dfb7a0c4c5" class="bulleted-list"><li style="list-style-type:disc">Her satırın ilk sütunu okunarak bir listeye eklenir.</li></ul><ul id="249c050d-7613-80e7-9fcd-e3822d53907d" class="bulleted-list"><li style="list-style-type:disc">Bu liste metot sonunda geri döndürülür.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

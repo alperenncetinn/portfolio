@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entity Framework ve ORM: Veritabanı İşlemlerinde Modern Yaklaşım - Alperen Çetin</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="blog.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../images/alp-digital-logo.png">
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Blog Post Container -->
+        <div class="blog-post">
+            <div class="container">
+            <!-- Blog Header -->
+            <div class="blog-header">
+                <div class="breadcrumb">
+                    <a href="../index.html"><i class="fas fa-home"></i> Ana Sayfa</a>
+                    <span>/</span>
+                    <a href="../index.html#blog">Blog</a>
+                    <span>/</span>
+                    <span>Entity Framework ve ORM</span>
+                </div>
+                
+                <div class="post-meta">
+                    <div class="category">.NET</div>
+                    <div class="date">8 Ağustos 2025</div>
+                    <div class="read-time"><i class="fas fa-clock"></i> 15 dk okuma</div>
+                </div>
+                
+                <h1>Entity Framework ve ORM: Veritabanı İşlemlerinde Modern Yaklaşım</h1>
+                
+                <div class="post-tags">
+                    <span class="tag">.NET</span>
+                    <span class="tag">Entity Framework</span>
+                    <span class="tag">ORM</span>
+                    <span class="tag">Database</span>
+                    <span class="tag">SQL Server</span>
+                </div>
+            </div>
+
+            <!-- Blog Content -->
+            <div class="post-content">
+                <div class="intro">
+                    <p class="lead"><strong>Entity Framework</strong>, .NET ekosisteminde veritabanı işlemlerini kolaylaştıran güçlü bir <strong>ORM (Object-Relational Mapping)</strong> kütüphanesidir. Bu yazıda Entity Framework'ün temellerini, ORM kavramını ve modern veritabanı işlemlerindeki yerini detaylı olarak inceleyeceğiz.</p>
+                </div>
+
+                <!-- Entity Framework Hero Image -->
+                <div class="blog-image">
+                    <img src="entityframework/image.png" alt="Entity Framework ve ORM Mimarisi" class="responsive-image">
+                    <div class="image-caption">Entity Framework ORM Mimarisi ve Veritabanı Entegrasyonu</div>
+                </div>
+
+                <h2><i class="fas fa-database"></i> Entity Framework Nedir?</h2>
+
+                <div class="ef-definition">
+                    <div class="definition-box">
+                        <p><strong>Entity Framework</strong>, Microsoft tarafından geliştirilen bir ORM (Object-Relational Mapper) kütüphanesidir. .NET geliştiricilerinin nesnelerini kullanarak veritabanlarıyla etkileşim kurmasını sağlar ve geleneksel SQL kodlamasının büyük bir kısmını ortadan kaldırır.</p>
+                    </div>
+                </div>
+
+                <h3><i class="fas fa-cogs"></i> ORM Nedir?</h3>
+                
+                <div class="orm-explanation">
+                    <p><strong>ORM (Object-Relational Mapping)</strong>, nesne yönelimli programlama dilleri ile ilişkisel veritabanları arasında bir köprü görevi gören teknolojidir. ORM araçları:</p>
+                    
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Veritabanı tablolarını programlama dili sınıflarına eşler</li>
+                        <li><i class="fas fa-check"></i> SQL sorguları yazmadan veritabanı işlemleri yapmanızı sağlar</li>
+                        <li><i class="fas fa-check"></i> Kod üzerinden veritabanı şemasını yönetir</li>
+                        <li><i class="fas fa-check"></i> Farklı veritabanı sistemleri arasında taşınabilirlik sunar</li>
+                    </ul>
+                </div>
+
+                <h2><i class="fas fa-server"></i> Entity Framework'ün Desteklediği Veritabanları</h2>
+
+                <div class="database-support">
+                    <div class="db-grid">
+                        <div class="db-card">
+                            <h4><i class="fas fa-database"></i> SQL Server</h4>
+                            <p>Microsoft'un ana veritabanı sistemi. En iyi performans ve uyumluluk.</p>
+                            <code>UseSqlServer(connectionString)</code>
+                        </div>
+                        
+                        <div class="db-card">
+                            <h4><i class="fas fa-leaf"></i> MySQL</h4>
+                            <p>Açık kaynak veritabanı sistemi. Web uygulamaları için popüler.</p>
+                            <code>UseMySQL(connectionString)</code>
+                        </div>
+                        
+                        <div class="db-card">
+                            <h4><i class="fas fa-elephant"></i> PostgreSQL</h4>
+                            <p>Gelişmiş açık kaynak veritabanı. JSON desteği güçlü.</p>
+                            <code>UseNpgsql(connectionString)</code>
+                        </div>
+                        
+                        <div class="db-card">
+                            <h4><i class="fas fa-file-alt"></i> SQLite</h4>
+                            <p>Hafif dosya tabanlı veritabanı. Test ve prototip için ideal.</p>
+                            <code>UseSqlite(connectionString)</code>
+                        </div>
+                        
+                        <div class="db-card">
+                            <h4><i class="fas fa-fire"></i> Oracle</h4>
+                            <p>Kurumsal uygulamalar için güçlü veritabanı sistemi.</p>
+                            <code>UseOracle(connectionString)</code>
+                        </div>
+                        
+                        <div class="db-card">
+                            <h4><i class="fas fa-memory"></i> In-Memory</h4>
+                            <p>Test senaryoları için bellek tabanlı veritabanı.</p>
+                            <code>UseInMemoryDatabase("TestDb")</code>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-code"></i> Entity Framework Yaklaşımları</h2>
+
+                <div class="ef-approaches">
+                    <div class="approach-card">
+                        <h3><i class="fas fa-arrow-up"></i> Code First</h3>
+                        <p>Kod yazarak başlayın, veritabanı otomatik olarak oluşturulur.</p>
+                        <div class="pros-cons">
+                            <div class="pros">
+                                <h4>Avantajları:</h4>
+                                <ul>
+                                    <li>Kod odaklı geliştirme</li>
+                                    <li>Version control ile uyumlu</li>
+                                    <li>Migration desteği</li>
+                                </ul>
+                            </div>
+                            <div class="cons">
+                                <h4>Dezavantajları:</h4>
+                                <ul>
+                                    <li>Karmaşık veritabanları için zor</li>
+                                    <li>Performans optimizasyonu sınırlı</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="approach-card">
+                        <h3><i class="fas fa-arrow-down"></i> Database First</h3>
+                        <p>Mevcut veritabanından başlayın, kod otomatik olarak üretilir.</p>
+                        <div class="pros-cons">
+                            <div class="pros">
+                                <h4>Avantajları:</h4>
+                                <ul>
+                                    <li>Mevcut veritabanları için ideal</li>
+                                    <li>DBA kontrolü korunur</li>
+                                    <li>Karmaşık şemalar desteklenir</li>
+                                </ul>
+                            </div>
+                            <div class="cons">
+                                <h4>Dezavantajları:</h4>
+                                <ul>
+                                    <li>Kod üzerinden şema değişikliği zor</li>
+                                    <li>Veritabanına bağımlılık</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="approach-card">
+                        <h3><i class="fas fa-balance-scale"></i> Model First</h3>
+                        <p>Visual designer ile model oluşturun, kod ve veritabanı üretilir.</p>
+                        <div class="pros-cons">
+                            <div class="pros">
+                                <h4>Avantajları:</h4>
+                                <ul>
+                                    <li>Görsel tasarım desteği</li>
+                                    <li>Hızlı prototipleme</li>
+                                    <li>Takım çalışması için uygun</li>
+                                </ul>
+                            </div>
+                            <div class="cons">
+                                <h4>Dezavantajları:</h4>
+                                <ul>
+                                    <li>Visual Studio bağımlılığı</li>
+                                    <li>Karmaşık projeler için sınırlı</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-puzzle-piece"></i> Entity Framework Core vs Framework</h2>
+
+                <!-- EF Core vs Framework Comparison Image -->
+                <div class="blog-image">
+                    <img src="entityframework/Ekran_Resmi_2025-08-08_17.35.58.png" alt="Entity Framework Core vs Entity Framework Karşılaştırması" class="responsive-image">
+                    <div class="image-caption">Entity Framework Core ile Entity Framework 6.x Arasındaki Temel Farklar</div>
+                </div>
+
+                <div class="comparison-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Özellik</th>
+                                <th>Entity Framework 6.x</th>
+                                <th>Entity Framework Core</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Platform Desteği</strong></td>
+                                <td>.NET Framework</td>
+                                <td>.NET Core, .NET 5+, .NET Framework</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Performans</strong></td>
+                                <td>İyi</td>
+                                <td>Çok İyi (optimize edilmiş)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Veritabanı Desteği</strong></td>
+                                <td>Sınırlı</td>
+                                <td>Geniş (20+ provider)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Migration</strong></td>
+                                <td>Desteklenir</td>
+                                <td>Gelişmiş destek</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Batch Operations</strong></td>
+                                <td>Hayır</td>
+                                <td>Evet</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Global Query Filters</strong></td>
+                                <td>Hayır</td>
+                                <td>Evet</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2><i class="fas fa-tools"></i> Temel Kavramlar</h2>
+
+                <!-- Entity Framework Concepts Image -->
+                <div class="blog-image">
+                    <img src="entityframework/Ekran_Resmi_2025-08-08_17.53.22.png" alt="Entity Framework Temel Kavramları ve Bileşenleri" class="responsive-image">
+                    <div class="image-caption">Entity Framework'ün Temel Bileşenleri: Entity, DbContext, DbSet ve Navigation Properties</div>
+                </div>
+
+                <div class="concepts-grid">
+                    <div class="concept-card">
+                        <h3><i class="fas fa-cube"></i> Entity</h3>
+                        <p>Veritabanı tablosunu temsil eden C# sınıfı. Her entity bir tablo satırına karşılık gelir.</p>
+                        <div class="code-example">
+                            <pre><code>public class Product
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public decimal Price { get; set; }
+    public int CategoryId { get; set; }
+    public Category Category { get; set; }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="concept-card">
+                        <h3><i class="fas fa-sitemap"></i> DbContext</h3>
+                        <p>Veritabanı bağlantısını ve entity'leri yöneten ana sınıf. Session ve Unit of Work pattern'lerini uygular.</p>
+                        <div class="code-example">
+                            <pre><code>public class AppDbContext : DbContext
+{
+    public DbSet&lt;Product&gt; Products { get; set; }
+    public DbSet&lt;Category&gt; Categories { get; set; }
+    
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseSqlServer(connectionString);
+    }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="concept-card">
+                        <h3><i class="fas fa-table"></i> DbSet</h3>
+                        <p>Belirli bir entity türü için veritabanı tablosuna erişim sağlayan koleksiyon.</p>
+                        <div class="code-example">
+                            <pre><code>using (var context = new AppDbContext())
+{
+    // Tüm ürünleri getir
+    var products = context.Products.ToList();
+    
+    // Yeni ürün ekle
+    context.Products.Add(new Product { Name = "Laptop" });
+    context.SaveChanges();
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="concept-card">
+                        <h3><i class="fas fa-link"></i> Navigation Properties</h3>
+                        <p>Entity'ler arasındaki ilişkileri temsil eden özellikler. Foreign key ilişkilerini kodda yansıtır.</p>
+                        <div class="code-example">
+                            <pre><code>public class Category
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    
+    // One-to-Many ilişki
+    public ICollection&lt;Product&gt; Products { get; set; }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-chart-line"></i> Entity Framework'ün Avantajları</h2>
+
+                <div class="advantages-grid">
+                    <div class="advantage-card">
+                        <div class="advantage-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3>Hızlı Geliştirme</h3>
+                        <p>SQL yazma ihtiyacını ortadan kaldırarak geliştirme sürecini hızlandırır.</p>
+                    </div>
+
+                    <div class="advantage-card">
+                        <div class="advantage-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Güvenlik</h3>
+                        <p>SQL Injection saldırılarına karşı otomatik koruma sağlar.</p>
+                    </div>
+
+                    <div class="advantage-card">
+                        <div class="advantage-icon">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <h3>Taşınabilirlik</h3>
+                        <p>Farklı veritabanı sistemleri arasında kolayca geçiş yapabilirsiniz.</p>
+                    </div>
+
+                    <div class="advantage-card">
+                        <div class="advantage-icon">
+                            <i class="fas fa-code-branch"></i>
+                        </div>
+                        <h3>Migration Desteği</h3>
+                        <p>Veritabanı şema değişikliklerini kod üzerinden yönetir.</p>
+                    </div>
+
+                    <div class="advantage-card">
+                        <div class="advantage-icon">
+                            <i class="fas fa-memory"></i>
+                        </div>
+                        <h3>Lazy Loading</h3>
+                        <p>İhtiyaç duyulduğunda verileri yükleyerek performansı optimize eder.</p>
+                    </div>
+
+                    <div class="advantage-card">
+                        <div class="advantage-icon">
+                            <i class="fas fa-bug"></i>
+                        </div>
+                        <h3>Change Tracking</h3>
+                        <p>Entity'lerdeki değişiklikleri otomatik olarak takip eder.</p>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-exclamation-triangle"></i> Dikkat Edilmesi Gerekenler</h2>
+
+                <div class="warning-box">
+                    <h3><i class="fas fa-tachometer-alt"></i> Performans Optimizasyonu</h3>
+                    <ul>
+                        <li><strong>N+1 Problem:</strong> Eager loading veya projection kullanın</li>
+                        <li><strong>Gereksiz Sorgular:</strong> AsNoTracking() metodunu kullanın</li>
+                        <li><strong>Büyük Veri Setleri:</strong> Pagination ve filtering uygulayın</li>
+                        <li><strong>Connection Pooling:</strong> DbContext yaşam döngüsünü doğru yönetin</li>
+                    </ul>
+                </div>
+
+                <div class="best-practices">
+                    <h3><i class="fas fa-star"></i> En İyi Uygulamalar</h3>
+                    <div class="practice-grid">
+                        <div class="practice-item">
+                            <h4>Repository Pattern Kullanın</h4>
+                            <p>DbContext'i doğrudan kullanmak yerine repository pattern ile soyutlayın.</p>
+                        </div>
+                        <div class="practice-item">
+                            <h4>Dependency Injection</h4>
+                            <p>DbContext'i DI container ile yönetin, manuel instansiation yapmayın.</p>
+                        </div>
+                        <div class="practice-item">
+                            <h4>Migration Stratejisi</h4>
+                            <p>Production'da migration'ları manuel olarak kontrol edin.</p>
+                        </div>
+                        <div class="practice-item">
+                            <h4>Configuration</h4>
+                            <p>Fluent API ile entity konfigürasyonlarını ayrı sınıflarda yapın.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-lightbulb"></i> Sonuç</h2>
+
+                <div class="conclusion">
+                    <p>Entity Framework, modern .NET uygulamalarında veritabanı işlemlerini kolaylaştıran güçlü bir araçtır. ORM yaklaşımı sayesinde geliştiriciler SQL yazma karmaşıklığından kurtularak iş mantığına odaklanabilirler.</p>
+                    
+                    <p>Doğru kullanıldığında Entity Framework, hem geliştirme sürecini hızlandırır hem de kod kalitesini artırır. Ancak performans optimizasyonu ve best practice'lere dikkat edilmesi önemlidir.</p>
+                    
+                    <div class="next-steps">
+                        <h3>Sonraki Adımlar:</h3>
+                        <ul>
+                            <li>Entity Framework Core ile pratik projeler geliştirin</li>
+                            <li>LINQ sorguları konusunda derinleşin</li>
+                            <li>Performance tuning teknikleri öğrenin</li>
+                            <li>Migration strategies konusunda uzmanlaşın</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <div class="post-navigation">
+                    <div class="nav-links">
+                        <a href="../index.html#blog" class="nav-link">
+                            <i class="fas fa-arrow-left"></i>
+                            <span>Blog'a Dön</span>
+                        </a>
+                        <a href="../blog/fluent-validation.html" class="nav-link">
+                            <span>Sonraki Yazı</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <p>&copy; 2025 Alperen Çetin - Tüm Hakları Saklıdır | Full Stack Developer</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="../script.js"></script>
+</body>
+</html>

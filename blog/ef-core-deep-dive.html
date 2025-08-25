@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EF Core Deep Dive: ADO.NET'ten Entity Framework'e Kapsamlı Geçiş Rehberi - Alperen Çetin</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="blog.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../images/alp-digital-logo.png">
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Blog Post Container -->
+        <div class="blog-post">
+            <div class="container">
+            <!-- Blog Header -->
+            <div class="blog-header">
+                <div class="breadcrumb">
+                    <a href="../index.html"><i class="fas fa-home"></i> Ana Sayfa</a>
+                    <span>/</span>
+                    <a href="../index.html#blog">Blog</a>
+                    <span>/</span>
+                    <span>EF Core Deep Dive</span>
+                </div>
+                
+                <div class="post-meta">
+                    <div class="category">.NET</div>
+                    <div class="date">26 Ağustos 2025</div>
+                    <div class="read-time"><i class="fas fa-clock"></i> 25 dk okuma</div>
+                </div>
+                
+                <h1>EF Core Deep Dive: ADO.NET'ten Entity Framework'e Kapsamlı Geçiş Rehberi</h1>
+                
+                <div class="post-tags">
+                    <span class="tag">.NET</span>
+                    <span class="tag">Entity Framework Core</span>
+                    <span class="tag">ADO.NET</span>
+                    <span class="tag">Code First</span>
+                    <span class="tag">ORM</span>
+                </div>
+            </div>
+
+            <!-- Blog Content -->
+            <div class="post-content">
+                <div class="intro">
+                    <p class="lead">Bu kapsamlı rehberde, <strong>ADO.NET</strong>'in karmaşık SQL sorguları ve manuel veritabanı yönetiminden <strong>Entity Framework Core</strong>'un modern ORM yaklaşımına geçiş sürecini detaylı olarak inceleyeceğiz. Pratik örnekler ve restoran analojisi ile bu teknolojiler arasındaki farkları keşfedin.</p>
+                </div>
+
+                <h2><i class="fas fa-utensils"></i> Restoran Analojisi: ADO.NET vs EF Core</h2>
+
+                <div class="analogy-section">
+                    <p>Veri erişimi konusunu anlamak için bir restoran benzetmesi kullanalım. Elinizdeki proje bir restoranda sipariş alma sistemi olsun.</p>
+                    
+                    <div class="comparison-cards">
+                        <div class="approach-card traditional">
+                            <div class="card-icon">
+                                <i class="fas fa-walking"></i>
+                            </div>
+                            <h3>ADO.NET Yaklaşımı</h3>
+                            <h4>Kendin Mutfağa Gitmek</h4>
+                            <p>Her seferinde mutfağa kendin gidip siparişini elle veriyorsun. Tabakları taşırken dikkat etmen, yemeği masaya getirmen gerekir.</p>
+                            <div class="approach-features">
+                                <span class="feature pro"><i class="fas fa-plus"></i> Tam kontrol</span>
+                                <span class="feature con"><i class="fas fa-minus"></i> Fazla kod</span>
+                                <span class="feature con"><i class="fas fa-minus"></i> Karmaşık</span>
+                            </div>
+                        </div>
+
+                        <div class="approach-card modern">
+                            <div class="card-icon">
+                                <i class="fas fa-concierge-bell"></i>
+                            </div>
+                            <h3>EF Core Yaklaşımı</h3>
+                            <h4>Garsona Sipariş Vermek</h4>
+                            <p>Sadece "Bana tüm menüyü getir" diyorsun, gerisini garson (EF Core) halleder. Mutfağa gider, yemeği hazırlar, getirir.</p>
+                            <div class="approach-features">
+                                <span class="feature pro"><i class="fas fa-plus"></i> Kolay kullanım</span>
+                                <span class="feature pro"><i class="fas fa-plus"></i> Az kod</span>
+                                <span class="feature pro"><i class="fas fa-plus"></i> Bakım kolay</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-code"></i> Pratik Karşılaştırma: CRUD İşlemleri</h2>
+
+                <h3><i class="fas fa-database"></i> Veri Okuma (Read)</h3>
+
+                <div class="code-block-single">
+                    <h4><i class="fas fa-tools"></i> ADO.NET ile</h4>
+                    <pre><code><span class="keyword">private</span> <span class="class-name">SqlConnection</span> connection = 
+    <span class="keyword">new</span> <span class="class-name">SqlConnection</span>(<span class="string">"Server=localhost,1433;Database=Database1;User Id=SA; Password=Alperen123@;Encrypt=False;"</span>);
+
+[<span class="class-name">HttpGet</span>(<span class="string">"[action]"</span>)]
+<span class="keyword">public</span> <span class="class-name">IActionResult</span> <span class="method">GetList</span>()
+{
+    <span class="class-name">SqlDataAdapter</span> adapter = <span class="keyword">new</span> <span class="class-name">SqlDataAdapter</span>(<span class="string">"SELECT * FROM SimpleTable"</span>, connection);
+    <span class="class-name">DataTable</span> dataTable = <span class="keyword">new</span> <span class="class-name">DataTable</span>();
+    dataTable.<span class="method">Clear</span>();
+    adapter.<span class="method">Fill</span>(dataTable);
+    
+    <span class="keyword">var</span> result = <span class="class-name">Newtonsoft.Json.JsonConvert</span>.<span class="method">SerializeObject</span>(dataTable);
+    <span class="keyword">return</span> <span class="method">Ok</span>(result);
+}</code></pre>
+                </div>
+
+                <div class="code-block-single">
+                    <h4><i class="fas fa-magic"></i> EF Core ile</h4>
+                    <pre><code><span class="keyword">public class</span> <span class="class-name">EFController</span> : <span class="class-name">Controller</span>
+{
+    <span class="keyword">private</span> <span class="class-name">DenemeContext</span> context = <span class="keyword">new</span>();
+    
+    [<span class="class-name">HttpGet</span>(<span class="string">"[action]"</span>)]
+    <span class="keyword">public</span> <span class="class-name">IActionResult</span> <span class="method">GetList</span>()
+    {
+        <span class="keyword">var</span> result = context.SimpleTable.<span class="method">ToList</span>();
+        <span class="keyword">return</span> <span class="method">Ok</span>(result);
+    }
+}</code></pre>
+                </div>
+
+                <h3><i class="fas fa-plus-circle"></i> Veri Ekleme (Create)</h3>
+
+                <div class="code-block-single">
+                    <h4><i class="fas fa-tools"></i> ADO.NET ile</h4>
+                    <pre><code>[<span class="class-name">HttpPost</span>(<span class="string">"[action]"</span>)]
+<span class="keyword">public</span> <span class="class-name">IActionResult</span> <span class="method">Add</span>(<span class="class-name">SimpleTable</span> simpleTable)
+{
+    <span class="class-name">SqlCommand</span> command = <span class="keyword">new</span> <span class="class-name">SqlCommand</span>(
+        <span class="string">"insert into SimpleTable(Name) values(@parametre1)"</span>, connection);
+    command.Parameters.<span class="method">AddWithValue</span>(<span class="string">"@parametre1"</span>, simpleTable.Name);
+    connection.<span class="method">Open</span>();
+    command.<span class="method">ExecuteNonQuery</span>(); 
+    connection.<span class="method">Close</span>();
+    <span class="keyword">return</span> <span class="method">Ok</span>(<span class="string">"Kayıt işlemi başarıyla tamamlandı"</span>);
+}</code></pre>
+                </div>
+
+                <div class="code-block-single">
+                    <h4><i class="fas fa-magic"></i> EF Core ile</h4>
+                    <pre><code>[<span class="class-name">HttpPost</span>(<span class="string">"[action]"</span>)]
+<span class="keyword">public</span> <span class="class-name">IActionResult</span> <span class="method">Add</span>(<span class="class-name">SimpleTable</span> simpleTable)
+{
+    context.SimpleTable.<span class="method">Add</span>(simpleTable); <span class="comment">// Memory'e yazdık</span>
+    context.<span class="method">SaveChanges</span>(); <span class="comment">// DB'ye yazdık</span>
+    
+    <span class="keyword">return</span> <span class="method">Ok</span>(<span class="string">"Your post succeed"</span>);
+}</code></pre>
+                </div>
+
+                <h3><i class="fas fa-edit"></i> Veri Güncelleme (Update)</h3>
+
+                <div class="code-block-single">
+                    <h4><i class="fas fa-tools"></i> ADO.NET ile</h4>
+                    <pre><code>[<span class="class-name">HttpPost</span>(<span class="string">"[action]"</span>)]
+<span class="keyword">public</span> <span class="class-name">IActionResult</span> <span class="method">Update</span>(<span class="class-name">SimpleTable</span> simpleTable)
+{
+    <span class="class-name">SqlCommand</span> command = <span class="keyword">new</span> <span class="class-name">SqlCommand</span>(
+        <span class="string">"update SimpleTable set Name=@parametreName where Id=@parametreId"</span>, connection);
+    command.Parameters.<span class="method">AddWithValue</span>(<span class="string">"@parametreName"</span>, simpleTable.Name);
+    command.Parameters.<span class="method">AddWithValue</span>(<span class="string">"@parametreId"</span>, simpleTable.Id);
+    connection.<span class="method">Open</span>();
+    command.<span class="method">ExecuteNonQuery</span>();
+    connection.<span class="method">Close</span>();
+    <span class="keyword">return</span> <span class="method">Ok</span>(<span class="string">"your changes has been updated"</span>);
+}</code></pre>
+                </div>
+
+                <div class="code-block-single">
+                    <h4><i class="fas fa-magic"></i> EF Core ile</h4>
+                    <pre><code>[<span class="class-name">HttpPost</span>(<span class="string">"[action]"</span>)]
+<span class="keyword">public</span> <span class="class-name">IActionResult</span> <span class="method">Update</span>(<span class="class-name">SimpleTable</span> simpleTable)
+{
+    context.SimpleTable.<span class="method">Update</span>(simpleTable);
+    context.<span class="method">SaveChanges</span>();
+    <span class="keyword">return</span> <span class="method">Ok</span>();
+}</code></pre>
+                </div>
+
+                <h3><i class="fas fa-trash"></i> Veri Silme (Delete)</h3>
+
+                <h3><i class="fas fa-trash"></i> Veri Silme (Delete)</h3>
+
+                <div class="code-block-single">
+                    <h4><i class="fas fa-magic"></i> EF Core ile</h4>
+                    <pre><code>[<span class="class-name">HttpDelete</span>(<span class="string">"[action]"</span>)]
+<span class="keyword">public</span> <span class="class-name">IActionResult</span> <span class="method">Delete</span>(<span class="class-name">SimpleTable</span> simpleTable)
+{
+    context.SimpleTable.<span class="method">Remove</span>(simpleTable);
+    context.<span class="method">SaveChanges</span>();
+    <span class="keyword">return</span> <span class="method">Ok</span>();
+}
+
+<span class="comment">// Çoklu silme işlemi</span>
+[<span class="class-name">HttpDelete</span>(<span class="string">"[action]"</span>)]
+<span class="keyword">public</span> <span class="class-name">IActionResult</span> <span class="method">RemoveRange</span>(<span class="class-name">SimpleTable</span>[] simpleTable)
+{
+    context.SimpleTable.<span class="method">RemoveRange</span>(simpleTable);
+    context.<span class="method">SaveChanges</span>();
+    <span class="keyword">return</span> <span class="method">Ok</span>();
+}</code></pre>
+                </div>
+
+                <div class="info-box">
+                    <h4><i class="fas fa-info-circle"></i> Önemli Not</h4>
+                    <p>Delete işleminde sadece ID doğru girildiğinde yeterli olur. EF Core arka planda <code>DELETE FROM SimpleTables WHERE ID=parametre</code> şeklinde çalışır.</p>
+                </div>
+
+                <h2><i class="fas fa-search"></i> Gelişmiş Sorgulama Teknikleri</h2>
+
+                <h3><i class="fas fa-layer-group"></i> IQueryable vs IEnumerable vs List</h3>
+
+                <div class="data-types-comparison">
+                    <div class="data-type-card">
+                        <h4><i class="fas fa-database"></i> IQueryable&lt;T&gt;</h4>
+                        <ul>
+                            <li><code>AsQueryable()</code> ile kullanılır</li>
+                            <li>Sorgular SQL üzerinde yapılır</li>
+                            <li>Yüksek performanslıdır</li>
+                            <li><code>ToList()</code> ile sonuçlandırılır</li>
+                        </ul>
+                        <div class="code-example">
+                            <pre><code><span class="class-name">IQueryable</span>&lt;<span class="class-name">SimpleTable</span>&gt; result = context.SimpleTable.<span class="method">AsQueryable</span>();
+result = result.<span class="method">Where</span>(s => s.Id == <span class="number">1</span> && s.Name.<span class="method">Contains</span>(<span class="string">"Alperen"</span>));
+<span class="keyword">var</span> finalResult = result.<span class="method">ToList</span>(); <span class="comment">// Bu noktada SQL çalışır</span></code></pre>
+                        </div>
+                    </div>
+
+                    <div class="data-type-card">
+                        <h4><i class="fas fa-memory"></i> IEnumerable&lt;T&gt;</h4>
+                        <ul>
+                            <li>Sorgular memory üzerinde yapılır</li>
+                            <li>Interface olduğundan veriyi saklayamaz</li>
+                            <li><code>.ToList()</code> ile çağrılır</li>
+                            <li>Listede sadece ileri gidebilir</li>
+                        </ul>
+                        <div class="code-example">
+                            <pre><code><span class="class-name">IEnumerable</span>&lt;<span class="class-name">SimpleTable</span>&gt; result1 = context.SimpleTable.<span class="method">ToList</span>();
+result1 = result1.<span class="method">Where</span>(p => p.Id == <span class="number">1</span>); <span class="comment">// Memory'de filtreleme</span></code></pre>
+                        </div>
+                    </div>
+
+                    <div class="data-type-card">
+                        <h4><i class="fas fa-list"></i> List&lt;T&gt;</h4>
+                        <ul>
+                            <li>Sorgular memory üzerinde yapılır</li>
+                            <li>IEnumerable'ın somut implementasyonu</li>
+                            <li><code>.Add</code>, <code>.Remove</code> gibi metodlar</li>
+                            <li>Index mantığı ile navigasyon</li>
+                        </ul>
+                        <div class="code-example">
+                            <pre><code><span class="class-name">List</span>&lt;<span class="class-name">SimpleTable</span>&gt; result2 = context.SimpleTable.<span class="method">ToList</span>();
+result2.<span class="method">Where</span>(p => p.Id == <span class="number">1</span>);
+result2.<span class="method">Add</span>(<span class="keyword">new</span> <span class="class-name">SimpleTable</span> { Name = <span class="string">"Yeni"</span> });</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <h3><i class="fas fa-filter"></i> FirstOrDefault vs SingleOrDefault</h3>
+
+                <div class="methods-comparison">
+                    <div class="method-card">
+                        <h4>FirstOrDefault</h4>
+                        <p>Koleksiyondaki <strong>ilk elemanı</strong> getirir. Hiç eleman yoksa <code>default</code> döner.</p>
+                        <div class="code-example">
+                            <pre><code><span class="keyword">var</span> result = context.SimpleTable.<span class="method">FirstOrDefault</span>(p => p.Id == <span class="number">2</span>);
+<span class="comment">// İlk ID=2 olanı getirir, yoksa null döner</span></code></pre>
+                        </div>
+                    </div>
+
+                    <div class="method-card">
+                        <h4>SingleOrDefault</h4>
+                        <p>Koleksiyondaki <strong>tam 1 tane</strong> eleman varsa onu getirir. Birden fazla bulursa hata fırlatır.</p>
+                        <div class="code-example">
+                            <pre><code><span class="keyword">var</span> result = context.SimpleTable.<span class="method">SingleOrDefault</span>(p => p.Id == <span class="number">2</span>);
+<span class="comment">// ID=2 olanı getirir, birden fazla varsa InvalidOperationException</span></code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <h3><i class="fas fa-sort"></i> Sıralama ve Limitleme</h3>
+
+                <div class="sorting-examples">
+                    <div class="example-card">
+                        <h4>İlk 5 Kayıt</h4>
+                        <pre><code><span class="keyword">var</span> result = context.SimpleTable
+    .<span class="method">Where</span>(p => p.Name.<span class="method">Contains</span>(<span class="string">"a"</span>))
+    .<span class="method">Take</span>(<span class="number">5</span>);</code></pre>
+                    </div>
+
+                    <div class="example-card">
+                        <h4>Sıralı İlk 5 Kayıt</h4>
+                        <pre><code><span class="keyword">var</span> result = context.SimpleTable
+    .<span class="method">Where</span>(p => p.Name.<span class="method">Contains</span>(<span class="string">"a"</span>))
+    .<span class="method">OrderBy</span>(p => p.Id)
+    .<span class="method">Take</span>(<span class="number">5</span>);</code></pre>
+                    </div>
+
+                    <div class="example-card">
+                        <h4>Son 5 Kayıt</h4>
+                        <pre><code>var result = context.SimpleTable
+    .Where(p => p.Name.Contains("a"))
+    .OrderByDescending(p => p.Id)
+    .Take(5);</code></pre>
+                    </div>
+
+                    <div class="example-card">
+                        <h4>Maksimum Değer</h4>
+                        <pre><code>var maxPrice = context.Products.Max(p => p.Price);
+var minPrice = context.Products.Min(p => p.Price);</code></pre>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-exchange-alt"></i> Data Transfer Object (DTO) ve Join İşlemleri</h2>
+
+                <div class="dto-section">
+                    <p>DTO'lar SQL'deki view'lere karşılık gelir. Veritabanında olmayan ama istediğimiz şekilde veri döndürebilen yapılardır.</p>
+
+                    <div class="code-example">
+                        <h4>DTO Tanımı</h4>
+                        <pre><code>public class ProductDto : Product
+{
+    public string CategoryName { get; set; } // Veritabanında yok, join ile gelecek
+}</code></pre>
+                    </div>
+
+                    <div class="code-example">
+                        <h4>LINQ Join Sorgusu</h4>
+                        <pre><code>var result = from product in context.Products
+             join category in context.Categories 
+             on product.CategoryId equals category.Id
+             select new ProductDto
+             {
+                 Id = product.Id,
+                 CategoryId = product.CategoryId,
+                 CategoryName = category.Name,
+                 Name = product.Name,
+                 Price = product.Price
+             };</code></pre>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-hammer"></i> Code First Yaklaşımı</h2>
+
+                <div class="code-first-section">
+                    <p>Code First yaklaşımında veritabanını koddan üretirsiniz. C# sınıflarınızı yazarsınız, EF Core bu sınıflara bakarak veritabanı şemasını oluşturur.</p>
+
+                    <h3><i class="fas fa-cube"></i> 1. Entity Sınıfı Oluşturma</h3>
+                    <div class="code-block-single">
+                        <h4><i class="fas fa-code"></i> Student Entity</h4>
+                        <pre><code><span class="keyword">public class</span> <span class="class-name">Student</span>
+{
+    <span class="keyword">public</span> <span class="keyword">int</span> <span class="property">Id</span> { <span class="keyword">get</span>; <span class="keyword">set</span>; }
+    <span class="keyword">public</span> <span class="keyword">string</span> <span class="property">Name</span> { <span class="keyword">get</span>; <span class="keyword">set</span>; }
+    <span class="keyword">public</span> <span class="keyword">int</span> <span class="property">Age</span> { <span class="keyword">get</span>; <span class="keyword">set</span>; }
+}</code></pre>
+                    </div>
+
+                    <h3><i class="fas fa-database"></i> 2. DbContext Oluşturma</h3>
+                    <div class="code-block-single">
+                        <h4><i class="fas fa-cogs"></i> DbContext Konfigürasyonu</h4>
+                        <pre><code><span class="keyword">public class</span> <span class="class-name">DenemeContext</span> : <span class="class-name">DbContext</span>
+{
+    <span class="keyword">protected override</span> <span class="keyword">void</span> <span class="method">OnConfiguring</span>(<span class="class-name">DbContextOptionsBuilder</span> optionsBuilder)
+    {
+        optionsBuilder.<span class="method">UseSqlServer</span>(<span class="string">"Server=localhost;Database=SchoolDb;Trusted_Connection=True;"</span>);
+    }
+    
+    <span class="keyword">public</span> <span class="class-name">DbSet</span>&lt;<span class="class-name">Student</span>&gt; <span class="property">Students</span> { <span class="keyword">get</span>; <span class="keyword">set</span>; }
+}</code></pre>
+                    </div>
+
+                    <h3><i class="fas fa-sync"></i> 3. Migration ve Update</h3>
+                    <div class="terminal-commands">
+                        <pre><span class="comment"># Migration oluştur</span>
+<span class="keyword">add-migration</span> InitialCreate
+
+<span class="comment"># Veritabanını güncelle</span>
+<span class="keyword">update-database</span></pre>
+                    </div>
+                </div>
+
+                                <h2><i class="fas fa-tags"></i> Data Annotations vs Fluent API</h2>
+
+                <div class="config-method">
+                    <h3><i class="fas fa-at"></i> Data Annotations</h3>
+                    <p>Entity sınıfındaki property'lere attribute ekleyerek konfigürasyon yapma:</p>
+                    <div class="code-block-single">
+                        <h4><i class="fas fa-tags"></i> Data Annotations Örneği</h4>
+                        <pre><code><span class="keyword">public class</span> <span class="class-name">Product</span>
+{
+    [<span class="class-name">Key</span>] <span class="comment">// Primary key</span>
+    <span class="keyword">public</span> <span class="keyword">int</span> <span class="property">Id</span> { <span class="keyword">get</span>; <span class="keyword">set</span>; }
+
+    [<span class="class-name">Required</span>] <span class="comment">// NOT NULL</span>
+    [<span class="class-name">MaxLength</span>(<span class="number">100</span>)] <span class="comment">// Maksimum 100 karakter</span>
+    <span class="keyword">public</span> <span class="keyword">string</span> <span class="property">Name</span> { <span class="keyword">get</span>; <span class="keyword">set</span>; }
+
+    [<span class="class-name">Column</span>(TypeName = <span class="string">"decimal(18,2)"</span>)] <span class="comment">// SQL tip belirtme</span>
+    <span class="keyword">public</span> <span class="keyword">decimal</span> <span class="property">Price</span> { <span class="keyword">get</span>; <span class="keyword">set</span>; }</code></pre>
+                    </div>
+                </div>
+
+                <div class="config-method">
+                    <h3><i class="fas fa-stream"></i> Fluent API</h3>
+                    <p>OnModelCreating metodunda konfigürasyon yapma:</p>
+                    <div class="code-block-single">
+                        <h4><i class="fas fa-cogs"></i> Fluent API Örneği</h4>
+                        <pre><code><span class="keyword">protected override</span> <span class="keyword">void</span> <span class="method">OnModelCreating</span>(<span class="class-name">ModelBuilder</span> modelBuilder)
+{
+    modelBuilder.<span class="method">Entity</span>&lt;<span class="class-name">Product</span>&gt;()
+        .<span class="method">HasKey</span>(p => p.Id); <span class="comment">// Primary key</span>
+        
+    modelBuilder.<span class="method">Entity</span>&lt;<span class="class-name">Product</span>&gt;()
+        .<span class="method">Property</span>(p => p.Name)
+        .<span class="method">IsRequired</span>() <span class="comment">// NOT NULL</span>
+        .<span class="method">HasMaxLength</span>(<span class="number">100</span>); <span class="comment">// Maksimum 100 karakter</span>
+        
+    modelBuilder.<span class="method">Entity</span>&lt;<span class="class-name">Product</span>&gt;()
+        .<span class="method">Property</span>(p => p.Price)
+        .<span class="method">HasColumnType</span>(<span class="string">"decimal(18,2)"</span>); <span class="comment">// SQL tip belirtme</span>
+}</code></pre>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-puzzle-piece"></i> IEntityTypeConfiguration Kullanımı</h2>
+
+                <div class="entity-config-section">
+                    <p>Projede entity sayısı arttıkça OnModelCreating şişer. Bu durumda her entity için ayrı configuration sınıfları kullanabilirsiniz:</p>
+
+                    <div class="code-example">
+                        <h4>Configuration Sınıfı</h4>
+                        <pre><code>public class ProductConfiguration : IEntityTypeConfiguration&lt;Product&gt;
+{
+    public void Configure(EntityTypeBuilder&lt;Product&gt; builder)
+    {
+        builder.ToTable("Products");
+        builder.HasKey(p => p.Id);
+        
+        builder.Property(p => p.Name)
+               .IsRequired()
+               .HasMaxLength(100);
+               
+        builder.Property(p => p.Price)
+               .HasColumnType("decimal(18,2)");
+               
+        builder.HasOne(p => p.Category)
+               .WithMany(c => c.Products)
+               .HasForeignKey(p => p.CategoryId);
+    }
+}</code></pre>
+                    </div>
+
+                    <div class="code-example">
+                        <h4>DbContext'te Kullanım</h4>
+                        <pre><code>protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    // Tek tek uygulama
+    modelBuilder.ApplyConfiguration(new ProductConfiguration());
+    
+    // Tüm configuration'ları otomatik bulma
+    modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+}</code></pre>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-link"></i> Tablolar Arası İlişkiler</h2>
+
+                <div class="relationships-section">
+                    <div class="relationship-types">
+                        <div class="relationship-card">
+                            <h3><i class="fas fa-arrows-alt-h"></i> One-to-One (Bire Bir)</h3>
+                            <p>Bir tablodaki kayıt, diğer tabloda sadece bir karşılığa sahiptir.</p>
+                            <div class="example">Kullanıcı ↔ KullanıcıProfili</div>
+                        </div>
+
+                        <div class="relationship-card">
+                            <h3><i class="fas fa-sitemap"></i> One-to-Many (Bire Çok)</h3>
+                            <p>Bir tablodaki kayıt, diğer tabloda birden çok karşılığa sahip olabilir.</p>
+                            <div class="example">Kategori → Ürünler</div>
+                        </div>
+
+                        <div class="relationship-card">
+                            <h3><i class="fas fa-project-diagram"></i> Many-to-Many (Çoğa Çok)</h3>
+                            <p>Her iki tablodaki kayıtlar, karşı tabloda birden çok karşılığa sahip olabilir.</p>
+                            <div class="example">Öğrenciler ↔ Dersler</div>
+                        </div>
+                    </div>
+
+                    <div class="code-example">
+                        <h4>One-to-Many İlişki Örneği</h4>
+                        <pre><code>public class Product
+{
+    public int ProductId { get; set; }
+    public string Name { get; set; }
+    public decimal Price { get; set; }
+    public int CategoryId { get; set; } // Foreign key
+    public Category Category { get; set; } // Navigation property
+}
+
+public class Category
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    
+    // Navigation Property - 1 kategori, çok ürün
+    public ICollection&lt;Product&gt; Products { get; set; }
+}</code></pre>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-plug"></i> Connection String Yönetimi</h2>
+
+                <div class="connection-methods">
+                    <div class="connection-card">
+                        <h3><i class="fas fa-fast-forward"></i> 1. OnConfiguring (Hızlı Yöntem)</h3>
+                        <p>Hızlı ve kolay, ancak connection string kodda durur:</p>
+                        <div class="code-example">
+                            <pre><code>protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+{
+    optionsBuilder.UseSqlServer("Server=localhost;Database=MyDb;Trusted_Connection=True;");
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="connection-card">
+                        <h3><i class="fas fa-shield-alt"></i> 2. appsettings.json + DI (Güvenli Yöntem)</h3>
+                        <p>Connection string'i ayrı dosyada tutma:</p>
+                        
+                        <div class="code-example">
+                            <h4>appsettings.json</h4>
+                            <pre><code>{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost;Database=MyAppDb;Trusted_Connection=True;"
+  }
+}</code></pre>
+                        </div>
+
+                        <div class="code-example">
+                            <h4>DbContext</h4>
+                            <pre><code>public class AppDbContext : DbContext
+{
+    public AppDbContext(DbContextOptions&lt;AppDbContext&gt; options) : base(options) { }
+    
+    public DbSet&lt;Product&gt; Products => Set&lt;Product&gt;();
+}</code></pre>
+                        </div>
+
+                        <div class="code-example">
+                            <h4>Program.cs</h4>
+                            <pre><code>var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+builder.Services.AddDbContext&lt;AppDbContext&gt;(options =>
+{
+    options.UseSqlServer(connectionString);
+});</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-undo"></i> Scaffold ile Database First</h2>
+
+                <div class="scaffold-section">
+                    <p>Mevcut bir veritabanından C# model sınıflarını otomatik oluşturma (Reverse Engineering):</p>
+
+                    <div class="terminal-commands">
+                        <h4>Tüm Tabloları İçe Aktarma</h4>
+                        <pre><code>dotnet ef dbcontext scaffold "Server=localhost;Database=MyDb;User Id=sa;Password=MyPassword123;" Microsoft.EntityFrameworkCore.SqlServer</code></pre>
+                    </div>
+
+                    <div class="terminal-commands">
+                        <h4>Belirli Tabloları İçe Aktarma</h4>
+                        <pre><code>dotnet ef dbcontext scaffold "Server=localhost;Database=MyDb;User Id=sa;Password=123;" Microsoft.EntityFrameworkCore.SqlServer -o Models -t Products -t Categories</code></pre>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-database"></i> Desteklenen Veritabanları</h2>
+
+                <div class="info-box">
+                    <h4><i class="fas fa-info-circle"></i> NuGet Paketleri</h4>
+                    <p>EF Core kullanmak için gerekli NuGet paketlerini aşağıdaki görsel üzerinden inceleyebilirsiniz:</p>
+                    <img src="ef-core/EF CORE pictures/nugget-paketleri.png" alt="EF Core NuGet Paketleri" class="responsive-image" style="margin: 15px 0; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+                </div>
+
+                <div class="database-providers">
+                    <div class="db-provider-grid">
+                        <div class="db-provider">
+                            <h4><i class="fas fa-server"></i> SQL Server</h4>
+                            <code>Microsoft.EntityFrameworkCore.SqlServer</code>
+                            <div class="config-example">.UseSqlServer(connectionString)</div>
+                        </div>
+
+                        <div class="db-provider">
+                            <h4><i class="fas fa-cloud"></i> Azure Cosmos DB</h4>
+                            <code>Microsoft.EntityFrameworkCore.Cosmos</code>
+                            <div class="config-example">.UseCosmos(connectionString, databaseName)</div>
+                        </div>
+
+                        <div class="db-provider">
+                            <h4><i class="fas fa-file-alt"></i> SQLite</h4>
+                            <code>Microsoft.EntityFrameworkCore.Sqlite</code>
+                            <div class="config-example">.UseSqlite(connectionString)</div>
+                        </div>
+
+                        <div class="db-provider">
+                            <h4><i class="fas fa-memory"></i> In-Memory</h4>
+                            <code>Microsoft.EntityFrameworkCore.InMemory</code>
+                            <div class="config-example">.UseInMemoryDatabase(databaseName)</div>
+                        </div>
+
+                        <div class="db-provider">
+                            <h4><i class="fas fa-elephant"></i> PostgreSQL</h4>
+                            <code>Npgsql.EntityFrameworkCore.PostgreSQL</code>
+                            <div class="config-example">.UseNpgsql(connectionString)</div>
+                        </div>
+
+                        <div class="db-provider">
+                            <h4><i class="fas fa-leaf"></i> MySQL</h4>
+                            <code>Pomelo.EntityFrameworkCore.MySql</code>
+                            <div class="config-example">.UseMySql(connectionString)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-lightbulb"></i> En İyi Uygulamalar ve Sonuç</h2>
+
+                <div class="best-practices">
+                    <div class="practice-grid">
+                        <div class="practice-item">
+                            <h4><i class="fas fa-performance"></i> Performans</h4>
+                            <ul>
+                                <li>IQueryable kullanarak lazy evaluation yapın</li>
+                                <li>AsNoTracking() ile read-only sorgular</li>
+                                <li>Projection ile sadece gerekli alanları alın</li>
+                            </ul>
+                        </div>
+
+                        <div class="practice-item">
+                            <h4><i class="fas fa-shield-alt"></i> Güvenlik</h4>
+                            <ul>
+                                <li>Connection string'leri appsettings'te tutun</li>
+                                <li>Parameterized queries (EF Core otomatik yapar)</li>
+                                <li>Validation attribute'ları kullanın</li>
+                            </ul>
+                        </div>
+
+                        <div class="practice-item">
+                            <h4><i class="fas fa-code"></i> Kod Kalitesi</h4>
+                            <ul>
+                                <li>IEntityTypeConfiguration kullanın</li>
+                                <li>Repository pattern uygulayın</li>
+                                <li>DTO'larla data shaping yapın</li>
+                            </ul>
+                        </div>
+
+                        <div class="practice-item">
+                            <h4><i class="fas fa-database"></i> Veritabanı</h4>
+                            <ul>
+                                <li>Migration'ları version control'e ekleyin</li>
+                                <li>Seed data için HasData kullanın</li>
+                                <li>İndexleri Fluent API ile tanımlayın</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="conclusion">
+                    <p>Entity Framework Core, modern .NET uygulamalarında veri erişimini kolaylaştıran güçlü bir ORM'dir. ADO.NET'in manuel yaklaşımından EF Core'un otomatik yaklaşımına geçiş, geliştirme sürecini hızlandırır ve kod kalitesini artırır.</p>
+                    
+                    <p>Bu rehberde gördüğünüz gibi, EF Core ile:</p>
+                    <ul>
+                        <li>Daha az kod yazarak daha fazla iş yapabilirsiniz</li>
+                        <li>SQL injection gibi güvenlik sorunlarından korunursunuz</li>
+                        <li>Code First yaklaşımıyla veritabanını koddan yönetebilirsiniz</li>
+                        <li>Farklı veritabanı sistemleri arasında kolayca geçiş yapabilirsiniz</li>
+                    </ul>
+
+                    <div class="next-steps">
+                        <h3>Sonraki Adımlar:</h3>
+                        <ul>
+                            <li>EF Core ile gerçek projeler geliştirerek pratik yapın</li>
+                            <li>Advanced LINQ operatörlerini öğrenin</li>
+                            <li>Performance tuning teknikleriyle sorgu optimizasyonu yapın</li>
+                            <li>Unit of Work pattern'ı ile repository implementasyonu geliştirin</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <div class="post-navigation">
+                    <div class="nav-links">
+                        <a href="../index.html#blog" class="nav-link">
+                            <i class="fas fa-arrow-left"></i>
+                            <span>Blog'a Dön</span>
+                        </a>
+                        <a href="../blog/generic-repository-pattern.html" class="nav-link">
+                            <span>İlgili Yazı: Repository Pattern</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <p>&copy; 2025 Alperen Çetin - Tüm Hakları Saklıdır | Full Stack Developer</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="../script.js"></script>
+</body>
+</html>

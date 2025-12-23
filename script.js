@@ -1,16 +1,26 @@
+// Loading Screen
+const loadingScreen = document.getElementById('loadingScreen');
+
+// Body'ye loading class ekle
+document.body.classList.add('loading');
+
+// 3 saniye sonra loading screen'i kaldır
+setTimeout(() => {
+    loadingScreen.classList.add('fade-out');
+    document.body.classList.remove('loading');
+    
+    // Animasyon bittikten sonra elementi tamamen kaldır
+    setTimeout(() => {
+        loadingScreen.style.display = 'none';
+    }, 500);
+}, 3000);
+
 // DOM Elementleri
 const navbar = document.querySelector('.navbar');
 const hamburger = document.querySelector('.hamburger');
 const navLinks = document.querySelector('.nav-links');
 const navLinksItems = document.querySelectorAll('.nav-links a');
-const glitchText = document.querySelector('.glitch-text');
 const sections = document.querySelectorAll('section');
-
-// Glitch Text Efekti
-if (glitchText) {
-    const text = glitchText.textContent;
-    glitchText.setAttribute('data-text', text);
-}
 
 // Scroll olayı - Navigasyon stilini değiştirme
 window.addEventListener('scroll', () => {
@@ -54,47 +64,27 @@ navLinksItems.forEach(item => {
 });
 
 // Form gönderimi
-const contactForm = document.querySelector('.contact-form form');
+const contactForm = document.querySelector('.contact-form');
 if (contactForm) {
     contactForm.addEventListener('submit', function (e) {
-        // Form verileri "mailto:" şeması kullanılarak doğrudan e-posta istemcisine yönlendirilecektir
-        // Bu nedenle formu engellemiyoruz ve e.preventDefault() kullanmıyoruz
-
-        // Form gönderildiğinde kullanıcıya bir bilgi mesajı göster
         setTimeout(() => {
-            alert('Mesajınız için teşekkürler! E-posta istemciniz açılacak ve bilgileriniz otomatik olarak doldurulacaktır.');
+            alert('Mesajınız için teşekkürler! E-posta istemciniz açılacak.');
         }, 100);
-
-        // Form başarılı mesajını göster (isteğe bağlı)
-        // Form reset işlemini istemci tarafında yapmıyoruz, çünkü form mail istemcisine yönlendirilecek
     });
 }
 
-// Yetenekler animasyonu için Intersection Observer
-const skillLevels = document.querySelectorAll('.skill-level');
+// Skill Progress Animation with Intersection Observer
+const skillProgress = document.querySelectorAll('.skill-progress');
 const skillObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            // Veri özniteliğinden genişliği al
-            const width = entry.target.dataset.width;
-            if (width) {
-                // Animasyon için gecikmeli olarak genişliği ayarla
-                setTimeout(() => {
-                    entry.target.style.width = width;
-                }, 100);
-            }
-
-            // Bu elementi artık gözlemleme
+            entry.target.style.width = entry.target.style.width || '0%';
             skillObserver.unobserve(entry.target);
         }
     });
 }, { threshold: 0.5 });
 
-skillLevels.forEach(skill => {
-    // Başlangıçta tüm skill bar'ları gizle
-    skill.style.width = '0';
-
-    // Her bir skill bar'ı gözlemle
+skillProgress.forEach(skill => {
     skillObserver.observe(skill);
 });
 

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thread & Mutex Example - Proje Detayı</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/png" href="../images/alp-digital-logo.png">
+    <style>
+        .project-details {
+            padding: 120px 50px 50px;
+        }
+
+        .project-title {
+            margin-bottom: 30px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .project-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100px;
+            height: 4px;
+            background: var(--accent-gradient);
+            border-radius: 2px;
+        }
+
+        .project-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            margin-top: 40px;
+        }
+
+        .project-image {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-neon);
+            height: 350px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(94, 23, 235, 0.1) 0%, rgba(0, 194, 255, 0.1) 100%);
+        }
+
+        .project-image i {
+            font-size: 8rem;
+            color: var(--accent-secondary);
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+
+        .project-info p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .tech-stack {
+            margin: 30px 0;
+        }
+
+        .tech-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--accent-secondary);
+        }
+
+        .tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .tech-item {
+            background: rgba(94, 23, 235, 0.2);
+            color: var(--accent-secondary);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .project-features {
+            margin: 30px 0;
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 15px;
+        }
+
+        .feature-list li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--accent-secondary);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 12px 25px;
+            background: rgba(94, 23, 235, 0.2);
+            color: var(--text-primary);
+            border-radius: var(--border-radius);
+            transition: var(--transition-fast);
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .back-link i {
+            margin-right: 8px;
+        }
+
+        .back-link:hover {
+            background: var(--accent-gradient);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-neon);
+        }
+
+        @media screen and (max-width: 768px) {
+            .project-container {
+                grid-template-columns: 1fr;
+            }
+
+            .project-details {
+                padding: 100px 30px 40px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Navigasyon Çubuğu -->
+        <nav class="navbar">
+            <div class="logo">
+                <img src="../images/alp-digital-logo.png" alt="Logo" class="logo-img">
+                <span>Alperen Çetin</span>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html">Ana Sayfa</a>
+                <a href="../index.html#about">Hakkımda</a>
+                <a href="../index.html#projects" class="active">Projeler</a>
+                <a href="../index.html#services">Hizmetler</a>
+                <a href="../index.html#contact">İletişim</a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+
+        <!-- Proje Detayları -->
+        <section class="project-details">
+            <h1 class="project-title">Thread & Mutex Example</h1>
+
+            <div class="project-container">
+                <div class="project-image">
+                    <img src="../images/thread-mutex.png" alt="Thread & Mutex Example">
+                </div>
+
+                <div class="project-info">
+                    <p>Thread & Mutex Example, İşletim Sistemleri dersi final projesi kapsamında geliştirilen, 
+                        thread yönetimi, mutex, semaphore ve process senkronizasyonu kavramlarını uygulayan 
+                        kapsamlı bir örnek projedir.</p>
+
+                    <div class="tech-stack">
+                        <h3 class="tech-title">Kullanılan Teknolojiler</h3>
+                        <div class="tech-list">
+                            <span class="tech-item">C</span>
+                            <span class="tech-item">POSIX Threads</span>
+                            <span class="tech-item">Mutex</span>
+                            <span class="tech-item">Semaphore</span>
+                            <span class="tech-item">Linux</span>
+                            <span class="tech-item">GCC</span>
+                        </div>
+                    </div>
+
+                    <div class="project-features">
+                        <h3 class="tech-title">Özellikler</h3>
+                        <ul class="feature-list">
+                            <li>Multi-threading uygulamaları</li>
+                            <li>Mutex ile kritik bölge koruma</li>
+                            <li>Semaphore kullanımı</li>
+                            <li>Producer-Consumer problemi çözümü</li>
+                            <li>Dining Philosophers problemi</li>
+                            <li>Reader-Writer problemi</li>
+                            <li>Deadlock önleme teknikleri</li>
+                            <li>Race condition çözümleri</li>
+                            <li>Thread havuzu implementasyonu</li>
+                            <li>Process senkronizasyonu örnekleri</li>
+                        </ul>
+                    </div>
+
+                    <p>Bu proje, işletim sistemlerinin temel kavramlarından olan concurrent programming ve 
+                        senkronizasyon mekanizmalarını anlamak için geliştirilmiştir. Klasik senkronizasyon 
+                        problemlerine pratik çözümler sunarak, düşük seviye sistem programlama becerilerini 
+                        geliştirmeyi amaçlar.</p>
+
+                    <div class="project-links">
+                        <a href="https://github.com/alperenncetinn/Thread-Mutex-Etc-Example" target="_blank"
+                            class="btn primary">
+                            <i class="fab fa-github"></i> GitHub'da İncele
+                        </a>
+                    </div>
+
+                    <a href="../index.html#projects" class="back-link"><i class="fas fa-arrow-left"></i> Projelere
+                        Dön</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Alt Bilgi -->
+        <footer>
+            <div class="footer-content">
+                <p>&copy; 2025 Tüm Hakları Saklıdır</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="../script.js"></script>
+</body>
+
+</html>

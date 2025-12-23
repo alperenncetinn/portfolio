@@ -4,23 +4,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kişisel Portföy</title>
+    <title>Alperen Çetin | Software Engineer</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
     <link rel="icon" type="image/png" href="images/alp-digital-logo.png">
 </head>
 
 <body>
-    <div class="wrapper">
-        <!-- Navigasyon Çubuğu -->
-        <nav class="navbar">
-            <div class="logo">
-                <img src="images/alp-digital-logo.png" alt="Logo" class="logo-img">
-                <span>portfolio</span>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <!-- SVG Gradient Definition -->
+        <svg width="0" height="0" style="position: absolute;">
+            <defs>
+                <linearGradient id="loaderGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:#00ff88" />
+                    <stop offset="100%" style="stop-color:#00d4ff" />
+                </linearGradient>
+            </defs>
+        </svg>
+        <div class="loader-content">
+            <div class="loader-logo">
+                <div class="loader-circle">
+                    <svg viewBox="0 0 100 100">
+                        <circle class="loader-circle-bg" cx="50" cy="50" r="45"></circle>
+                        <circle class="loader-circle-progress" cx="50" cy="50" r="45"></circle>
+                    </svg>
+                    <div class="loader-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                </div>
             </div>
+            <div class="loader-text">
+                <span class="loader-name">alperen<span class="highlight">.space</span></span>
+                <div class="loader-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <div class="loader-bar">
+                <div class="loader-bar-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gradient Orbs -->
+    <div class="gradient-orb gradient-orb-1"></div>
+    <div class="gradient-orb gradient-orb-2"></div>
+    <div class="gradient-orb gradient-orb-3"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="logo">
+                <img src="images/alp-digital-logo.png" alt="Logo" class="logo-img">
+                <span>alperen<span class="highlight">.space</span></span>
+            </a>
             <div class="nav-links">
                 <a href="#home" class="active">Ana Sayfa</a>
                 <a href="#about">Hakkımda</a>
@@ -34,213 +73,549 @@
                 <span></span>
                 <span></span>
             </div>
-        </nav>
+        </div>
+    </nav>
 
-        <!-- Ana Bölüm -->
-        <section id="home" class="hero">
-            <div class="hero-content">
-                <h1 class="glitch-text">Merhaba, Ben <span class="highlight">Alperen Çetin</span></h1>
-                <p class="subtitle">Full Stack Developer & Bilgisayar Mühendisliği Öğrencisi</p>
-                <p class="description">Modern teknolojilerle kullanıcı odaklı çözümler geliştiriyor, fikirleri işlevsel uygulamalara dönüştürüyorum.</p>
-                <div class="cta-buttons">
-                    <a href="#projects" class="btn primary">Projelerimi Keşfet</a>
-                    <a href="#contact" class="btn secondary">İletişime Geç</a>
-                </div>
-            </div>
-            <div class="hero-image">
-                <div class="glowing-circle">
-                    <img src="images/heroPhoto.png" alt="Alperen Çetin" class="hero-profile-img">
-                </div>
-            </div>
-        </section>
-
-        <!-- Hakkımda Bölümü -->
-        <section id="about" class="about">
-            <div class="section-header">
-                <h2>Hakkımda</h2>
-                <div class="separator"></div>
-            </div>
-            <div class="about-content">
-                <div class="about-image">
-                    <div class="image-container">
-                        <img src="images/profilePhoto.jpg" alt="Profil Fotoğrafı" />
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-bento">
+                <!-- Main Hero Card -->
+                <div class="bento-card hero-main">
+                    <div class="hero-badge">
+                        <span class="pulse"></span>
+                        Yeni projelere açığım
                     </div>
-                </div>
-                <div class="about-text">
-                    <h3>Profesyonel Profil</h3>
-                    <p>Yazılım geliştirme alanında 3+ yıllık deneyime sahip, Celal Bayar Üniversitesi Bilgisayar Mühendisliği 4. sınıf öğrencisiyim. 
-                        Vestel'de gerçekleştirdiğim staj programı süresince kurumsal yazılım geliştirme süreçlerinde pratik deneyim kazandım. 
-                        
-                        Android uygulama geliştirme konusunda uzmanlaşarak, Google Play Store'da aktif olarak yayınlanan mobil uygulamalar geliştirdim. 
-                        İşletmelere yönelik özel yazılım çözümleri üreterek, hem masaüstü hem de mobil platformlarda operasyonel verimlilik odaklı projeler hayata geçirdim.
-                        
-                        Freelance çalışmalarımda farklı sektörlerden müşterilere teknoloji danışmanlığı ve yazılım geliştirme hizmetleri sundum. 
-                        Sürekli öğrenme anlayışıyla teknolojik gelişmeleri yakından takip ediyor, yenilikçi ve kullanıcı deneyimi odaklı çözümler geliştirmeye odaklanıyorum.
+                    <h1 class="hero-title">
+                        Merhaba, Ben<br>
+                        <span class="gradient-text">Alperen Çetin</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        Full Stack Developer & Bilgisayar Mühendisliği öğrencisi. Modern teknolojilerle 
+                        kullanıcı odaklı çözümler geliştiriyor, fikirleri işlevsel uygulamalara dönüştürüyorum.
                     </p>
-
-                    <div class="skills">
-                        <h3>Teknik Yetkinlikler</h3>
-                        <div class="skill-bars">
-                            <div class="skill">
-                                <span>.NET</span>
-                                <div class="skill-bar">
-                                    <div class="skill-level" data-width="70%"></div>
-                                </div>
-                            </div>
-                            <div class="skill">
-                                <span>Java</span>
-                                <div class="skill-bar">
-                                    <div class="skill-level" data-width="80%"></div>
-                                </div>
-                            </div>
-                            <div class="skill">
-                                <span>Python</span>
-                                <div class="skill-bar">
-                                    <div class="skill-level" data-width="60%"></div>
-                                </div>
-                            </div>
-                            <div class="skill">
-                                <span>SQL</span>
-                                <div class="skill-bar">
-                                    <div class="skill-level" data-width="70%"></div>
-                                </div>
-                            </div>
-                            <div class="skill">
-                                <span>Flutter</span>
-                                <div class="skill-bar">
-                                    <div class="skill-level" data-width="50%"></div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="hero-buttons">
+                        <a href="#projects" class="btn btn-primary">
+                            <i class="fas fa-rocket"></i> Projelerimi Keşfet
+                        </a>
+                        <a href="#contact" class="btn btn-secondary">
+                            <i class="fas fa-paper-plane"></i> İletişime Geç
+                        </a>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <!-- Projeler Bölümü -->
-        <section id="projects" class="projects">
+                <!-- Profile Card -->
+                <div class="bento-card hero-profile">
+                    <div class="profile-image-wrapper">
+                        <img src="images/heroPhoto.png" alt="Alperen Çetin" class="profile-image">
+                        <div class="profile-status"></div>
+                    </div>
+                    <h3 class="profile-name">Alperen Çetin</h3>
+                    <p class="profile-role">Software Engineer</p>
+                    <div class="profile-socials">
+                        <a href="https://github.com/alperenncetinn" target="_blank" class="social-btn">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/alperen-çetin-890596318/" target="_blank" class="social-btn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://twitter.com/alperencetinim" target="_blank" class="social-btn">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://www.instagram.com/alperenn.cetinn/" target="_blank" class="social-btn">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="bento-card hero-stat">
+                    <div class="stat-number">12+</div>
+                    <div class="stat-label">Tamamlanan Proje</div>
+                </div>
+                <div class="bento-card hero-stat">
+                    <div class="stat-number">3+</div>
+                    <div class="stat-label">Yıl Deneyim</div>
+                </div>
+                <div class="bento-card hero-stat">
+                    <div class="stat-number">5+</div>
+                    <div class="stat-label">Teknoloji Stack</div>
+                </div>
+                <div class="bento-card hero-stat">
+                    <div class="stat-number">10+</div>
+                    <div class="stat-label">Blog Yazısı</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
             <div class="section-header">
-                <h2>Projelerim</h2>
-                <div class="separator"></div>
+                <span class="section-badge"><i class="fas fa-user"></i> Hakkımda</span>
+                <h2 class="section-title">Yazılım Mühendisi Profili</h2>
+                <p class="section-subtitle">Teknoloji tutkusu ve sürekli öğrenme motivasyonuyla projeler geliştiriyorum</p>
             </div>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-img">
-                        <img src="images/tarotWhisper.png" alt="Proje 1" />
-                    </div>
-                    <div class="project-info">
-                        <h3>TarotWhisper</h3>
-                        <p>Yapay zeka destekli modern tarot uygulaması. İnteraktif kullanıcı arayüzü ve kişiselleştirilmiş rehberlik özellikleriyle geliştirilmiştir.</p>
-                        <div class="project-tags">
-                            <span>Java</span>
-                            <span>Android Studio</span>
-                        </div>
-                        <a href="projects/tarotwhisper.html" class="btn small">Detayları İncele</a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-img">
-                        <img src="images/marketApp.png" alt="Proje 2" />
-                    </div>
-                    <div class="project-info">
-                        <h3>Market Management System</h3>
-                        <p>Küçük ve orta ölçekli işletmeler için geliştirilmiş kapsamlı yönetim sistemi. Stok kontrolü, satış yönetimi ve müşteri borç takibi modüllerini içerir.</p>
-                        <div class="project-tags">
-                            <span>SQL</span>
-                            <span>Python</span>
-                            <span>Selenium</span>
-                        </div>
-                        <a href="projects/marketapp.html" class="btn small">Detayları İncele</a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-img">
-                        <img src="images/priceRadar.png" alt="Proje 3" />
-                    </div>
-                    <div class="project-info">
-                        <h3>PriceRadar</h3>
-                        <p>E-ticaret platformlarında ürün fiyat takibi ve stok kontrol sistemi. Özellikle giyim sektörüne odaklanan kapsamlı fiyat karşılaştırma ve bildirim sistemi.</p>
-                        <div class="project-tags">
-                            <span>Flutter</span>
-                            <span>SQL</span>
-                            <span>Firebase</span>
-                        </div>
-                        <a href="projects/priceradar.html" class="btn small">Detayları İncele</a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-img">
-                        <img src="images/stock-predictor.png" alt="Proje 4" />
-                    </div>
-                    <div class="project-info">
-                        <h3>Stock Prediction System</h3>
-                        <p>Makine öğrenmesi ve yapay zeka algoritmaları kullanarak hisse senedi fiyat tahminleri gerçekleştiren analitik platform. TensorFlow tabanlı tahmin modelleri içerir.</p>
-                        <div class="project-tags">
-                            <span>Python</span>
-                            <span>TensorFlow</span>
-                            <span>Streamlit</span>
-                        </div>
-                        <a href="projects/stockpredictor.html" class="btn small">Detayları İncele</a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-img">
-                        <img src="images/netsolu.svg" alt="Proje 5" />
-                    </div>
-                    <div class="project-info">
-                        <h3>NetSolution</h3>
-                        <p>Ağ yönetimi ve sorun giderme konusunda kapsamlı Cisco Packet Tracer rehberi. Modern ağ problemleri ve çözümleri için interaktif eğitim materyali ve pratik senaryolar.</p>
-                        <div class="project-tags">
-                            <span>Cisco</span>
-                            <span>Packet Tracer</span>
-                            <span>OSI Model</span>
-                        </div>
-                        <a href="projects/netsolu.html" class="btn small">Detayları İncele</a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-img">
-                        <img src="images/web-api-image.png" alt="Proje 6" />
-                    </div>
-                    <div class="project-info">
-                        <h3>stuCheck - Personal Library Management</h3>
-                        <p>ASP.NET Core 9.0 ile geliştirilmiş kişisel kitaplık yönetim sistemi. JWT authentication, Entity Framework Core ve RESTful API tasarımı ile modern yazılım mimarisi örnekleri sunar.</p>
-                        <div class="project-tags">
-                            <span>ASP.NET Core</span>
-                            <span>C#</span>
-                            <span>Entity Framework</span>
-                            <span>JWT</span>
-                        </div>
-                        <a href="projects/stucheck.html" class="btn small">Detayları İncele</a>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- Blog Bölümü -->
-        <section id="blog" class="blog">
-            <div class="section-header">
-                <h2>Blog</h2>
-                <p>Yazılım geliştirme süreçleri, teknoloji trendleri ve öğrenme deneyimlerimi paylaşıyorum</p>
+            <div class="about-bento">
+                <!-- About Main -->
+                <div class="bento-card about-main">
+                    <h3><i class="fas fa-code"></i> Profesyonel Profil</h3>
+                    <p>
+                        Bilgisayar Mühendisliği son sınıf öğrencisiyim (4. sınıfı tamamladım) ve 3+ yıldır aktif 
+                        yazılım geliştirme deneyimine sahibim. Eğitimim boyunca sadece teorik değil, uygulamalı 
+                        projeler geliştirerek pratik yetkinliğimi güçlendirdim. GitHub'ımda web, mobil ve yapay 
+                        zeka / veri odaklı projeler üzerinde çalıştığım açık şekilde görülebilir.
+                        <br><br>
+                        Vestel'de tamamladığım staj programı süresince kurumsal yazılım geliştirme süreçleri, 
+                        ekip çalışması ve sürdürülebilir kod uygulamaları konusunda deneyim kazandım. Bu süreç, 
+                        yazılım mühendisliği disiplinini gerçek iş hayatı pratiği ile birleştirmemde önemli bir 
+                        adım oldu.
+                        <br><br>
+                        Android ve Python tabanlı projeler geliştirerek; Google Play Store'a yayımlanan uygulamalar 
+                        dahil olmak üzere kullanıcı odaklı çözümler ürettim. Backend ve veri uygulamaları üzerine 
+                        yaptığım çalışmalar, gerçek dünya verileri ve modeller kullanarak operasyonel değeri yüksek 
+                        çözümler ortaya koymama olanak sağladı.
+                        <br><br>
+                        Freelance olarak farklı sektörlerden müşterilere danışmanlık ve yazılım geliştirme hizmeti 
+                        vererek; proje yaşam döngüsü, müşteri iletişimi ve ölçeklenebilir çözüm üretme becerilerimi 
+                        pekiştirdim. Şu anda uzun dönem staj ve profesyonel iş hayatına geçiş aşamasındayım; bu 
+                        süreçte backend, mobil ve yapay zeka odaklı daha büyük ölçekli projelerde sorumluluk almak 
+                        istiyorum.
+                    </p>
+                </div>
+
+                <!-- About Image -->
+                <div class="bento-card about-image">
+                    <img src="images/profilePhoto.jpg" alt="Alperen Çetin">
+                </div>
+
+                <!-- Skills Card -->
+                <div class="bento-card skills-card">
+                    <h3><i class="fas fa-layer-group"></i> Teknik Yetkinlikler</h3>
+                    <div class="skill-bars">
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">.NET / C#</span>
+                                <span class="skill-percent">85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">Java / Android</span>
+                                <span class="skill-percent">80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">Python / ML</span>
+                                <span class="skill-percent">75%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">SQL / Database</span>
+                                <span class="skill-percent">80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">Flutter / Dart</span>
+                                <span class="skill-percent">65%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 65%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience Card -->
+                <div class="bento-card experience-card">
+                    <h3><i class="fas fa-briefcase"></i> Deneyim</h3>
+                    <div class="experience-list">
+                        <div class="experience-item">
+                            <div class="exp-icon">
+                                <i class="fas fa-laptop-code"></i>
+                            </div>
+                            <div class="exp-content">
+                                <h4>Vestel - Stajyer</h4>
+                                <p>Kurumsal yazılım geliştirme süreçleri</p>
+                            </div>
+                        </div>
+                        <div class="experience-item">
+                            <div class="exp-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <div class="exp-content">
+                                <h4>Freelance Developer</h4>
+                                <p>Mobil & Web uygulama geliştirme</p>
+                            </div>
+                        </div>
+                        <div class="experience-item">
+                            <div class="exp-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="exp-content">
+                                <h4>CBÜ - Bilgisayar Mühendisliği</h4>
+                                <p>4. Sınıf Öğrencisi</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="blog-grid">
-                <div class="blog-card">
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge"><i class="fas fa-folder-open"></i> Projeler</span>
+                <h2 class="section-title">Son Projelerim</h2>
+                <p class="section-subtitle">Geliştirdiğim uygulamalar ve çözümler</p>
+            </div>
+
+            <div class="projects-bento">
+                <!-- Featured Project - Large -->
+                <div class="project-card large">
+                    <div class="project-image">
+                        <img src="images/personal-parkinson.png" alt="Personal Parkinson Tracker">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">AI/ML</span>
+                            <span class="project-tag">Healthcare</span>
+                            <span class="project-tag">Voice Analysis</span>
+                        </div>
+                        <h3 class="project-title">Personal Parkinson Tracker</h3>
+                        <p class="project-description">Ses tabanlı yapay zeka sistemi ile kişiselleştirilmiş UPDRS skor tahmini ve uzaktan Parkinson izleme uygulaması.</p>
+                        <div class="project-links">
+                            <a href="projects/parkinsontracker.html" class="project-link primary">
+                                <i class="fas fa-arrow-right"></i> Detayları İncele
+                            </a>
+                            <a href="https://www.parkinsonai.space" target="_blank" class="project-link secondary">
+                                <i class="fas fa-external-link-alt"></i> Live Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Medium Project -->
+                <div class="project-card small">
+                    <div class="project-image">
+                        <img src="images/real-estate.png" alt="Real Estate Project">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="project-tag">C#</span>
+                            <span class="project-tag">ASP.NET</span>
+                        </div>
+                        <h3 class="project-title">Real Estate Project</h3>
+                        <p class="project-description">Yazılım Mühendisliği dönem projesi - Kanban, UML, birim testleri.</p>
+                        <div class="project-links">
+                            <a href="projects/realestate.html" class="project-link primary">
+                                <i class="fas fa-arrow-right"></i> İncele
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Small Projects -->
+                <div class="project-card small">
+                    <div class="project-image">
+                        <img src="images/tarotWhisper.png" alt="TarotWhisper">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="project-tag">Java</span>
+                            <span class="project-tag">Android</span>
+                        </div>
+                        <h3 class="project-title">TarotWhisper</h3>
+                        <p class="project-description">AI destekli modern tarot uygulaması.</p>
+                        <div class="project-links">
+                            <a href="projects/tarotwhisper.html" class="project-link primary">
+                                <i class="fas fa-arrow-right"></i> İncele
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card small">
+                    <div class="project-image">
+                        <img src="images/stock-predictor.png" alt="Stock Predictor">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">TensorFlow</span>
+                        </div>
+                        <h3 class="project-title">Stock Prediction System</h3>
+                        <p class="project-description">ML tabanlı hisse senedi tahmin platformu.</p>
+                        <div class="project-links">
+                            <a href="projects/stockpredictor.html" class="project-link primary">
+                                <i class="fas fa-arrow-right"></i> İncele
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card medium">
+                    <div class="project-image">
+                        <img src="images/book-tracker.png" alt="Book Tracker API">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="project-tag">C#</span>
+                            <span class="project-tag">ASP.NET Core</span>
+                            <span class="project-tag">JWT</span>
+                        </div>
+                        <h3 class="project-title">Book Tracker API</h3>
+                        <p class="project-description">JWT kimlik doğrulaması ile güvenli RESTful API - Kitap koleksiyonu yönetimi.</p>
+                        <div class="project-links">
+                            <a href="projects/booktrackerapi.html" class="project-link primary">
+                                <i class="fas fa-arrow-right"></i> Detayları İncele
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card medium">
+                    <div class="project-image">
+                        <img src="images/predict-diabet.png" alt="Predict Readmission">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">ML</span>
+                            <span class="project-tag">Data Science</span>
+                        </div>
+                        <h3 class="project-title">Predict Readmission</h3>
+                        <p class="project-description">Diyabet hastalarının hastaneye yeniden yatış olasılığı tahmin sistemi.</p>
+                        <div class="project-links">
+                            <a href="projects/predictreadmission.html" class="project-link primary">
+                                <i class="fas fa-arrow-right"></i> Detayları İncele
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card small">
+                    <div class="project-image">
+                        <img src="images/marketApp.png" alt="Market App">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">SQL</span>
+                        </div>
+                        <h3 class="project-title">Market Management</h3>
+                        <p class="project-description">KOBİ'ler için yönetim sistemi.</p>
+                        <div class="project-links">
+                            <a href="projects/marketapp.html" class="project-link primary">
+                                <i class="fas fa-arrow-right"></i> İncele
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card small">
+                    <div class="project-image">
+                        <img src="images/caller-restourant.png" alt="Restaurant App">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">Caller ID</span>
+                        </div>
+                        <h3 class="project-title">Restaurant App</h3>
+                        <p class="project-description">Caller ID destekli POS sistemi.</p>
+                        <div class="project-links">
+                            <a href="projects/restaurantapp.html" class="project-link primary">
+                                <i class="fas fa-arrow-right"></i> İncele
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card small">
+                    <div class="project-image">
+                        <img src="images/thread-mutex.png" alt="Thread Mutex">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="project-tag">C</span>
+                            <span class="project-tag">OS</span>
+                        </div>
+                        <h3 class="project-title">Thread & Mutex</h3>
+                        <p class="project-description">İşletim sistemleri final projesi.</p>
+                        <div class="project-links">
+                            <a href="projects/threadmutex.html" class="project-link primary">
+                                <i class="fas fa-arrow-right"></i> İncele
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card small">
+                    <div class="project-image">
+                        <img src="images/priceRadar.png" alt="PriceRadar">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="project-tag">Flutter</span>
+                            <span class="project-tag">Firebase</span>
+                        </div>
+                        <h3 class="project-title">PriceRadar</h3>
+                        <p class="project-description">E-ticaret fiyat takip sistemi.</p>
+                        <div class="project-links">
+                            <a href="projects/priceradar.html" class="project-link primary">
+                                <i class="fas fa-arrow-right"></i> İncele
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card small">
+                    <div class="project-image">
+                        <img src="images/netsolu.svg" alt="NetSolution">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="project-tag">Cisco</span>
+                            <span class="project-tag">Network</span>
+                        </div>
+                        <h3 class="project-title">NetSolution</h3>
+                        <p class="project-description">Ağ yönetimi rehberi.</p>
+                        <div class="project-links">
+                            <a href="projects/netsolu.html" class="project-link primary">
+                                <i class="fas fa-arrow-right"></i> İncele
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card small">
+                    <div class="project-image">
+                        <img src="images/web-api-image.png" alt="stuCheck">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="project-tag">ASP.NET</span>
+                            <span class="project-tag">EF Core</span>
+                        </div>
+                        <h3 class="project-title">stuCheck API</h3>
+                        <p class="project-description">Kitaplık yönetim API'si.</p>
+                        <div class="project-links">
+                            <a href="projects/stucheck.html" class="project-link primary">
+                                <i class="fas fa-arrow-right"></i> İncele
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge"><i class="fas fa-pen-fancy"></i> Blog</span>
+                <h2 class="section-title">Yazılarım</h2>
+                <p class="section-subtitle">Yazılım geliştirme süreçleri ve teknoloji trendleri</p>
+            </div>
+
+            <div class="blog-bento">
+                <div class="blog-card featured">
+                    <div class="blog-date">
+                        <span class="day">26</span>
+                        <span class="month">Ağu</span>
+                    </div>
+                    <span class="blog-category">.NET</span>
+                    <h3>EF Core Deep Dive: ADO.NET'ten Entity Framework'e Kapsamlı Geçiş Rehberi</h3>
+                    <p>Entity Framework Core ile modern veri erişimi, CRUD işlemleri, LINQ sorguları ve Code First yaklaşımı.</p>
+                    <div class="blog-tags">
+                        <span class="blog-tag">.NET</span>
+                        <span class="blog-tag">Entity Framework</span>
+                        <span class="blog-tag">ORM</span>
+                    </div>
+                    <a href="blog/ef-core-deep-dive.html" class="btn btn-small btn-primary">Devamını Oku</a>
+                </div>
+
+                <div class="blog-card featured">
                     <div class="blog-date">
                         <span class="day">21</span>
                         <span class="month">Tem</span>
                     </div>
-                    <div class="blog-content">
-                        <div class="blog-category">.NET</div>
-                        <h3>MediatR ve FluentValidation ile Clean Architecture</h3>
-                        <p>MediatR ve FluentValidation kütüphanelerinin .NET projelerinde nasıl kullanılacağını ve bu iki güçlü aracın birlikte nasıl temiz bir mimari oluşturduğunu keşfedin.</p>
-                        <div class="blog-tags">
-                            <span class="tag">.NET</span>
-                            <span class="tag">MediatR</span>
-                            <span class="tag">FluentValidation</span>
-                            <span class="tag">Clean Architecture</span>
-                        </div>
-                        <a href="blog/mediatr-fluentvalidation.html" class="btn small">Devamını Oku</a>
+                    <span class="blog-category">.NET</span>
+                    <h3>MediatR ve FluentValidation ile Clean Architecture</h3>
+                    <p>MediatR ve FluentValidation kütüphanelerinin .NET projelerinde nasıl kullanılacağını keşfedin.</p>
+                    <div class="blog-tags">
+                        <span class="blog-tag">MediatR</span>
+                        <span class="blog-tag">FluentValidation</span>
+                        <span class="blog-tag">Clean Architecture</span>
                     </div>
+                    <a href="blog/mediatr-fluentvalidation.html" class="btn btn-small btn-primary">Devamını Oku</a>
+                </div>
+
+                <div class="blog-card">
+                    <div class="blog-date">
+                        <span class="day">26</span>
+                        <span class="month">Tem</span>
+                    </div>
+                    <span class="blog-category">.NET</span>
+                    <h3>.NET Clean Architecture: Temiz Mimari Rehberi</h3>
+                    <p>Robert C. Martin'in Clean Architecture prensiplerinin .NET projelerinde uygulanması.</p>
+                    <div class="blog-tags">
+                        <span class="blog-tag">DDD</span>
+                        <span class="blog-tag">SOLID</span>
+                    </div>
+                    <a href="blog/dotnet-clean-architecture.html" class="btn btn-small btn-primary">Devamını Oku</a>
+                </div>
+
+                <div class="blog-card">
+                    <div class="blog-date">
+                        <span class="day">25</span>
+                        <span class="month">Tem</span>
+                    </div>
+                    <span class="blog-category">AWS</span>
+                    <h3>AWS DevOps: CI/CD Süreçleri</h3>
+                    <p>DevOps kültürünün temelleri ve CI/CD süreçlerini AWS araçlarıyla optimize etme.</p>
+                    <div class="blog-tags">
+                        <span class="blog-tag">DevOps</span>
+                        <span class="blog-tag">CI/CD</span>
+                    </div>
+                    <a href="blog/aws-devops.html" class="btn btn-small btn-primary">Devamını Oku</a>
+                </div>
+
+                <div class="blog-card">
+                    <div class="blog-date">
+                        <span class="day">26</span>
+                        <span class="month">Tem</span>
+                    </div>
+                    <span class="blog-category">Cloud</span>
+                    <h3>AWS Microservices & API Gateway</h3>
+                    <p>Mikroservis mimarisi ve AWS API Gateway ile merkezi erişim noktası oluşturma.</p>
+                    <div class="blog-tags">
+                        <span class="blog-tag">Microservices</span>
+                        <span class="blog-tag">API</span>
+                    </div>
+                    <a href="blog/aws-microservices.html" class="btn btn-small btn-primary">Devamını Oku</a>
                 </div>
 
                 <div class="blog-card">
@@ -248,240 +623,84 @@
                         <span class="day">23</span>
                         <span class="month">Tem</span>
                     </div>
-                    <div class="blog-content">
-                        <div class="blog-category">C#</div>
-                        <h3>Abstract Class ve Interface Farkı</h3>
-                        <p>C# programlamada Abstract Class ve Interface kavramları arasındaki farkları pratik örneklerle öğrenin. Araç kiralama örneği üzerinden ne zaman hangisini kullanacağınızı keşfedin.</p>
-                        <div class="blog-tags">
-                            <span class="tag">C#</span>
-                            <span class="tag">OOP</span>
-                            <span class="tag">Abstract Class</span>
-                            <span class="tag">Interface</span>
-                        </div>
-                        <a href="blog/abstract-class-interface.html" class="btn small">Devamını Oku</a>
+                    <span class="blog-category">C#</span>
+                    <h3>Abstract Class vs Interface</h3>
+                    <p>C# programlamada Abstract Class ve Interface kavramları arasındaki farklar.</p>
+                    <div class="blog-tags">
+                        <span class="blog-tag">OOP</span>
+                        <span class="blog-tag">C#</span>
                     </div>
+                    <a href="blog/abstract-class-interface.html" class="btn btn-small btn-primary">Devamını Oku</a>
                 </div>
 
-                <div class="blog-card">
-                    <div class="blog-date">
-                        <span class="day">25</span>
-                        <span class="month">Tem</span>
-                    </div>
-                    <div class="blog-content">
-                        <div class="blog-category">AWS</div>
-                        <h3>AWS Software Development Lifecycle</h3>
-                        <p>Yazılım geliştirme yaşam döngüsünün (SDLC) tüm aşamalarını AWS perspektifiyle keşfedin. Frontend, Backend, Database mimarisi ve SaaS modelinin detaylarını öğrenin.</p>
-                        <div class="blog-tags">
-                            <span class="tag">AWS</span>
-                            <span class="tag">SDLC</span>
-                            <span class="tag">Frontend</span>
-                            <span class="tag">Backend</span>
-                            <span class="tag">SaaS</span>
-                        </div>
-                        <a href="blog/aws-sdlc.html" class="btn small">Devamını Oku</a>
-                    </div>
-                </div>
-
-                <div class="blog-card">
-                    <div class="blog-date">
-                        <span class="day">25</span>
-                        <span class="month">Tem</span>
-                    </div>
-                    <div class="blog-content">
-                        <div class="blog-category">DevOps</div>
-                        <h3>AWS DevOps: Geliştirme ve Operasyon Birlikteliği</h3>
-                        <p>DevOps kültürünün temellerini, Dev ve Ops ekiplerinin işbirliğini ve CI/CD süreçlerini AWS araçlarıyla nasıl optimize edebileceğinizi keşfedin.</p>
-                        <div class="blog-tags">
-                            <span class="tag">AWS</span>
-                            <span class="tag">DevOps</span>
-                            <span class="tag">CI/CD</span>
-                            <span class="tag">Automation</span>
-                            <span class="tag">Jenkins</span>
-                        </div>
-                        <a href="blog/aws-devops.html" class="btn small">Devamını Oku</a>
-                    </div>
-                </div>
-
-                <div class="blog-card">
-                    <div class="blog-date">
-                        <span class="day">26</span>
-                        <span class="month">Tem</span>
-                    </div>
-                    <div class="blog-content">
-                        <div class="blog-category">Cloud</div>
-                        <h3>AWS Microservices: Mikroservis Mimarisi ve API Gateway</h3>
-                        <p>Mikroservis mimarisinin temellerini, API kavramını ve AWS API Gateway ile nasıl merkezi bir erişim noktası oluşturabileceğinizi öğrenin.</p>
-                        <div class="blog-tags">
-                            <span class="tag">AWS</span>
-                            <span class="tag">Microservices</span>
-                            <span class="tag">API</span>
-                            <span class="tag">Architecture</span>
-                            <span class="tag">Scalability</span>
-                        </div>
-                        <a href="blog/aws-microservices.html" class="btn small">Devamını Oku</a>
-                    </div>
-                </div>
-
-                <div class="blog-card">
-                    <div class="blog-date">
-                        <span class="day">26</span>
-                        <span class="month">Tem</span>
-                    </div>
-                    <div class="blog-content">
-                        <div class="blog-category">Infrastructure</div>
-                        <h3>AWS Container: VM'den Container'a Geçiş</h3>
-                        <p>Sanal makinelerden container teknolojisine geçişin nedenlerini, avantajlarını ve AWS container servislerini keşfedin.</p>
-                        <div class="blog-tags">
-                            <span class="tag">AWS</span>
-                            <span class="tag">Container</span>
-                            <span class="tag">Docker</span>
-                            <span class="tag">VM</span>
-                            <span class="tag">Infrastructure</span>
-                        </div>
-                        <a href="blog/aws-container.html" class="btn small">Devamını Oku</a>
-                    </div>
-                </div>
-
-                <div class="blog-card">
-                    <div class="blog-date">
-                        <span class="day">26</span>
-                        <span class="month">Tem</span>
-                    </div>
-                    <div class="blog-content">
-                        <div class="blog-category">.NET</div>
-                        <h3>.NET Clean Architecture: Temiz Mimari Rehberi</h3>
-                        <p>Robert C. Martin'in Clean Architecture prensiplerinin .NET projelerinde uygulanması, katmanlı mimari yapısı ve DDD yaklaşımı.</p>
-                        <div class="blog-tags">
-                            <span class="tag">.NET</span>
-                            <span class="tag">Clean Architecture</span>
-                            <span class="tag">DDD</span>
-                            <span class="tag">SOLID</span>
-                            <span class="tag">Design Patterns</span>
-                        </div>
-                        <a href="blog/dotnet-clean-architecture.html" class="btn small">Devamını Oku</a>
-                    </div>
-                </div>
-
-                <div class="blog-card">
-                    <div class="blog-date">
-                        <span class="day">27</span>
-                        <span class="month">Tem</span>
-                    </div>
-                    <div class="blog-content">
-                        <div class="blog-category">.NET</div>
-                        <h3>GenericRepository Pattern: Repository Deseni Rehberi</h3>
-                        <p>Entity Framework ve .NET'te GenericRepository pattern'ının implementasyonu, avantajları ve dezavantajları ile pratik örnekler.</p>
-                        <div class="blog-tags">
-                            <span class="tag">.NET</span>
-                            <span class="tag">Repository Pattern</span>
-                            <span class="tag">Entity Framework</span>
-                            <span class="tag">Generic</span>
-                            <span class="tag">Design Patterns</span>
-                        </div>
-                        <a href="blog/generic-repository-pattern.html" class="btn small">Devamını Oku</a>
-                    </div>
-                </div>
-
-                <div class="blog-card">
-                    <div class="blog-date">
-                        <span class="day">31</span>
-                        <span class="month">Tem</span>
-                    </div>
-                    <div class="blog-content">
-                        <div class="blog-category">.NET</div>
-                        <h3>FluentValidation: Modern Veri Doğrulama</h3>
-                        <p>.NET projelerinde FluentValidation kütüphanesi ile güçlü, okunabilir ve test edilebilir veri doğrulama kuralları oluşturmayı öğrenin.</p>
-                        <div class="blog-tags">
-                            <span class="tag">.NET</span>
-                            <span class="tag">FluentValidation</span>
-                            <span class="tag">Validation</span>
-                            <span class="tag">Clean Code</span>
-                            <span class="tag">Testing</span>
-                        </div>
-                        <a href="blog/fluent-validation.html" class="btn small">Devamını Oku</a>
-                    </div>
-                </div>
-
-                <!-- Daha fazla blog yazısı buraya eklenebilir -->
-                
-                <div class="blog-card">
-                    <div class="blog-date">
-                        <span class="day">26</span>
-                        <span class="month">Ağu</span>
-                    </div>
-                    <div class="blog-content">
-                        <div class="blog-category">.NET</div>
-                        <h3>EF Core Deep Dive: ADO.NET'ten Entity Framework'e Kapsamlı Geçiş Rehberi</h3>
-                        <p>Entity Framework Core ile modern veri erişimi, CRUD işlemleri, LINQ sorguları ve Code First yaklaşımı hakkında kapsamlı rehber.</p>
-                        <div class="blog-tags">
-                            <span class="tag">.NET</span>
-                            <span class="tag">Entity Framework Core</span>
-                            <span class="tag">ADO.NET</span>
-                            <span class="tag">Code First</span>
-                            <span class="tag">ORM</span>
-                        </div>
-                        <a href="blog/ef-core-deep-dive.html" class="btn small">Devamını Oku</a>
-                    </div>
-                </div>
-                
                 <div class="blog-card coming-soon">
-                    <div class="blog-content">
-                        <div class="blog-category">Yakında</div>
-                        <h3>Yeni Blog Yazıları Geliyor</h3>
-                        <p>Yazılım geliştirme, tasarım desenleri ve teknoloji trendleri hakkında daha fazla içerik için takipte kalın.</p>
-                    </div>
+                    <span class="blog-category">Yakında</span>
+                    <h3>Yeni Yazılar Geliyor</h3>
+                    <p>Yazılım geliştirme ve teknoloji trendleri hakkında daha fazla içerik için takipte kalın.</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Hizmetler Bölümü -->
-        <section id="services" class="services">
+    <!-- Services Section -->
+    <section id="services">
+        <div class="container">
             <div class="section-header">
-                <h2>Profesyonel Hizmetlerim</h2>
-                <div class="separator"></div>
+                <span class="section-badge"><i class="fas fa-cogs"></i> Hizmetler</span>
+                <h2 class="section-title">Profesyonel Hizmetlerim</h2>
+                <p class="section-subtitle">Yazılım geliştirme ve danışmanlık hizmetleri</p>
             </div>
-            <div class="services-grid">
+
+            <div class="services-bento">
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-code"></i>
                     </div>
                     <h3>Web Application Development</h3>
-                    <p>Responsive tasarım prensipleri ve modern framework'lerle SEO uyumlu, yüksek performanslı web uygulamaları geliştiriyorum. Kullanıcı deneyimi odaklı çözümler sunuyorum.</p>
+                    <p>Responsive tasarım prensipleri ve modern framework'lerle SEO uyumlu, yüksek performanslı web uygulamaları geliştiriyorum.</p>
                 </div>
+
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-mobile-alt"></i>
                     </div>
                     <h3>Mobile Application Development</h3>
-                    <p>Android platformunda native ve cross-platform mobil uygulamalar geliştiriyorum. Performans optimizasyonu ve kullanıcı arayüzü tasarımında uzmanım.</p>
+                    <p>Android platformunda native ve cross-platform mobil uygulamalar geliştiriyorum. Performans optimizasyonu ve UI/UX tasarımı.</p>
                 </div>
+
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-building"></i>
                     </div>
                     <h3>Enterprise Software Solutions</h3>
-                    <p>Restoran, market, cafe gibi işletmeler için özelleştirilmiş yazılım çözümleri sunuyorum. İş süreçlerinizi dijitalleştirerek operasyonel verimliliği artırıyorum.</p>
+                    <p>Restoran, market, cafe gibi işletmeler için özelleştirilmiş yazılım çözümleri. İş süreçlerinizi dijitalleştiriyorum.</p>
                 </div>
+
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-server"></i>
                     </div>
                     <h3>Backend Development & API Design</h3>
-                    <p>Ölçeklenebilir mikroservis mimarileri, güvenli RESTful API'ler ve veritabanı tasarımı konularında profesyonel destek sağlayorum. Cloud infrastructure çözümleri geliştiriyorum.</p>
+                    <p>Ölçeklenebilir mikroservis mimarileri, güvenli RESTful API'ler ve veritabanı tasarımı. Cloud infrastructure çözümleri.</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- İletişim Bölümü -->
-        <section id="contact" class="contact">
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
             <div class="section-header">
-                <h2>İletişim & İş Birliği</h2>
-                <div class="separator"></div>
+                <span class="section-badge"><i class="fas fa-envelope"></i> İletişim</span>
+                <h2 class="section-title">İletişime Geç</h2>
+                <p class="section-subtitle">Proje teklifleri ve iş birliği fırsatları için</p>
             </div>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h3>Profesyonel İletişim</h3>
-                    <p>Proje teklifleri, iş birliği fırsatları ve teknik danışmanlık için benimle iletişime geçebilirsiniz. Projelerinizi birlikte değerlendirelim.</p>
+
+            <div class="contact-bento">
+                <div class="contact-info-card">
+                    <h3>Bağlantı Kuralım</h3>
+                    <p>Proje teklifleri, iş birliği fırsatları ve teknik danışmanlık için benimle iletişime geçebilirsiniz.</p>
+                    
                     <div class="contact-items">
                         <div class="contact-item">
                             <i class="fas fa-envelope"></i>
@@ -493,50 +712,61 @@
                         </div>
                         <div class="contact-item">
                             <i class="fas fa-briefcase"></i>
-                            <span><a href="https://bionluk.com/softdesignn"
-                                    target="_blank">bionluk.com/softdesignn</a></span>
+                            <a href="https://bionluk.com/softdesignn" target="_blank">bionluk.com/softdesignn</a>
                         </div>
                     </div>
-                    <div class="social-links">
-                        <a href="https://github.com/alperenncetinn" target="_blank" class="social-link"><i
-                                class="fab fa-github"></i></a>
-                        <a href="https://www.linkedin.com/in/alperen-çetin-890596318/" target="_blank"
-                            class="social-link"><i class="fab fa-linkedin"></i></a>
-                        <a href="https://twitter.com/alperencetinim" target="_blank" class="social-link"><i
-                                class="fab fa-twitter"></i></a>
-                        <a href="https://www.instagram.com/alperenn.cetinn/" target="_blank" class="social-link"><i
-                                class="fab fa-instagram"></i></a>
-                        <a href="https://bionluk.com/softdesignn" target="_blank" class="social-link"><i
-                                class="fas fa-briefcase"></i></a>
+
+                    <div class="contact-socials">
+                        <a href="https://github.com/alperenncetinn" target="_blank" class="social-btn">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/alperen-çetin-890596318/" target="_blank" class="social-btn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://twitter.com/alperencetinim" target="_blank" class="social-btn">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://www.instagram.com/alperenn.cetinn/" target="_blank" class="social-btn">
+                            <i class="fab fa-instagram"></i>
+                        </a>
                     </div>
                 </div>
-                <div class="contact-form">
-                    <form action="mailto:alperen.cetin.969@gmail.com" method="post" enctype="text/plain">
-                        <div class="form-group">
-                            <input type="text" name="name" placeholder="İsim" required>
+
+                <div class="contact-form-card">
+                    <form class="contact-form" action="mailto:alperen.cetin.969@gmail.com" method="post" enctype="text/plain">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">İsim</label>
+                                <input type="text" id="name" name="name" placeholder="Adınız Soyadınız" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">E-posta</label>
+                                <input type="email" id="email" name="email" placeholder="ornek@email.com" required>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <input type="email" name="email" placeholder="E-posta" required>
+                            <label for="subject">Konu</label>
+                            <input type="text" id="subject" name="subject" placeholder="Proje hakkında...">
                         </div>
                         <div class="form-group">
-                            <input type="text" name="subject" placeholder="Konu">
+                            <label for="message">Mesajınız</label>
+                            <textarea id="message" name="message" placeholder="Mesajınızı buraya yazın..." required></textarea>
                         </div>
-                        <div class="form-group">
-                            <textarea name="message" placeholder="Mesajınız" required></textarea>
-                        </div>
-                        <button type="submit" class="btn primary">Gönder</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Gönder
+                        </button>
                     </form>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Alt Bilgi -->
-        <footer>
-            <div class="footer-content">
-                <p>&copy; 2025 Alperen Çetin - Tüm Hakları Saklıdır | Full Stack Developer</p>
-            </div>
-        </footer>
-    </div>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 <span class="highlight">Alperen Çetin</span> - Tüm Hakları Saklıdır | Software Engineer</p>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>

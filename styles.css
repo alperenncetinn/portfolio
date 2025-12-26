@@ -137,12 +137,21 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 2.5rem;
     background: var(--gradient-primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     animation: loaderPulse 1.5s ease-in-out infinite;
+}
+
+.loader-icon i {
+    display: block;
 }
 
 @keyframes loaderPulse {

@@ -12,6 +12,18 @@
         rel="stylesheet">
     <link rel="icon" type="image/png" href="../images/alp-digital-logo.png">
     <style>
+        html,
+        body {
+            overflow-x: hidden;
+            overflow-y: auto;
+            min-height: 100%;
+        }
+
+        .wrapper {
+            min-height: 100vh;
+            overflow-y: auto;
+        }
+
         .project-details {
             padding: 120px 50px 50px;
         }
@@ -44,12 +56,34 @@
             border-radius: var(--border-radius);
             overflow: hidden;
             box-shadow: var(--shadow-neon);
-            height: 350px;
+            height: 400px;
             width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             background: linear-gradient(135deg, rgba(94, 23, 235, 0.1) 0%, rgba(0, 194, 255, 0.1) 100%);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .project-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1) 0%, rgba(0, 212, 255, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-image:hover::after {
+            opacity: 1;
+        }
+
+        .project-image:hover img {
+            transform: scale(1.05);
         }
 
         .project-image i {
@@ -63,6 +97,7 @@
             object-fit: cover;
             object-position: center;
             display: block;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .project-info p {
@@ -185,8 +220,8 @@
                 </div>
 
                 <div class="project-info">
-                    <p>Restaurant App, restoranlar için geliştirilmiş Caller ID cihazı destekli satış ve yönetim 
-                        uygulamasıdır. Gelen aramaları otomatik tanıyarak müşteri bilgilerini anında getirir ve 
+                    <p>Restaurant App, restoranlar için geliştirilmiş Caller ID cihazı destekli satış ve yönetim
+                        uygulamasıdır. Gelen aramaları otomatik tanıyarak müşteri bilgilerini anında getirir ve
                         sipariş sürecini hızlandırır.</p>
 
                     <div class="tech-stack">
@@ -218,13 +253,12 @@
                         </ul>
                     </div>
 
-                    <p>Bu uygulama, özellikle paket servis yapan restoranlar için tasarlanmıştır. Gelen aramalardan 
-                        müşteriyi otomatik tanıyarak, önceki siparişlerini ve adres bilgilerini anında ekrana getirir. 
+                    <p>Bu uygulama, özellikle paket servis yapan restoranlar için tasarlanmıştır. Gelen aramalardan
+                        müşteriyi otomatik tanıyarak, önceki siparişlerini ve adres bilgilerini anında ekrana getirir.
                         Bu sayede sipariş alma süresi kısalır ve müşteri memnuniyeti artar.</p>
 
                     <div class="project-links">
-                        <a href="https://github.com/alperenncetinn/Restourant-App" target="_blank"
-                            class="btn primary">
+                        <a href="https://github.com/alperenncetinn/Restourant-App" target="_blank" class="btn primary">
                             <i class="fab fa-github"></i> GitHub'da İncele
                         </a>
                     </div>

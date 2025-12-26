@@ -12,6 +12,18 @@
         rel="stylesheet">
     <link rel="icon" type="image/png" href="../images/alp-digital-logo.png">
     <style>
+        html,
+        body {
+            overflow-x: hidden;
+            overflow-y: auto;
+            min-height: 100%;
+        }
+
+        .wrapper {
+            min-height: 100vh;
+            overflow-y: auto;
+        }
+
         .project-details {
             padding: 120px 50px 50px;
         }
@@ -44,12 +56,34 @@
             border-radius: var(--border-radius);
             overflow: hidden;
             box-shadow: var(--shadow-neon);
-            height: 350px;
+            height: 400px;
             width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             background: linear-gradient(135deg, rgba(94, 23, 235, 0.1) 0%, rgba(0, 194, 255, 0.1) 100%);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .project-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1) 0%, rgba(0, 212, 255, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-image:hover::after {
+            opacity: 1;
+        }
+
+        .project-image:hover img {
+            transform: scale(1.05);
         }
 
         .project-image i {
@@ -63,6 +97,7 @@
             object-fit: cover;
             object-position: center;
             display: block;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .project-info p {
@@ -185,8 +220,8 @@
                 </div>
 
                 <div class="project-info">
-                    <p>Personal Parkinson Tracker, ses tabanlı yapay zeka sistemi kullanarak kişiselleştirilmiş UPDRS 
-                        (Unified Parkinson's Disease Rating Scale) skor tahmini yapan ve uzaktan Parkinson hastalığı 
+                    <p>Personal Parkinson Tracker, ses tabanlı yapay zeka sistemi kullanarak kişiselleştirilmiş UPDRS
+                        (Unified Parkinson's Disease Rating Scale) skor tahmini yapan ve uzaktan Parkinson hastalığı
                         izlemeye olanak sağlayan yenilikçi bir sağlık uygulamasıdır.</p>
 
                     <div class="tech-stack">
@@ -217,9 +252,9 @@
                         </ul>
                     </div>
 
-                    <p>Bu proje, Parkinson hastalarının günlük yaşamlarını kolaylaştırmak ve hastalık ilerlemesini 
-                        uzaktan takip edebilmek için geliştirilmiştir. Yapay zeka destekli ses analizi sayesinde, 
-                        hastalar evlerinden hastalık durumlarını izleyebilir ve sağlık profesyonelleri ile verilerini 
+                    <p>Bu proje, Parkinson hastalarının günlük yaşamlarını kolaylaştırmak ve hastalık ilerlemesini
+                        uzaktan takip edebilmek için geliştirilmiştir. Yapay zeka destekli ses analizi sayesinde,
+                        hastalar evlerinden hastalık durumlarını izleyebilir ve sağlık profesyonelleri ile verilerini
                         paylaşabilirler.</p>
 
                     <div class="project-links">
@@ -227,8 +262,8 @@
                             class="btn primary">
                             <i class="fab fa-github"></i> GitHub'da İncele
                         </a>
-                        <a href="https://www.parkinsonai.space" target="_blank"
-                            class="btn primary" style="margin-left: 10px;">
+                        <a href="https://www.parkinsonai.space" target="_blank" class="btn primary"
+                            style="margin-left: 10px;">
                             <i class="fas fa-external-link-alt"></i> Live Demo
                         </a>
                     </div>

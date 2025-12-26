@@ -12,6 +12,18 @@
         rel="stylesheet">
     <link rel="icon" type="image/png" href="../images/alp-digital-logo.png">
     <style>
+        html,
+        body {
+            overflow-x: hidden;
+            overflow-y: auto;
+            min-height: 100%;
+        }
+
+        .container {
+            min-height: 100vh;
+            overflow-y: auto;
+        }
+
         .project-details {
             padding: 120px 50px 50px;
         }
@@ -44,14 +56,38 @@
             border-radius: var(--border-radius);
             overflow: hidden;
             box-shadow: var(--shadow-neon);
-            height: 350px;
+            height: 400px;
             width: 100%;
+            position: relative;
+            cursor: pointer;
+            background: linear-gradient(135deg, rgba(94, 23, 235, 0.1) 0%, rgba(0, 194, 255, 0.1) 100%);
+        }
+
+        .project-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1) 0%, rgba(0, 212, 255, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-image:hover::after {
+            opacity: 1;
+        }
+
+        .project-image:hover img {
+            transform: scale(1.05);
         }
 
         .project-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .project-content h3 {
@@ -232,8 +268,8 @@
                 <div class="project-content">
                     <h3>Proje Hakkında</h3>
                     <p>
-                        stuCheck, .NET Web API geliştirmek ve teknik becerilerimi pekiştirmek amacıyla geliştirdiğim 
-                        açık kaynak bir kişisel kitap takip sistemidir. Modern web API tasarım prensiplerine uygun 
+                        stuCheck, .NET Web API geliştirmek ve teknik becerilerimi pekiştirmek amacıyla geliştirdiğim
+                        açık kaynak bir kişisel kitap takip sistemidir. Modern web API tasarım prensiplerine uygun
                         olarak geliştirilmiş bu proje, kitap severlerin okudukları kitapları organize etmelerini sağlar.
                     </p>
 
@@ -248,7 +284,8 @@
                     </div>
 
                     <div class="project-links">
-                        <a href="https://github.com/alperenncetinn/book-tracker-api" target="_blank" class="btn-project btn-github">
+                        <a href="https://github.com/alperenncetinn/book-tracker-api" target="_blank"
+                            class="btn-project btn-github">
                             <i class="fab fa-github"></i> GitHub'da Görüntüle
                         </a>
                     </div>
@@ -352,16 +389,23 @@
                 </div>
             </div>
 
-            <div style="margin-top: 50px; padding: 30px; background: var(--bg-glass); border-radius: var(--border-radius); border: 1px solid rgba(110, 230, 231, 0.2);">
+            <div
+                style="margin-top: 50px; padding: 30px; background: var(--bg-glass); border-radius: var(--border-radius); border: 1px solid rgba(110, 230, 231, 0.2);">
                 <h3 style="color: var(--accent-color); margin-bottom: 15px;">
                     <i class="fas fa-hands-helping"></i> Açık Kaynak Katkı
                 </h3>
-                <p>Bu proje tamamen açık kaynak olarak geliştirilmiştir. Katkıda bulunmak isteyen geliştiriciler için detaylı CONTRIBUTING.md rehberi hazırlanmıştır. Geri bildirimlerinizi ve önerilerinizi bekliyorum!</p>
+                <p>Bu proje tamamen açık kaynak olarak geliştirilmiştir. Katkıda bulunmak isteyen geliştiriciler için
+                    detaylı CONTRIBUTING.md rehberi hazırlanmıştır. Geri bildirimlerinizi ve önerilerinizi bekliyorum!
+                </p>
                 <div style="margin-top: 20px;">
-                    <span style="display: inline-block; background: var(--accent-gradient); color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.8rem; margin-right: 10px;">#SoftwareDevelopment</span>
-                    <span style="display: inline-block; background: var(--accent-gradient); color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.8rem; margin-right: 10px;">#OpenSource</span>
-                    <span style="display: inline-block; background: var(--accent-gradient); color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.8rem; margin-right: 10px;">#WebAPI</span>
-                    <span style="display: inline-block; background: var(--accent-gradient); color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.8rem; margin-right: 10px;">#DotNet</span>
+                    <span
+                        style="display: inline-block; background: var(--accent-gradient); color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.8rem; margin-right: 10px;">#SoftwareDevelopment</span>
+                    <span
+                        style="display: inline-block; background: var(--accent-gradient); color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.8rem; margin-right: 10px;">#OpenSource</span>
+                    <span
+                        style="display: inline-block; background: var(--accent-gradient); color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.8rem; margin-right: 10px;">#WebAPI</span>
+                    <span
+                        style="display: inline-block; background: var(--accent-gradient); color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.8rem; margin-right: 10px;">#DotNet</span>
                 </div>
             </div>
         </div>

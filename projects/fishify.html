@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PriceRadar - Proje Detayı</title>
+    <title>Fishify - Proje Detayı</title>
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link
@@ -52,44 +52,118 @@
             margin-top: 40px;
         }
 
-        .project-image {
+        .project-image-slider {
             border-radius: var(--border-radius);
             overflow: hidden;
             box-shadow: var(--shadow-neon);
-            height: 400px;
+            height: 500px;
             width: 100%;
             position: relative;
-            cursor: pointer;
             background: linear-gradient(135deg, rgba(94, 23, 235, 0.1) 0%, rgba(0, 194, 255, 0.1) 100%);
         }
 
-        .project-image::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1) 0%, rgba(0, 212, 255, 0.1) 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .project-image:hover::after {
-            opacity: 1;
-        }
-
-        .project-image:hover img {
-            transform: scale(1.05);
-        }
-
-        .project-image img {
+        .slider-container {
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            object-position: center;
-            display: block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slider-wrapper {
+            display: flex;
             transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(94, 23, 235, 0.05) 0%, rgba(0, 194, 255, 0.05) 100%);
+        }
+
+        .slide img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid var(--accent-secondary);
+            border-radius: 50%;
+            color: var(--accent-secondary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slider-btn:hover {
+            background: var(--accent-secondary);
+            color: #000;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .slider-btn.prev {
+            left: 15px;
+        }
+
+        .slider-btn.next {
+            right: 15px;
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .slider-dot.active {
+            background: var(--accent-secondary);
+            border-color: var(--accent-secondary);
+            transform: scale(1.2);
+        }
+
+        .slider-dot:hover {
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .slide-counter {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--accent-secondary);
+            font-weight: 600;
+            z-index: 10;
         }
 
         .project-info p {
@@ -168,6 +242,31 @@
             box-shadow: var(--shadow-neon);
         }
 
+        .project-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn.primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+            color: #000;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn.primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
         @media screen and (max-width: 768px) {
             .project-container {
                 grid-template-columns: 1fr;
@@ -175,6 +274,16 @@
 
             .project-details {
                 padding: 100px 30px 40px;
+            }
+
+            .project-image-slider {
+                height: 400px;
+            }
+
+            .slider-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
             }
         }
 
@@ -391,33 +500,6 @@
             color: rgba(255, 255, 255, 0.7);
         }
 
-        .project-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-
-        .btn.primary {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 24px;
-            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
-            color: #000;
-            border-radius: 8px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn.primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
-        }
-
         .btn.secondary {
             display: inline-flex;
             align-items: center;
@@ -464,58 +546,76 @@
 
         <!-- Proje Detayları -->
         <section class="project-details">
-            <h1 class="project-title">PriceRadar</h1>
+            <h1 class="project-title">Fishify</h1>
 
             <div class="project-container">
-                <div class="project-image">
-                    <img src="../images/priceRadar.png" alt="PriceRadar Projesi">
+                <div class="project-image-slider">
+                    <div class="slide-counter">
+                        <span id="currentSlide">1</span> / <span id="totalSlides">5</span>
+                    </div>
+                    <div class="slider-container">
+                        <div class="slider-wrapper" id="sliderWrapper">
+                            <div class="slide"><img src="../images/fishify/unnamed.jpg" alt="Fishify Screenshot 1">
+                            </div>
+                            <div class="slide"><img src="../images/fishify/unnamed-1.jpg" alt="Fishify Screenshot 2">
+                            </div>
+                            <div class="slide"><img src="../images/fishify/unnamed-2.jpg" alt="Fishify Screenshot 3">
+                            </div>
+                            <div class="slide"><img src="../images/fishify/unnamed-3.jpg" alt="Fishify Screenshot 4">
+                            </div>
+                            <div class="slide"><img src="../images/fishify/unnamed-4.jpg" alt="Fishify Screenshot 5">
+                            </div>
+                        </div>
+                    </div>
+                    <button class="slider-btn prev" onclick="changeSlide(-1)"><i
+                            class="fas fa-chevron-left"></i></button>
+                    <button class="slider-btn next" onclick="changeSlide(1)"><i
+                            class="fas fa-chevron-right"></i></button>
+                    <div class="slider-dots" id="sliderDots"></div>
                 </div>
 
                 <div class="project-info">
-                    <p>PriceRadar, giyim ürünleri başta olmak üzere çeşitli ürün kategorilerinde fiyat ve stok takibi
-                        yapabilen yenilikçi bir mobil uygulamadır. Kullanıcılar, takip etmek istedikleri ürünleri
-                        kaydettiğinde, uygulama bu ürünlerin fiyatlarındaki değişimleri ve stok durumlarını düzenli
-                        olarak kontrol eder ve bildirimler aracılığıyla kullanıcıyı bilgilendirir.Şimdilik playStore
-                        test sürecine katılmak istiyorsanız iletişim kısmından mail atınız. </p>
+                    <p>🎣 Fishify, balıkçılar için özel olarak geliştirilmiş kapsamlı bir balıkçılık asistanıdır.
+                        Hava durumu, deniz güvenliği, balık türü olasılıkları ve akıllı öneriler sunar.
+                        Kendi balıkçılık planınızı oluşturun, en iyi balık türlerini ve av saatlerini öğrenin,
+                        güvenli ve verimli bir balıkçılık deneyimi yaşayın!</p>
 
                     <div class="tech-stack">
                         <h3 class="tech-title">Kullanılan Teknolojiler</h3>
                         <div class="tech-list">
-                            <span class="tech-item">Flutter</span>
-                            <span class="tech-item">Dart</span>
-                            <span class="tech-item">Firebase</span>
-                            <span class="tech-item">SQL</span>
-                            <span class="tech-item">WebScrapping</span>
-                            <span class="tech-item">Cloud Functions</span>
+                            <span class="tech-item">Android</span>
+                            <span class="tech-item">Kotlin</span>
+                            <span class="tech-item">Jetpack Compose</span>
+                            <span class="tech-item">Weather API</span>
+                            <span class="tech-item">Google Maps API</span>
+                            <span class="tech-item">Material Design 3</span>
                         </div>
                     </div>
 
                     <div class="project-features">
                         <h3 class="tech-title">Özellikler</h3>
                         <ul class="feature-list">
-                            <li>Giyim, elektronik, kozmetik ve ev eşyaları kategorilerinde ürün takibi</li>
-                            <li>Barkod tarama ile hızlı ürün ekleme</li>
-                            <li>Fiyat düşüşlerinde anlık bildirimler</li>
-                            <li>Ürün stok durumu değişikliklerinde uyarılar</li>
-                            <li>Fiyat geçmişi ve trend grafikleri</li>
-                            <li>Fırsatlar ve indirim önerileri</li>
-                            <li>Farklı mağazalardaki fiyat karşılaştırması</li>
-                            <li>Kullanıcılar arası favori ürün paylaşımı</li>
-                            <li>Hatırlatıcı ve alışveriş listesi oluşturma</li>
+                            <li>Canlı hava ve deniz tahmini</li>
+                            <li>Balık türü olasılıkları ve av zamanları</li>
+                            <li>Akıllı balıkçılık önerileri ve ipuçları</li>
+                            <li>Harita üzerinde favori noktalar</li>
+                            <li>Deniz güvenliği ve dalga uyarıları</li>
+                            <li>Ay fazı ve gelgit bilgileri</li>
+                            <li>Balık türleri ansiklopedisi</li>
+                            <li>Balıkçılık günlüğü ve istatistikler</li>
+                            <li>Offline kullanım desteği</li>
                         </ul>
                     </div>
 
-                    <p>PriceRadar, alışveriş tutkunları için tasarlanmış akıllı bir asistan rolü üstlenir. Kullanıcılar,
-                        aradıkları ürünleri en uygun fiyattan satın alabilmek için manuel olarak fiyat takibi yapmak
-                        yerine, bu işlemi uygulamaya bırakabilirler. Flutter teknolojisi sayesinde hem Android hem de
-                        iOS platformlarında sorunsuz çalışan uygulama, Firebase entegrasyonu ile gerçek zamanlı veri
-                        akışı sağlar.</p>
+                    <p>Bu uygulama, amatör ve profesyonel balıkçıların daha verimli ve güvenli bir balıkçılık
+                        deneyimi yaşaması için geliştirilmiştir. Akıllı algoritmalar sayesinde hangi balık
+                        türlerinin hangi koşullarda daha aktif olduğunu öğrenebilirsiniz.</p>
 
                     <div class="project-links">
                         <button onclick="openTesterModal()" class="btn primary">
                             <i class="fab fa-google-play"></i> Play Store'da İncele
                         </button>
-                        <a href="https://play.google.com/apps/testing/com.alperen.priceradar" target="_blank"
+                        <a href="https://play.google.com/apps/testing/com.alperen.fishify" target="_blank"
                             class="btn secondary">
                             <i class="fas fa-vial"></i> Zaten Tester'ım
                         </a>
@@ -548,7 +648,7 @@
                 </div>
                 <h2 class="modal-title">Tester Programına Katıl</h2>
                 <p class="modal-description">
-                    PriceRadar uygulamasını Play Store'da test etmek için e-posta adresinizi girin.
+                    Fishify uygulamasını Play Store'da test etmek için e-posta adresinizi girin.
                     Size tester davetiyesi göndereceğiz!
                 </p>
 
@@ -565,7 +665,7 @@
                     <span>veya</span>
                 </div>
 
-                <a href="https://play.google.com/apps/testing/com.alperen.priceradar" target="_blank"
+                <a href="https://play.google.com/apps/testing/com.alperen.fishify" target="_blank"
                     class="existing-tester-btn">
                     <i class="fas fa-external-link-alt"></i> Zaten Tester'ım, Uygulamaya Git
                 </a>
@@ -582,6 +682,61 @@
 
     <script src="../script.js"></script>
     <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const sliderWrapper = document.getElementById('sliderWrapper');
+        const dotsContainer = document.getElementById('sliderDots');
+
+        // Create dots
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('slider-dot');
+            if (i === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(i));
+            dotsContainer.appendChild(dot);
+        }
+
+        function updateSlider() {
+            sliderWrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
+            document.getElementById('currentSlide').textContent = currentSlide + 1;
+
+            // Update dots
+            document.querySelectorAll('.slider-dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+            if (currentSlide < 0) currentSlide = totalSlides - 1;
+            if (currentSlide >= totalSlides) currentSlide = 0;
+            updateSlider();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlider();
+        }
+
+        // Auto slide every 5 seconds
+        setInterval(() => changeSlide(1), 5000);
+
+        // Touch/Swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        const sliderContainer = document.querySelector('.slider-container');
+        sliderContainer.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        sliderContainer.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) changeSlide(1);
+            if (touchEndX - touchStartX > 50) changeSlide(-1);
+        });
+
         // Tester Modal Functions
         function openTesterModal() {
             document.getElementById('testerModal').classList.add('active');
@@ -606,9 +761,9 @@
             }
 
             // Create mailto link
-            const subject = encodeURIComponent('PriceRadar Tester İsteği');
+            const subject = encodeURIComponent('Fishify Tester İsteği');
             const body = encodeURIComponent(
-                `Merhaba Alperen,\n\nPriceRadar uygulaması için tester olmak istiyorum.\n\nPlay Store E-posta Adresim: ${email}\n\nTester programına eklenmemi bekliyorum.\n\nTeşekkürler!`
+                `Merhaba Alperen,\n\nFishify uygulaması için tester olmak istiyorum.\n\nPlay Store E-posta Adresim: ${email}\n\nTester programına eklenmemi bekliyorum.\n\nTeşekkürler!`
             );
 
             window.location.href = `mailto:alperen.cetin.969@gmail.com?subject=${subject}&body=${body}`;

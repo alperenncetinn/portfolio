@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CORTEX AI - Şirketler için Lokal Yapay Zeka</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/png" href="../images/alp-digital-logo.png">
+    <style>
+        html,
+        body {
+            overflow-x: hidden;
+            overflow-y: auto;
+            min-height: 100%;
+        }
+
+        .wrapper {
+            min-height: 100vh;
+            overflow-y: auto;
+        }
+
+        .project-details {
+            padding: 120px 50px 50px;
+        }
+
+        .project-title {
+            margin-bottom: 30px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .project-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100px;
+            height: 4px;
+            background: var(--accent-gradient);
+            border-radius: 2px;
+        }
+
+        .project-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            margin-top: 40px;
+        }
+
+        .project-image-slider {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-neon);
+            height: 500px;
+            width: 100%;
+            position: relative;
+            background: linear-gradient(135deg, rgba(94, 23, 235, 0.1) 0%, rgba(0, 194, 255, 0.1) 100%);
+        }
+
+        .slider-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slider-wrapper {
+            display: flex;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(94, 23, 235, 0.05) 0%, rgba(0, 194, 255, 0.05) 100%);
+        }
+
+        .slide img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid var(--accent-secondary);
+            border-radius: 50%;
+            color: var(--accent-secondary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slider-btn:hover {
+            background: var(--accent-secondary);
+            color: #000;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .slider-btn.prev {
+            left: 15px;
+        }
+
+        .slider-btn.next {
+            right: 15px;
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .slider-dot.active {
+            background: var(--accent-secondary);
+            border-color: var(--accent-secondary);
+            transform: scale(1.2);
+        }
+
+        .slider-dot:hover {
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .slide-counter {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--accent-secondary);
+            font-weight: 600;
+            z-index: 10;
+        }
+
+        .project-info p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .tech-stack {
+            margin: 30px 0;
+        }
+
+        .tech-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--accent-secondary);
+        }
+
+        .tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .tech-item {
+            background: rgba(94, 23, 235, 0.2);
+            color: var(--accent-secondary);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .project-features {
+            margin: 30px 0;
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 15px;
+        }
+
+        .feature-list li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--accent-secondary);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 12px 25px;
+            background: rgba(94, 23, 235, 0.2);
+            color: var(--text-primary);
+            border-radius: var(--border-radius);
+            transition: var(--transition-fast);
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .back-link i {
+            margin-right: 8px;
+        }
+
+        .back-link:hover {
+            background: var(--accent-gradient);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-neon);
+        }
+
+        .project-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn.primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+            color: #000;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn.primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn.secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: transparent;
+            border: 2px solid var(--accent-secondary);
+            color: var(--accent-secondary);
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn.secondary:hover {
+            background: rgba(0, 212, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .highlight-box {
+            background: rgba(94, 23, 235, 0.1);
+            border-left: 4px solid var(--accent-secondary);
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+
+        .highlight-box h4 {
+            color: var(--accent-secondary);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .section-divider {
+            margin: 40px 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-secondary), transparent);
+        }
+
+        @media screen and (max-width: 768px) {
+            .project-container {
+                grid-template-columns: 1fr;
+            }
+
+            .project-details {
+                padding: 100px 30px 40px;
+            }
+
+            .project-image-slider {
+                height: 400px;
+            }
+
+            .slider-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Navigasyon Çubuğu -->
+        <nav class="navbar">
+            <div class="logo">
+                <img src="../images/alp-digital-logo.png" alt="Logo" class="logo-img">
+                <span>Alperen Çetin</span>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html">Ana Sayfa</a>
+                <a href="../index.html#about">Hakkımda</a>
+                <a href="../index.html#projects" class="active">Projeler</a>
+                <a href="../index.html#services">Hizmetler</a>
+                <a href="../index.html#contact">İletişim</a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+
+        <!-- Proje Detayları -->
+        <section class="project-details">
+            <h1 class="project-title">CORTEX AI - Şirketler için Lokal Yapay Zeka</h1>
+
+            <div class="project-container">
+                <div class="project-image-slider">
+                    <div class="slide-counter">
+                        <span id="currentSlide">1</span> / <span id="totalSlides">3</span>
+                    </div>
+                    <div class="slider-container">
+                        <div class="slider-wrapper" id="sliderWrapper">
+                            <div class="slide"><img src="../images/cortex-local-yapay-zeka.jpg" alt="CORTEX AI Ana Görsel">
+                            </div>
+                            <div class="slide"><img src="../images/cortex/image1.png" alt="CORTEX AI Screenshot 1">
+                            </div>
+                            <div class="slide"><img src="../images/cortex/image2.png" alt="CORTEX AI Screenshot 2">
+                            </div>
+                        </div>
+                    </div>
+                    <button class="slider-btn prev" onclick="changeSlide(-1)"><i
+                            class="fas fa-chevron-left"></i></button>
+                    <button class="slider-btn next" onclick="changeSlide(1)"><i
+                            class="fas fa-chevron-right"></i></button>
+                    <div class="slider-dots" id="sliderDots"></div>
+                </div>
+
+                <div class="project-info">
+                    <p>🧠 <strong>CORTEX AI</strong>, şirket içindeki dağınık, kapalı ve hassas verilerin (dokümanlar, Excel'ler, raporlar, proje bilgileri) dış servislere çıkmadan, tamamen yerel altyapı üzerinde, yapay zekâ destekli olarak sorgulanabilmesini ve anlamlandırılabilmesini sağlayan bir <strong>On-Premise Retrieval-Augmented Generation (RAG)</strong> sistemidir.</p>
+
+                    <div class="highlight-box">
+                        <h4><i class="fas fa-bullseye"></i> Projenin Temel Hedefi</h4>
+                        <p>Bulut tabanlı LLM servislerinin veri gizliliği, değişken maliyet ve bağımlılık risklerini ortadan kaldırarak, şirket içi bilgiye doğru bağlamda, hızlı ve güvenli erişim sağlamak. Operasyonel ve stratejik karar süreçlerini yapay zekâ ile desteklemek.</p>
+                    </div>
+
+                    <div class="tech-stack">
+                        <h3 class="tech-title">Kullanılan Teknolojiler</h3>
+                        <div class="tech-list">
+                            <span class="tech-item">Python</span>
+                            <span class="tech-item">FastAPI</span>
+                            <span class="tech-item">Streamlit</span>
+                            <span class="tech-item">Llama.cpp</span>
+                            <span class="tech-item">ChromaDB</span>
+                            <span class="tech-item">Gemma 3</span>
+                            <span class="tech-item">Llama 3</span>
+                            <span class="tech-item">Docker</span>
+                            <span class="tech-item">RAG</span>
+                            <span class="tech-item">Metal GPU (Apple Silicon)</span>
+                            <span class="tech-item">4-bit Quantization</span>
+                        </div>
+                    </div>
+
+                    <div class="section-divider"></div>
+
+                    <h3 class="tech-title">🔐 Neden On-Premise (Yerel) Mimari?</h3>
+                    
+                    <div class="project-features">
+                        <ul class="feature-list">
+                            <li><strong>Veri Gizliliği:</strong> Bulut LLM'lerde veri şirket dışına çıkar. Yerel mimaride tam izolasyon sağlanır. ERP, finans, insan kaynakları, strateji gibi kritik veriler dış dünyaya açılmaz.</li>
+                            <li><strong>Sabit Maliyet Modeli:</strong> Bulutta token bazlı, öngörülemez ve sürekli artan OPEX vardır. Yerel sistemde ilk kurulumdan sonra 1 milyon soru da sorsanız maliyet değişmez.</li>
+                            <li><strong>Teknik Kontrol ve Bağımsızlık:</strong> Model, versiyon, güncelleme ve erişim tamamen şirket kontrolündedir. İnternet kesilse bile sistem çalışmaya devam eder.</li>
+                        </ul>
+                    </div>
+
+                    <div class="section-divider"></div>
+
+                    <h3 class="tech-title">🚀 Sistem Mimarisi</h3>
+                    
+                    <div class="highlight-box">
+                        <h4>1. Kullanıcı Katmanı - Streamlit (CORTEX AI)</h4>
+                        <p>ChatGPT benzeri modern arayüz. Kullanıcı soru sorar, Excel veya doküman yükler, kaynakları ve cevapları görür.</p>
+                    </div>
+
+                    <div class="highlight-box">
+                        <h4>2. Backend - FastAPI</h4>
+                        <p>Asenkron ve yüksek performanslı API. Sorguyu alır, RAG kullanılıp kullanılmayacağını belirler, LLM ve vektör DB'yi orkestre eder.</p>
+                    </div>
+
+                    <div class="highlight-box">
+                        <h4>3. LLM Katmanı - Llama.cpp (Gemma 3)</h4>
+                        <p>Model tamamen lokalde çalışır. Apple Silicon'da Metal GPU hızlandırması aktif. İnference süresi düşük, gecikme minimumdur.</p>
+                    </div>
+
+                    <div class="highlight-box">
+                        <h4>4. Vektör Veritabanı - ChromaDB</h4>
+                        <p>Dokümanlar parçalara ayrılır, embedding'ler oluşturulur, anlamsal arama yapılır. Model sadece ilgili bağlamla cevap üretir.</p>
+                    </div>
+
+                    <div class="section-divider"></div>
+
+                    <h3 class="tech-title">💡 RAG Ne Sağlıyor?</h3>
+                    <p>RAG (Retrieval-Augmented Generation) sayesinde sistem "bilmiyorum ama uydurayım" demez. Cevaplarını şirket dokümanlarına dayandırır, kaynak gösterir ve halüsinasyonu ciddi şekilde azaltır.</p>
+
+                    <div class="project-features">
+                        <h4 style="color: var(--accent-secondary); margin-top: 20px;">Örnek Kullanım Senaryoları:</h4>
+                        <ul class="feature-list">
+                            <li>"PHOENIX ve MERCURY projeleri arasındaki fark nedir?"</li>
+                            <li>"Bu gelir dağılımı bize hangi alanlara odaklanmamız gerektiğini söylüyor?"</li>
+                            <li>"Geçen çeyrekte operasyonel maliyetlerde ne değişti?"</li>
+                        </ul>
+                    </div>
+
+                    <div class="section-divider"></div>
+
+                    <h3 class="tech-title">⚡ Kuantizasyon Stratejisi</h3>
+                    <p>70B gibi büyük modeller normalde ~140 GB VRAM ister. <strong>4-bit quantization</strong> kullanarak:</p>
+                    
+                    <div class="project-features">
+                        <ul class="feature-list">
+                            <li>%5 civarı kalite kaybı</li>
+                            <li>%75 donanım ihtiyacı azalması</li>
+                            <li>~4 kat hız artışı</li>
+                            <li>RTX 3090 veya Apple Silicon GPU'lar yeterli hale gelir</li>
+                            <li>H100 gibi pahalı çözümlere gerek kalmaz</li>
+                        </ul>
+                    </div>
+
+                    <div class="section-divider"></div>
+
+                    <h3 class="tech-title">🎯 İş Birimleri Açısından Katma Değer</h3>
+                    
+                    <div class="project-features">
+                        <ul class="feature-list">
+                            <li><strong>Yönetim:</strong> Tek soruyla özet, analiz ve karşılaştırma. Stratejik karar desteği.</li>
+                            <li><strong>Ar-Ge:</strong> Doküman, teknik bilgi ve karar geçmişine hızlı erişim.</li>
+                            <li><strong>Operasyon:</strong> Süreç iyileştirme, maliyet analizi. Tekrar eden bilgi aramalarının ortadan kalkması.</li>
+                            <li><strong>İnsan Kaynakları:</strong> Politika, prosedür ve iç doküman sorguları.</li>
+                        </ul>
+                    </div>
+
+                    <div class="highlight-box" style="margin-top: 40px;">
+                        <h4><i class="fas fa-chart-line"></i> Sonuç</h4>
+                        <p>Bu proje bir "chatbot" değil, <strong>kurumsal yapay zekâ altyapısıdır</strong>. Amaç: Şirket bilgisini, güvenli, hızlı, maliyeti sabit ve tamamen kontrol edilebilir bir yapay zekâ katmanına dönüştürmek.</p>
+                    </div>
+
+                    <div class="project-links">
+                        <a href="#" class="btn primary">
+                            <i class="fas fa-book"></i> Teknik Dokümantasyon
+                        </a>
+                        <a href="#" class="btn secondary">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                    </div>
+
+                    <a href="../index.html#projects" class="back-link"><i class="fas fa-arrow-left"></i> Projelere
+                        Dön</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Alt Bilgi -->
+        <footer>
+            <div class="footer-content">
+                <p>&copy; 2025 Tüm Hakları Saklıdır</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="../script.js"></script>
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const sliderWrapper = document.getElementById('sliderWrapper');
+        const dotsContainer = document.getElementById('sliderDots');
+
+        // Create dots
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('slider-dot');
+            if (i === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(i));
+            dotsContainer.appendChild(dot);
+        }
+
+        function updateSlider() {
+            sliderWrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
+            document.getElementById('currentSlide').textContent = currentSlide + 1;
+
+            // Update dots
+            document.querySelectorAll('.slider-dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+            if (currentSlide < 0) currentSlide = totalSlides - 1;
+            if (currentSlide >= totalSlides) currentSlide = 0;
+            updateSlider();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlider();
+        }
+
+        // Auto slide every 5 seconds
+        setInterval(() => changeSlide(1), 5000);
+
+        // Touch/Swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        const sliderContainer = document.querySelector('.slider-container');
+        sliderContainer.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        sliderContainer.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) changeSlide(1);
+            if (touchEndX - touchStartX > 50) changeSlide(-1);
+        });
+    </script>
+</body>
+
+</html>

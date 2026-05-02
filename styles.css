@@ -1145,24 +1145,164 @@ section {
 }
 
 .skill-projects a {
+    --chip-cover: none;
+    --chip-tint-rgb: var(--accent-secondary-rgb);
+    --chip-cover-opacity: 0.18;
     display: inline-flex;
     align-items: center;
     min-height: 28px;
-    padding: 5px 10px;
-    color: var(--accent-secondary);
-    background: rgba(var(--accent-secondary-rgb), 0.09);
-    border: 1px solid rgba(var(--accent-secondary-rgb), 0.16);
+    padding: 6px 12px;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    color: var(--text-primary);
+    background: var(--surface-soft);
+    border: 1px solid var(--border-color);
     border-radius: 999px;
     font-size: 0.76rem;
     font-weight: 750;
     text-decoration: none;
+    box-shadow: inset 0 1px 0 var(--card-shine);
     transition: var(--transition-fast);
+}
+
+.skill-projects a::before,
+.skill-projects a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+.skill-projects a::before {
+    z-index: -2;
+    background-image: var(--chip-cover);
+    background-size: cover;
+    background-position: var(--chip-position, center);
+    opacity: var(--chip-cover-opacity);
+    filter: saturate(0.92) contrast(1.05);
+    transform: scale(1.08);
+    transition: var(--transition-medium);
+}
+
+.skill-projects a::after {
+    z-index: -1;
+    background:
+        linear-gradient(90deg, var(--bg-card) 0%, rgba(255, 255, 255, 0) 72%),
+        linear-gradient(135deg, rgba(var(--chip-tint-rgb), 0.13), rgba(var(--chip-tint-rgb), 0.04));
 }
 
 .skill-projects a:hover {
     color: var(--text-primary);
-    border-color: var(--border-hover);
+    border-color: rgba(var(--chip-tint-rgb), 0.34);
+    background: var(--bg-elevated);
     transform: translateY(-1px);
+}
+
+.skill-projects a:hover::before {
+    opacity: 0.28;
+    transform: scale(1.02);
+}
+
+.chip-booktracker {
+    --chip-cover: url("images/book-tracker.png");
+    --chip-position: center right;
+    --chip-tint-rgb: 0, 119, 182;
+}
+
+.chip-stucheck {
+    --chip-cover: url("images/web-api-image.png");
+    --chip-position: center;
+    --chip-tint-rgb: 0, 119, 182;
+}
+
+.chip-realestate {
+    --chip-cover: url("images/real-estate.png");
+    --chip-position: center;
+    --chip-tint-rgb: 0, 166, 106;
+}
+
+.chip-pathtouni {
+    --chip-cover: url("images/pathtouni/unnamed.jpg");
+    --chip-position: center top;
+    --chip-tint-rgb: 0, 166, 106;
+}
+
+.chip-fishify {
+    --chip-cover: url("images/fishify/unnamed.jpg");
+    --chip-position: center;
+    --chip-tint-rgb: 0, 119, 182;
+}
+
+.chip-tarot {
+    --chip-cover: url("images/tarotWhisper.png");
+    --chip-position: center;
+    --chip-tint-rgb: 109, 93, 252;
+}
+
+.chip-cortex {
+    --chip-cover: url("images/CORTEX-pp.png");
+    --chip-position: center;
+    --chip-tint-rgb: 109, 93, 252;
+}
+
+.chip-parkinson {
+    --chip-cover: url("images/personal-parkinson.png");
+    --chip-position: center;
+    --chip-tint-rgb: 0, 119, 182;
+}
+
+.chip-readmission {
+    --chip-cover: url("images/predict-diabet.png");
+    --chip-position: center;
+    --chip-tint-rgb: 0, 166, 106;
+}
+
+.chip-stock {
+    --chip-cover: url("images/stock-predictor.png");
+    --chip-position: center;
+    --chip-tint-rgb: 217, 119, 6;
+}
+
+.chip-polymetrics {
+    --chip-cover: url("images/POLYMETRICS-pp.png");
+    --chip-position: center;
+    --chip-tint-rgb: 0, 119, 182;
+}
+
+.chip-justion {
+    --chip-cover: url("images/JUSTION-pp.png");
+    --chip-position: center;
+    --chip-tint-rgb: 0, 166, 106;
+}
+
+.chip-fabrika {
+    --chip-cover: url("images/FABRIC_ANALYSER-pp.png");
+    --chip-position: center;
+    --chip-tint-rgb: 109, 93, 252;
+}
+
+.chip-market {
+    --chip-cover: url("images/marketApp.png");
+    --chip-position: center;
+    --chip-tint-rgb: 0, 166, 106;
+}
+
+.chip-restaurant {
+    --chip-cover: url("images/caller-restourant.png");
+    --chip-position: center;
+    --chip-tint-rgb: 217, 119, 6;
+}
+
+.chip-priceradar {
+    --chip-cover: url("images/priceRadar.png");
+    --chip-position: center;
+    --chip-tint-rgb: 0, 119, 182;
+}
+
+html[data-theme="light"] .skill-projects a {
+    --chip-cover-opacity: 0.14;
 }
 
 /* Experience Card */
@@ -1191,18 +1331,84 @@ section {
 }
 
 .experience-item {
+    --experience-bg-image: none;
+    --experience-bg-opacity: 0;
+    --experience-bg-position: center right;
     display: flex;
     gap: 16px;
     padding: 16px;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
     background: var(--surface-soft);
     border-radius: var(--radius-md);
     border: 1px solid var(--border-color);
     transition: var(--transition-fast);
 }
 
+.experience-item::before,
+.experience-item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+.experience-item::before {
+    z-index: -2;
+    background-image: var(--experience-bg-image);
+    background-size: cover;
+    background-position: var(--experience-bg-position);
+    opacity: var(--experience-bg-opacity);
+    filter: saturate(0.86) contrast(1.02);
+    transition: var(--transition-medium);
+}
+
+.experience-item::after {
+    z-index: -1;
+    background: linear-gradient(90deg, var(--bg-card) 0%, var(--surface-soft) 42%, rgba(255, 255, 255, 0) 82%);
+    opacity: 0;
+}
+
+.experience-company {
+    --experience-bg-opacity: 0.12;
+}
+
+.experience-company::after {
+    opacity: 1;
+}
+
+.experience-sasa {
+    --experience-bg-image: url("companies-logos/sasa-background.jpg");
+    --experience-bg-position: center right;
+}
+
+.experience-vestel {
+    --experience-bg-image: url("companies-logos/vestel-background.jpg");
+    --experience-bg-position: center right;
+}
+
+.experience-item > * {
+    position: relative;
+    z-index: 1;
+}
+
 .experience-item:hover {
     border-color: var(--border-hover);
     background: var(--bg-elevated);
+}
+
+.experience-company:hover::before {
+    opacity: 0.17;
+}
+
+html[data-theme="dark"] .experience-company {
+    --experience-bg-opacity: 0.09;
+}
+
+html[data-theme="dark"] .experience-company:hover::before {
+    opacity: 0.14;
 }
 
 .exp-icon {

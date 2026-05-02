@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TarotWhisper - Proje Detayı</title>
+    <title>FABRİKA ANALYSER - Proje Detayı</title>
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link
@@ -58,9 +58,12 @@
             box-shadow: var(--shadow-neon);
             height: 400px;
             width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(94, 23, 235, 0.1) 0%, rgba(0, 194, 255, 0.1) 100%);
             position: relative;
             cursor: pointer;
-            background: linear-gradient(135deg, rgba(94, 23, 235, 0.1) 0%, rgba(0, 194, 255, 0.1) 100%);
         }
 
         .project-image::after {
@@ -83,11 +86,16 @@
             transform: scale(1.05);
         }
 
+        .project-image i {
+            font-size: 8rem;
+            color: var(--accent-primary);
+        }
+
         .project-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center;
+            object-position: top;
             display: block;
             transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -95,30 +103,6 @@
         .project-info p {
             margin-bottom: 20px;
             font-size: 1.1rem;
-        }
-
-        .project-links {
-            display: flex;
-            gap: 20px;
-            margin: 30px 0;
-        }
-
-        .project-links .btn i {
-            margin-right: 8px;
-        }
-
-        @media screen and (max-width: 768px) {
-            .project-container {
-                grid-template-columns: 1fr;
-            }
-
-            .project-details {
-                padding: 100px 30px 40px;
-            }
-
-            .project-links {
-                flex-direction: column;
-            }
         }
 
         .tech-stack {
@@ -191,6 +175,37 @@
             transform: translateY(-3px);
             box-shadow: var(--shadow-neon);
         }
+
+        .gallery {
+            margin-top: 60px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-neon);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gallery-img:hover {
+            transform: scale(1.05);
+        }
+
+        @media screen and (max-width: 768px) {
+            .project-container {
+                grid-template-columns: 1fr;
+            }
+
+            .project-details {
+                padding: 100px 30px 40px;
+            }
+        }
     </style>
     <link rel="stylesheet" href="project-detail.css">
 </head>
@@ -219,82 +234,72 @@
 
         <!-- Proje Detayları -->
         <section class="project-details">
-            <h1 class="project-title">TarotWhisper</h1>
+            <h1 class="project-title">FABRİKA ANALYSER</h1>
 
             <div class="project-brief">
                 <article class="project-brief-card">
-                    <span class="project-brief-label"><i class="fas fa-wand-magic-sparkles"></i> Problem</span>
-                    <h2>Kişisel yorum deneyimi standart kalıyor</h2>
-                    <p>Tarot uygulamalarında kullanıcı bağlamı, geçmiş okumalar ve modern mobil deneyim çoğu zaman yeterince kişiselleştirilmiyor.</p>
+                    <span class="project-brief-label"><i class="fas fa-industry"></i> Problem</span>
+                    <h2>Operasyon bilgisi bağlamdan kopuyor</h2>
+                    <p>Fabrika verileri, alarm kayıtları ve ekipman ilişkileri ayrı sistemlerde kaldığında karar almak için gereken bağlam kaybolur.</p>
                 </article>
                 <article class="project-brief-card">
-                    <span class="project-brief-label"><i class="fas fa-mobile-screen"></i> Yaklaşım</span>
-                    <h2>AI destekli mobil yorum akışı</h2>
-                    <p>Android tabanlı uygulamada kart seçimi, geçmiş okumalar, tema seçenekleri ve yapay zeka destekli yorumlar bir araya getirildi.</p>
+                    <span class="project-brief-label"><i class="fas fa-brain"></i> Yaklaşım</span>
+                    <h2>Ontoloji ve RAG birlikte kullanıldı</h2>
+                    <p>Proses ontolojisi, deterministik veri sorguları ve kurumsal RAG akışı birleştirilerek Türkçe analiz ve aksiyon önerisi üreten bir platform tasarlandı.</p>
                 </article>
                 <article class="project-brief-card">
-                    <span class="project-brief-label"><i class="fas fa-star"></i> Çıktı</span>
-                    <h2>Daha kişisel ve akıcı deneyim</h2>
-                    <p>Kullanıcı, günlük ve dönemsel okumalarını kaydedip tekrar inceleyebileceği modern bir tarot deneyimi elde eder.</p>
+                    <span class="project-brief-label"><i class="fas fa-screwdriver-wrench"></i> Çıktı</span>
+                    <h2>Bakım ve üretim için karar katmanı</h2>
+                    <p>Health index, anomali takibi, sensör durumları ve yönetim paneli aynı çatı altında okunabilir hale getirildi.</p>
                 </article>
             </div>
 
             <div class="project-container">
                 <div class="project-image">
-                    <img src="../images/tarotWhisper.png" alt="TarotWhisper Projesi">
+                    <img src="../images/FABRIC_ANALYSER-pp.png" alt="FABRİKA ANALYSER">
                 </div>
 
                 <div class="project-info">
-                    <p>TarotWhisper, modern bir kullanıcı arayüzüne sahip, yapay zeka destekli bir tarot uygulamasıdır.
-                        Kullanıcılar, güzel bir arayüz üzerinden tarot kartlarını seçebilir ve yapay zeka algoritmaları
-                        tarafından oluşturulan yorumları alabilirler.</p>
+                    <p>FABRİKA ANALYSER, fabrika operasyonları için özel olarak geliştirilmiş Türkçe yapay zeka platformudur. Ontoloji tabanlı operasyon inceleme ve aksiyon önerisinin yanı sıra, gelişmiş RAG tabanlı veri sorgulama yeteneklerine sahiptir.</p>
 
                     <div class="tech-stack">
                         <h3 class="tech-title">Kullanılan Teknolojiler</h3>
                         <div class="tech-list">
-                            <span class="tech-item">Java</span>
-                            <span class="tech-item">Android Studio</span>
-                            <span class="tech-item">Firebase</span>
-                            <span class="tech-item">OpenAI API</span>
-                            <span class="tech-item">Material Design</span>
+                            <span class="tech-item">AI/ML</span>
+                            <span class="tech-item">RAG</span>
+                            <span class="tech-item">Next.js</span>
+                            <span class="tech-item">TimescaleDB</span>
+                            <span class="tech-item">MinIO</span>
+                            <span class="tech-item">Ontology</span>
+                            <span class="tech-item">JWT / RBAC</span>
                         </div>
                     </div>
 
                     <div class="project-features">
                         <h3 class="tech-title">Özellikler</h3>
                         <ul class="feature-list">
-                            <li>Modern ve kullanıcı dostu arayüz</li>
-                            <li>Çeşitli tarot destekleri (Rider-Waite, Thoth, vb.)</li>
-                            <li>Yapay zeka destekli kart yorumları</li>
-                            <li>Geçmiş okumaları kaydetme ve görüntüleme</li>
-                            <li>Günlük, haftalık ve aylık tarot tahminleri</li>
-                            <li>Kişiselleştirilmiş kullanıcı profilleri</li>
-                            <li>Çevrimdışı modda çalışabilme</li>
-                            <li>Koyu ve açık tema seçenekleri</li>
+                            <li><strong>Deterministik Proses Analizi:</strong> TimescaleDB ve MinIO üzerindeki proses verileri kullanılarak sağlanan health index, olay ve günlük özet, sensör durum ve anomali analiz raporları.</li>
+                            <li><strong>Ontoloji Tabanlı Operasyon:</strong> Ekipman, sensör, interlock, trip işlemleri ile kontrol döngüsünün, süreç ontolojisi üzerinden anlamlandırılarak aksiyon önerileri sunulması.</li>
+                            <li><strong>Gelişmiş Kurumsal Uygulama:</strong> JWT ve SSO uyumlu kimlik doğrulama, Rol Tabanlı Erişim Kontrolü (RBAC), detaylı sohbet geçmişi ve Next.js altyapısıyla desteklenen modern bir yönetim paneli.</li>
                         </ul>
                     </div>
 
-                    <p>TarotWhisper projesi, kullanıcılara tarot kartlarının gizemli dünyasını modern bir şekilde
-                        sunmayı amaçlamaktadır. Uygulama, tarot konusunda deneyimli olmayanlar için bile kullanımı kolay
-                        bir arayüz sağlar ve yapay zeka teknolojisi sayesinde kişiselleştirilmiş okumalar sunar.</p>
-
-                    <div class="project-links">
-                        <a href="https://play.google.com/store/apps/details?id=com.alperen.tarotwhisperdeneme"
-                            target="_blank" class="btn primary">
-                            <i class="fab fa-google-play"></i> Google Play'de İndir
-                        </a>
-                    </div>
-
-                    <a href="../index.html#projects" class="back-link"><i class="fas fa-arrow-left"></i> Projelere
-                        Dön</a>
+                    <a href="../index.html#projects" class="back-link"><i class="fas fa-arrow-left"></i> Projelere Dön</a>
                 </div>
             </div>
+
+            <h3 class="tech-title" style="margin-top: 50px;">Ekran Görüntüleri</h3>
+            <div class="gallery">
+                <img src="../images/ai-bussines/3.png" alt="FABRİKA ANALYSER Screenshot 1" class="gallery-img">
+                <img src="../images/ai-bussines/4.png" alt="FABRİKA ANALYSER Screenshot 2" class="gallery-img">
+            </div>
+
         </section>
 
         <!-- Alt Bilgi -->
         <footer>
             <div class="footer-content">
-                <p>&copy; 2025 Tüm Hakları Saklıdır</p>
+                <p>&copy; 2026 Tüm Hakları Saklıdır</p>
             </div>
         </footer>
     </div>

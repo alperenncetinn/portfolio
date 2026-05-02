@@ -328,6 +328,7 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="project-detail.css">
 </head>
 
 <body>
@@ -356,6 +357,24 @@
         <section class="project-details">
             <h1 class="project-title">CORTEX AI - Şirketler için Lokal Yapay Zeka</h1>
 
+            <div class="project-brief">
+                <article class="project-brief-card">
+                    <span class="project-brief-label"><i class="fas fa-triangle-exclamation"></i> Problem</span>
+                    <h2>Kurumsal bilgi dağınık ve hassas</h2>
+                    <p>Doküman, Excel ve raporlar farklı yerlerde dururken bulut tabanlı LLM kullanımı veri gizliliği ve maliyet açısından risk oluşturur.</p>
+                </article>
+                <article class="project-brief-card">
+                    <span class="project-brief-label"><i class="fas fa-diagram-project"></i> Yaklaşım</span>
+                    <h2>On-premise RAG mimarisi</h2>
+                    <p>FastAPI, ChromaDB, Llama.cpp ve Streamlit ile tamamen yerel çalışan, kaynak gösteren ve kontrollü cevap üreten bir yapay zeka katmanı kuruldu.</p>
+                </article>
+                <article class="project-brief-card">
+                    <span class="project-brief-label"><i class="fas fa-chart-line"></i> Çıktı</span>
+                    <h2>Güvenli karar desteği</h2>
+                    <p>Şirket içi bilgiye hızlı erişim, sabit maliyet, veri izolasyonu ve kaynaklı cevap üretimi tek arayüzde toplandı.</p>
+                </article>
+            </div>
+
             <div class="project-container">
                 <div class="project-image-slider">
                     <div class="slide-counter">
@@ -363,7 +382,7 @@
                     </div>
                     <div class="slider-container">
                         <div class="slider-wrapper" id="sliderWrapper">
-                            <div class="slide"><img src="../images/cortex-local-yapay-zeka.jpg" alt="CORTEX AI Ana Görsel">
+                            <div class="slide"><img src="../images/CORTEX-pp.png" alt="CORTEX AI Ana Görsel">
                             </div>
                             <div class="slide"><img src="../images/cortex/image1.png" alt="CORTEX AI Screenshot 1">
                             </div>
@@ -406,7 +425,7 @@
                     <div class="section-divider"></div>
 
                     <h3 class="tech-title">🔐 Neden On-Premise (Yerel) Mimari?</h3>
-                    
+
                     <div class="project-features">
                         <ul class="feature-list">
                             <li><strong>Veri Gizliliği:</strong> Bulut LLM'lerde veri şirket dışına çıkar. Yerel mimaride tam izolasyon sağlanır. ERP, finans, insan kaynakları, strateji gibi kritik veriler dış dünyaya açılmaz.</li>
@@ -418,7 +437,7 @@
                     <div class="section-divider"></div>
 
                     <h3 class="tech-title">🚀 Sistem Mimarisi</h3>
-                    
+
                     <div class="highlight-box">
                         <h4>1. Kullanıcı Katmanı - Streamlit (CORTEX AI)</h4>
                         <p>ChatGPT benzeri modern arayüz. Kullanıcı soru sorar, Excel veya doküman yükler, kaynakları ve cevapları görür.</p>
@@ -457,7 +476,7 @@
 
                     <h3 class="tech-title">⚡ Kuantizasyon Stratejisi</h3>
                     <p>70B gibi büyük modeller normalde ~140 GB VRAM ister. <strong>4-bit quantization</strong> kullanarak:</p>
-                    
+
                     <div class="project-features">
                         <ul class="feature-list">
                             <li>%5 civarı kalite kaybı</li>
@@ -471,7 +490,7 @@
                     <div class="section-divider"></div>
 
                     <h3 class="tech-title">🎯 İş Birimleri Açısından Katma Değer</h3>
-                    
+
                     <div class="project-features">
                         <ul class="feature-list">
                             <li><strong>Yönetim:</strong> Tek soruyla özet, analiz ve karşılaştırma. Stratejik karar desteği.</li>

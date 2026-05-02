@@ -1,10 +1,15 @@
-                <!-- Fishify Project (projelerin olduğu yere taşındı) -->
 <!DOCTYPE html>
 <html lang="tr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f7fafc">
+    <script>
+        (function () {
+            document.documentElement.dataset.theme = 'light';
+        })();
+    </script>
     <title>Alperen Çetin | Software Engineer</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -69,10 +74,23 @@
                 <a href="#services">Hizmetler</a>
                 <a href="#contact">İletişim</a>
             </div>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+            <div class="nav-actions">
+                <div class="language-toggle" role="group" aria-label="Dil seçimi">
+                    <button class="language-option active" type="button" data-language-option="tr" aria-pressed="true">TR</button>
+                    <button class="language-option" type="button" data-language-option="en" aria-pressed="false">EN</button>
+                </div>
+                <button class="theme-toggle" id="themeToggle" type="button" aria-label="Gece moduna geç" aria-pressed="true">
+                    <span class="theme-toggle-track" aria-hidden="true">
+                        <i class="fas fa-moon"></i>
+                        <i class="fas fa-sun"></i>
+                        <span class="theme-toggle-thumb"></span>
+                    </span>
+                </button>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
         </div>
     </nav>
@@ -195,50 +213,88 @@
                 <!-- Skills Card -->
                 <div class="bento-card skills-card">
                     <h3><i class="fas fa-layer-group"></i> Teknik Yetkinlikler</h3>
-                    <div class="skill-bars">
-                        <div class="skill-item">
-                            <div class="skill-header">
-                                <span class="skill-name">.NET / C#</span>
-                                <span class="skill-percent">85%</span>
+                    <div class="skill-overview">
+                        <div class="skill-overview-card">
+                            <span class="skill-overview-number">18</span>
+                            <span class="skill-overview-label">Proje</span>
+                        </div>
+                        <p>Yetkinliklerimi sadece oranlarla değil, geliştirdiğim gerçek projelerle okumak daha anlamlı. Aşağıda her teknoloji alanının portfolyodaki karşılığını görebilirsin.</p>
+                    </div>
+
+                    <div class="skill-project-grid">
+                        <div class="skill-project-item">
+                            <div class="skill-stack-head">
+                                <span class="skill-stack-icon"><i class="fas fa-code"></i></span>
+                                <div>
+                                    <h4>.NET / C#</h4>
+                                    <small>Backend API, kimlik doğrulama, mimari</small>
+                                </div>
                             </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 85%"></div>
+                            <div class="skill-projects">
+                                <a href="projects/booktrackerapi.html">Book Tracker API</a>
+                                <a href="projects/stucheck.html">stuCheck API</a>
+                                <a href="projects/realestate.html">Real Estate</a>
                             </div>
                         </div>
-                        <div class="skill-item">
-                            <div class="skill-header">
-                                <span class="skill-name">Java / Android</span>
-                                <span class="skill-percent">80%</span>
+
+                        <div class="skill-project-item">
+                            <div class="skill-stack-head">
+                                <span class="skill-stack-icon"><i class="fab fa-android"></i></span>
+                                <div>
+                                    <h4>Android / Kotlin / Java</h4>
+                                    <small>Mobil uygulama, kullanıcı akışı, yayınlama</small>
+                                </div>
                             </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 80%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-header">
-                                <span class="skill-name">Python / ML</span>
-                                <span class="skill-percent">75%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 75%"></div>
+                            <div class="skill-projects">
+                                <a href="projects/pathtouni.html">PathToUni</a>
+                                <a href="projects/fishify.html">Fishify</a>
+                                <a href="projects/tarotwhisper.html">TarotWhisper</a>
                             </div>
                         </div>
-                        <div class="skill-item">
-                            <div class="skill-header">
-                                <span class="skill-name">SQL / Database</span>
-                                <span class="skill-percent">80%</span>
+
+                        <div class="skill-project-item">
+                            <div class="skill-stack-head">
+                                <span class="skill-stack-icon"><i class="fab fa-python"></i></span>
+                                <div>
+                                    <h4>Python / AI / ML</h4>
+                                    <small>RAG, veri analizi, tahmin modelleri</small>
+                                </div>
                             </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 80%"></div>
+                            <div class="skill-projects">
+                                <a href="projects/cortex-local-ai.html">CORTEX AI</a>
+                                <a href="projects/parkinsontracker.html">Parkinson Tracker</a>
+                                <a href="projects/predictreadmission.html">Predict Readmission</a>
+                                <a href="projects/stockpredictor.html">Stock Predictor</a>
                             </div>
                         </div>
-                        <div class="skill-item">
-                            <div class="skill-header">
-                                <span class="skill-name">Flutter / Dart</span>
-                                <span class="skill-percent">65%</span>
+
+                        <div class="skill-project-item">
+                            <div class="skill-stack-head">
+                                <span class="skill-stack-icon"><i class="fab fa-react"></i></span>
+                                <div>
+                                    <h4>React / TypeScript</h4>
+                                    <small>Dashboard, yönetim paneli, veri görselleştirme</small>
+                                </div>
                             </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 65%"></div>
+                            <div class="skill-projects">
+                                <a href="projects/polymetrics.html">PolyMetrics</a>
+                                <a href="projects/justion.html">Justion</a>
+                                <a href="projects/fabrika-analyser.html">FABRİKA ANALYSER</a>
+                            </div>
+                        </div>
+
+                        <div class="skill-project-item">
+                            <div class="skill-stack-head">
+                                <span class="skill-stack-icon"><i class="fas fa-database"></i></span>
+                                <div>
+                                    <h4>SQL / Data / Business Apps</h4>
+                                    <small>Operasyonel veri, stok, satış ve raporlama</small>
+                                </div>
+                            </div>
+                            <div class="skill-projects">
+                                <a href="projects/marketapp.html">Market App</a>
+                                <a href="projects/restaurantapp.html">Restaurant App</a>
+                                <a href="projects/priceradar.html">PriceRadar</a>
                             </div>
                         </div>
                     </div>
@@ -249,17 +305,52 @@
                     <h3><i class="fas fa-briefcase"></i> Deneyim</h3>
                     <div class="experience-list">
                         <div class="experience-item">
-                            <div class="exp-icon">
-                                <i class="fas fa-laptop-code"></i>
+                            <div class="exp-icon exp-logo">
+                                <img src="companies-logos/sasa-polyester--600.png" alt="SASA Polyester logosu">
                             </div>
                             <div class="exp-content">
-                                <h4>Vestel - Stajyer</h4>
-                                <p>Kurumsal yazılım geliştirme süreçleri</p>
+                                <h4>SASA Polyester</h4>
+                                <ul style="list-style: none; padding: 0; margin-top: 8px; display: flex; flex-direction: column; gap: 6px;">
+                                    <li style="font-size: 0.85rem; color: var(--text-primary);">
+                                        <i class="fas fa-check-circle" style="color: var(--accent-secondary); margin-right: 4px; font-size: 0.8rem;"></i>
+                                        <strong>PolyMetrics:</strong> Endüstriyel Analitik Dashboard
+                                    </li>
+                                    <li style="font-size: 0.85rem; color: var(--text-primary);">
+                                        <i class="fas fa-check-circle" style="color: var(--accent-secondary); margin-right: 4px; font-size: 0.8rem;"></i>
+                                        <strong>FABRİKA ANALYSER:</strong> Yapay Zeka Platformu
+                                    </li>
+                                    <li style="font-size: 0.85rem; color: var(--text-primary);">
+                                        <i class="fas fa-check-circle" style="color: var(--accent-secondary); margin-right: 4px; font-size: 0.8rem;"></i>
+                                        <strong>KAP-Notification:</strong> Kurumsal Bildirim Sistemi
+                                    </li>
+                                    <li style="font-size: 0.85rem; color: var(--text-primary);">
+                                        <i class="fas fa-check-circle" style="color: var(--accent-secondary); margin-right: 4px; font-size: 0.8rem;"></i>
+                                        <strong>Justion:</strong> Karar Destek Sistemi
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                         <div class="experience-item">
-                            <div class="exp-icon">
-                                <i class="fas fa-mobile-alt"></i>
+                            <div class="exp-icon exp-logo">
+                                <img src="companies-logos/vestel-elektronik-sanayi-ve-ticaret-a.s.-17.png" alt="Vestel logosu">
+                            </div>
+                            <div class="exp-content">
+                                <h4>Vestel - Stajyer</h4>
+                                <ul style="list-style: none; padding: 0; margin-top: 8px; display: flex; flex-direction: column; gap: 6px;">
+                                    <li style="font-size: 0.85rem; color: var(--text-primary);">
+                                        <i class="fas fa-check-circle" style="color: var(--accent-secondary); margin-right: 4px; font-size: 0.8rem;"></i>
+                                        <strong>Remote-Kumanda:</strong> Mobil Uygulama
+                                    </li>
+                                    <li style="font-size: 0.85rem; color: var(--text-primary);">
+                                        <i class="fas fa-check-circle" style="color: var(--accent-secondary); margin-right: 4px; font-size: 0.8rem;"></i>
+                                        <strong>Yazılım Süreçleri:</strong> Kurumsal Geliştirme
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="experience-item">
+                            <div class="exp-icon exp-logo exp-logo-brand">
+                                <img src="images/alp-digital-logo.png" alt="Alperen Çetin logosu">
                             </div>
                             <div class="exp-content">
                                 <h4>Freelance Developer</h4>
@@ -267,8 +358,8 @@
                             </div>
                         </div>
                         <div class="experience-item">
-                            <div class="exp-icon">
-                                <i class="fas fa-graduation-cap"></i>
+                            <div class="exp-icon exp-logo exp-logo-university">
+                                <img src="companies-logos/cbü.png" alt="CBÜ logosu">
                             </div>
                             <div class="exp-content">
                                 <h4>CBÜ - Bilgisayar Mühendisliği</h4>
@@ -294,7 +385,7 @@
                 <!-- CORTEX AI - Featured Project - Large -->
                 <div class="project-card large">
                     <div class="project-image">
-                        <img src="images/cortex-local-yapay-zeka.jpg" alt="CORTEX AI - Şirketler için Lokal Yapay Zeka">
+                        <img src="images/CORTEX-pp.png" alt="CORTEX AI - Şirketler için Lokal Yapay Zeka">
                     </div>
                     <div class="project-content">
                         <div class="project-tags">
@@ -315,7 +406,7 @@
                 </div>
 
                 <!-- Featured Project - Large -->
-                <div class="project-card large">
+                <div class="project-card small">
                     <div class="project-image">
                         <img src="images/personal-parkinson.png" alt="Personal Parkinson Tracker">
                     </div>
@@ -333,7 +424,74 @@
                                 <i class="fas fa-arrow-right"></i> Detayları İncele
                             </a>
                             <a href="https://www.parkinsonai.space" target="_blank" class="project-link secondary">
-                                <i class="fas fa-external-link-alt"></i> Live Demo
+                                <i class="fas fa-external-link-alt"></i> Canlı Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PolyMetrics Project - Large -->
+                <div class="project-card medium">
+                    <div class="project-image">
+                        <img src="images/POLYMETRICS-pp.png" alt="PolyMetrics Dashboard">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="project-tag">React</span>
+                            <span class="project-tag">TypeScript</span>
+                            <span class="project-tag">Node.js</span>
+                            <span class="project-tag">Data Analytics</span>
+                        </div>
+                        <h3 class="project-title">PolyMetrics Endüstriyel Dashboard</h3>
+                        <p class="project-description">Endüstriyel sistemler için geliştirilmiş, tag, alarm ve istatistik verilerini anlık sağlayan bir analitik gösterge paneli (dashboard) projesi. Çok eksenli (multi-axis) zaman serisi analizi ve Microsoft SSO güvenliği içerir.</p>
+                        <div class="project-links">
+                            <a href="projects/polymetrics.html" class="project-link primary">
+                                <i class="fas fa-arrow-right"></i> Detayları İncele
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FABRİKA ANALYSER Project - Large -->
+                <div class="project-card medium">
+                    <div class="project-image">
+                        <img src="images/FABRIC_ANALYSER-pp.png" alt="FABRİKA ANALYSER">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="project-tag">AI/ML</span>
+                            <span class="project-tag">RAG</span>
+                            <span class="project-tag">Next.js</span>
+                            <span class="project-tag">TimescaleDB</span>
+                            <span class="project-tag">Ontology</span>
+                        </div>
+                        <h3 class="project-title">FABRİKA ANALYSER</h3>
+                        <p class="project-description">fabrika operasyonları için geliştirilmiş; ontoloji ve RAG tabanlı deterministik veri sorgulama, analiz ve platform yönetimi aracı.</p>
+                        <div class="project-links">
+                            <a href="projects/fabrika-analyser.html" class="project-link primary">
+                                <i class="fas fa-arrow-right"></i> Detayları İncele
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Justion AI Project - Large -->
+                <div class="project-card large">
+                    <div class="project-image">
+                        <img src="images/JUSTION-pp.png" alt="Justion AI">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="project-tag">Graph Theory</span>
+                            <span class="project-tag">HR Tech</span>
+                            <span class="project-tag">NLP</span>
+                            <span class="project-tag">XAI</span>
+                        </div>
+                        <h3 class="project-title">Justion - Karar Destek Sistemi</h3>
+                        <p class="project-description">Performans değerlendirmelerindeki öznelliği; graf teorisi, NLP ve açıklanabilir yapay zeka (XAI) ile ortadan kaldıran şeffaf karar destek platformu.</p>
+                        <div class="project-links">
+                            <a href="projects/justion.html" class="project-link primary">
+                                <i class="fas fa-arrow-right"></i> Detayları İncele
                             </a>
                         </div>
                     </div>
@@ -356,7 +514,7 @@
                                     <i class="fas fa-arrow-right"></i> İncele
                                 </a>
                                 <a href="https://real-estate-project.store" target="_blank" class="project-link secondary">
-                                    <i class="fas fa-external-link-alt"></i> Live Demo
+                                    <i class="fas fa-external-link-alt"></i> Canlı Demo
                                 </a>
                         </div>
                     </div>
@@ -401,7 +559,7 @@
                     </div>
                 </div>
 
-                <div class="project-card medium">
+                <div class="project-card small">
                     <div class="project-image">
                         <img src="images/book-tracker.png" alt="Book Tracker API">
                     </div>
@@ -469,7 +627,7 @@
                     </div>
                 </div>
 
-                <div class="project-card medium">
+                <div class="project-card large">
                     <div class="project-image">
                         <img src="images/predict-diabet.png" alt="Predict Readmission">
                     </div>
@@ -565,7 +723,7 @@
                     </div>
                 </div>
 
-                <div class="project-card small">
+                <div class="project-card medium">
                     <div class="project-image">
                         <img src="images/netsolu.svg" alt="NetSolution">
                     </div>
@@ -584,7 +742,7 @@
                     </div>
                 </div>
 
-                <div class="project-card small">
+                <div class="project-card medium">
                     <div class="project-image">
                         <img src="images/web-api-image.png" alt="stuCheck">
                     </div>
@@ -731,7 +889,7 @@
                     <div class="service-icon">
                         <i class="fas fa-code"></i>
                     </div>
-                    <h3>Web Application Development</h3>
+                    <h3>Web Uygulama Geliştirme</h3>
                     <p>Responsive tasarım prensipleri ve modern framework'lerle SEO uyumlu, yüksek performanslı web uygulamaları geliştiriyorum.</p>
                 </div>
 
@@ -739,7 +897,7 @@
                     <div class="service-icon">
                         <i class="fas fa-mobile-alt"></i>
                     </div>
-                    <h3>Mobile Application Development</h3>
+                    <h3>Mobil Uygulama Geliştirme</h3>
                     <p>Android platformunda native ve cross-platform mobil uygulamalar geliştiriyorum. Performans optimizasyonu ve UI/UX tasarımı.</p>
                 </div>
 
@@ -747,7 +905,7 @@
                     <div class="service-icon">
                         <i class="fas fa-building"></i>
                     </div>
-                    <h3>Enterprise Software Solutions</h3>
+                    <h3>Kurumsal Yazılım Çözümleri</h3>
                     <p>Restoran, market, cafe gibi işletmeler için özelleştirilmiş yazılım çözümleri. İş süreçlerinizi dijitalleştiriyorum.</p>
                 </div>
 
@@ -755,7 +913,7 @@
                     <div class="service-icon">
                         <i class="fas fa-server"></i>
                     </div>
-                    <h3>Backend Development & API Design</h3>
+                    <h3>Backend Geliştirme & API Tasarımı</h3>
                     <p>Ölçeklenebilir mikroservis mimarileri, güvenli RESTful API'ler ve veritabanı tasarımı. Cloud infrastructure çözümleri.</p>
                 </div>
             </div>

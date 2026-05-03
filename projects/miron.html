@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miron - Native macOS OCR ve Çeviri</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/png" href="../images/alp-digital-logo.png">
+    <style>
+        html,
+        body {
+            overflow-x: hidden;
+            overflow-y: auto;
+            min-height: 100%;
+        }
+
+        .wrapper {
+            min-height: 100vh;
+            overflow-y: auto;
+        }
+
+        .project-details {
+            padding: 120px 50px 50px;
+        }
+
+        .project-title {
+            margin-bottom: 30px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .project-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100px;
+            height: 4px;
+            background: var(--accent-gradient);
+            border-radius: 2px;
+        }
+
+        .project-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            margin-top: 40px;
+        }
+
+        .project-image-box {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-neon);
+            height: 500px;
+            width: 100%;
+            position: relative;
+            background: linear-gradient(135deg, rgba(94, 23, 235, 0.1) 0%, rgba(0, 194, 255, 0.1) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-image-box img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .project-info p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .tech-stack {
+            margin: 30px 0;
+        }
+
+        .tech-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--accent-secondary);
+        }
+
+        .tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .tech-item {
+            background: rgba(94, 23, 235, 0.2);
+            color: var(--accent-secondary);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .project-features {
+            margin: 30px 0;
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .feature-list li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--accent-secondary);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 12px 25px;
+            background: rgba(94, 23, 235, 0.2);
+            color: var(--text-primary);
+            border-radius: var(--border-radius);
+            transition: var(--transition-fast);
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+
+        .back-link i {
+            margin-right: 8px;
+        }
+
+        .back-link:hover {
+            background: var(--accent-gradient);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-neon);
+        }
+
+        .project-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn.primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+            color: #000;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn.primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .highlight-box {
+            background: rgba(94, 23, 235, 0.1);
+            border-left: 4px solid var(--accent-secondary);
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+
+        .highlight-box h4 {
+            color: var(--accent-secondary);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        code {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 3px 6px;
+            border-radius: 4px;
+            color: var(--accent-secondary);
+            font-family: monospace;
+        }
+        
+        pre {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 8px;
+            color: var(--accent-secondary);
+            font-family: monospace;
+            overflow-x: auto;
+            margin: 10px 0;
+            border-left: 3px solid var(--accent-primary);
+        }
+
+        @media screen and (max-width: 768px) {
+            .project-container {
+                grid-template-columns: 1fr;
+            }
+
+            .project-details {
+                padding: 100px 30px 40px;
+            }
+
+            .project-image-box {
+                height: 400px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="project-detail.css">
+</head>
+
+<body class="miron-detail-page">
+    <div class="wrapper">
+        <!-- Navigasyon Çubuğu -->
+        <nav class="navbar">
+            <div class="logo">
+                <img src="../images/alp-digital-logo.png" alt="Logo" class="logo-img">
+                <span>Alperen Çetin</span>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html">Ana Sayfa</a>
+                <a href="../index.html#about">Hakkımda</a>
+                <a href="../index.html#projects" class="active">Projeler</a>
+                <a href="../index.html#services">Hizmetler</a>
+                <a href="../index.html#contact">İletişim</a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+
+        <!-- Proje Detayları -->
+        <section class="project-details">
+            <h1 class="project-title">Miron - Native macOS OCR ve Çeviri</h1>
+            
+            <div class="project-brief">
+                <article class="project-brief-card">
+                    <span class="project-brief-label"><i class="fas fa-microchip"></i> Mimari</span>
+                    <h2>Apple Vision & Ollama</h2>
+                    <p>macOS OCR işlemi için Apple Vision Framework, güçlü yerel çeviri işlemleri için de Ollama altyapısı kullanıldı. Tamamen yerel, donanım hızlandırmalı bir çözüm.</p>
+                </article>
+                <article class="project-brief-card">
+                    <span class="project-brief-label"><i class="fas fa-tachometer-alt"></i> Performans</span>
+                    <h2>25 FPS Akıllı Kaydırma</h2>
+                    <p>Oyun veya kamera hareketlerini bekletmeden OCR kutularının 25 FPS (40ms) hızında akmasını sağlayan Optical Flow donanım hızlandırma tabanlı kaydırma takibi.</p>
+                </article>
+                <article class="project-brief-card">
+                    <span class="project-brief-label"><i class="fas fa-layer-group"></i> Arayüz</span>
+                    <h2>Akıllı ve Hayalet Arayüz</h2>
+                    <p>Çeviri kutularında tıkla-geç (click-through) desteği. Böylece oyun veya aktif uygulama kullanımını kısıtlamaz, arkaplanı şeffaf bırakır.</p>
+                </article>
+            </div>
+
+            <div class="project-container">
+                <div class="project-image-box">
+                    <img src="../images/MIRON-pp.png" alt="Miron macOS OCR Çeviri">
+                </div>
+
+                <div class="project-info">
+                    <h2>Proje Hakkında</h2>
+                    <p>Miron, tamamen yerleşik teknolojiler üzerine inşa edilmiş bir ekran okuma ve çeviri uygulamasıdır. Apple Vision framework ile anlık metin sınır kutularını (bounding boxes) okuyarak metni çıkartır ve Ollama üzerinden sağlanan (ör: translategemma) yerel yapay zeka modelleriyle çeviri işlemini tamamlar.</p>
+
+                    <div class="tech-stack">
+                        <h3 class="tech-title">Teknolojiler</h3>
+                        <div class="tech-list">
+                            <span class="tech-item">macOS (Quartz)</span>
+                            <span class="tech-item">Apple Vision Framework</span>
+                            <span class="tech-item">Python 3.9+</span>
+                            <span class="tech-item">Ollama</span>
+                            <span class="tech-item">LLM (translategemma)</span>
+                        </div>
+                    </div>
+
+                    <div class="project-links">
+                        <a href="https://github.com/alperenncetinn/miron.git" target="_blank" class="btn primary">
+                            <i class="fab fa-github"></i> GitHub Deposunu İncele
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- İçerik Detayları -->
+            <div class="miron-detail-sections">
+                <div class="highlight-box">
+                    <h4>✨ Özellikler</h4>
+                    <ul class="feature-list">
+                        <li><strong>Native macOS OCR (Apple Vision):</strong> Apple'ın kendi donanım hızlandırmalı Vision Framework'ü sayesinde çok hızlı ve hatasız metin okuma. Pikselleri Retina ekran (points) ölçeklerine göre milimetrik hizalar.</li>
+                        <li><strong>Donanım Hızlandırmalı Kaydırma Takibi (Optical Flow):</strong> Oyun oynarken sayfayı veya kamerayı kaydırdığınızda, OCR işlemini beklemeden çeviri kutuları 25 FPS (40ms) hızla anlık olarak metinle birlikte kayar (VNTranslationalImageRegistrationRequest).</li>
+                        <li><strong>Ollama ile Yerel veya Google ile Hızlı Çeviri:</strong> İster Ollama üzerinden internete bağlanmadan gizlilik odaklı kaliteli çeviri, isterseniz de tek tıkla Google Translate tabanlı deterministik "Hızlı Çeviri" (anlık) moduna geçiş imkanı.</li>
+                        <li><strong>Akıllı UI:</strong> Orijinal metnin tam üzerine, sinematik bir altyazı gibi Türkçe çeviriyi yerleştirir. Arka planı tamamen şeffaf bıraktığı ve fare tıklamalarını yoksaydığı için oyunu oynamaya veya bilgisayarı kullanmaya engelsiz devam edebilirsiniz. Uzun süre yazı bulunmazsa 7 saniye içerisinde ekrandan otomatik kaybolur.</li>
+                        <li><strong>Sistem Çubuğu (System Tray) Kontrolü:</strong> Kapatma, "Oyun Modu"na geçiş veya "Hızlı Çeviri" gibi ayarları sağ üst köşedeki "M" ikonundan saniyeler içinde değiştirebilirsiniz.</li>
+                        <li><strong>Geri Bildirim Döngüsü Koruması:</strong> Miron, kendi çizdiği çeviri metnini OCR aşamasında görmezden gelerek sonsuz döngüleri engeller.</li>
+                    </ul>
+                </div>
+                
+                <div class="highlight-box">
+                    <h4>🚀 Kullanım (Nasıl Kullanılır?)</h4>
+                    <ul class="feature-list">
+                        <li>Ekranda beliren mor çerçeveyi, çevirmek istediğiniz metnin (örneğin bir oyun altyazısı) üzerine sürükleyip boyutlandırın. <code>F</code> tuşuna basarak tam ekran yapabilirsiniz.</li>
+                        <li>Çerçevenin içine çift tıklayın veya sağ üstteki Menü Çubuğu (System Tray) ikonundan "Taramayı Başlat" seçeneğine tıklayın.</li>
+                        <li>Çeviri modundayken pencere hayalet (click-through) moda geçer, yani pencerenin arkasına, oyununuza rahatça tıklamaya devam edebilirsiniz.</li>
+                        <li>Çeviri tamamlandığında arka plan tamamen şeffaf şekilde Türkçe metin orijinalinin tam üzerine yansıtılır!</li>
+                        <li>Taramayı durdurmak, Oyun Modu'nu (Kaydırma takibi olmadan tam ekran çeviri) veya Hızlı Çeviri'yi etkinleştirmek için sağ üst köşedeki M (Miron) ikonuna tıklayabilirsiniz. Çıkış işlemini de yine buradan yapmalısınız.</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>🛠 Kurulum ve Gereksinimler</h4>
+                    <p>Uygulama, Quartz ve Apple Vision Framework kullandığı için sadece macOS üzerinde çalışır. Bilgisayarınızda Python 3.9+ ve <strong>Ollama</strong> (çalışır durumda) kurulu olmalıdır.</p>
+                    
+                    <p style="margin-top: 15px;"><strong>Ollama Modeli İndirme:</strong> Terminali açıp uygulamanın çeviri için kullandığı modeli indirin:</p>
+                    <pre>ollama run translategemma</pre>
+
+                    <p style="margin-top: 15px;"><strong>Bağımlılıkları Yükleme:</strong> Projeyi bilgisayarınıza klonladıktan sonra, bir sanal ortam oluşturun ve gereksinimleri yükleyin:</p>
+                    <pre>python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt</pre>
+
+                    <p style="margin-top: 15px;"><strong>Ekran Kaydı İzni:</strong> Uygulamanın ekranı okuyabilmesi için Sistem Ayarları > Gizlilik ve Güvenlik > Ekran Kaydı bölümünden Terminal'e (veya IDE'nize) izin vermeniz gerekmektedir.</p>
+                    
+                    <p style="margin-top: 15px;"><strong>Projeyi Başlatma:</strong> Sağlanan shell betiğini çalıştırabilirsiniz:</p>
+                    <pre>./run.sh</pre>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>⚙️ Yapılandırma (config.py)</h4>
+                    <p>Uygulamanın çalışma mantığını <code>miron/config.py</code> üzerinden özelleştirebilirsiniz:</p>
+                    <ul class="feature-list" style="margin-top: 15px;">
+                        <li><strong>ollama_model:</strong> Kullanılacak LLM modeli (Varsayılan: <code>translategemma</code>).</li>
+                        <li><strong>ocr_interval_ms:</strong> Ekranın kaç milisaniyede bir taranacağı (Varsayılan: <code>2000</code>).</li>
+                        <li><strong>system_prompt:</strong> Yapay zekaya giden, çevirinin nasıl yapılacağını belirten direktif.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <a href="../index.html#projects" class="back-link"><i class="fas fa-arrow-left"></i> Projelere Dön</a>
+        </section>
+    </div>
+
+    <!-- Mobil menü scripti -->
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
